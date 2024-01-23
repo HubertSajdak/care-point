@@ -1,3 +1,7 @@
+import { jwtDecode } from "jwt-decode"
+import { useCallback, useEffect } from "react"
+import { Navigate, useLocation } from "react-router-dom"
+
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants/routes"
 import { logoutUser } from "@/features/auth/authSlice"
@@ -6,9 +10,6 @@ import {
   getAccessTokenFromLocalStorage,
   getRefreshTokenFromLocalStorage,
 } from "@/utils/localStorage/localStorage"
-import { jwtDecode } from "jwt-decode"
-import { useCallback, useEffect } from "react"
-import { Navigate, useLocation } from "react-router-dom"
 const PrivateRoute = ({
   children,
   role,
@@ -24,15 +25,6 @@ const PrivateRoute = ({
   const refreshToken = getRefreshTokenFromLocalStorage()
 
   const validateTokens = useCallback(async () => {
-    // if (!accessToken && !refreshToken) {
-    //     console.log("czy ja sie uruchamiam?")
-    //   return dispatch(
-    //     logoutUser({
-    //       msg: "common:logoutMsg.sessionExpired",
-    //       type: "error",
-    //     }),
-    //   )
-    // }
     if (accessToken && refreshToken) {
       const currentTime = Math.floor(Date.now() / 1000)
       const decodedAccessToken = jwtDecode(accessToken)
@@ -67,7 +59,7 @@ const PrivateRoute = ({
   ) : isAuthenticated ? (
     children
   ) : (
-    <Navigate to={RouteNames.LOGIN} state={{ from: pathname }} />
+    <Navigate state={{ from: pathname }} to={RouteNames.LOGIN} />
   )
 }
 

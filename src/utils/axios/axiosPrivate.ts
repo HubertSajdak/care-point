@@ -1,11 +1,13 @@
-import { BASE_URL } from "@/constants/endpoints"
 import axios, { isAxiosError } from "axios"
 import i18next from "i18next"
+
+import { BASE_URL } from "@/constants/endpoints"
+
+import refreshAccessToken from "../functions/refreshAccessToken"
 import {
   getAccessTokenFromLocalStorage,
   getRefreshTokenFromLocalStorage,
 } from "../localStorage/localStorage"
-import refreshAccessToken from "../functions/refreshAccessToken"
 const axiosPrivateInstance = axios.create({
   baseURL: BASE_URL,
 })
@@ -24,7 +26,6 @@ axiosPrivateInstance.interceptors.response.use(
   async (error) => {
     if (isAxiosError(error) && error.config && error.response) {
       const prevConfig = error.config
-      console.log(error)
       if (error.response.status === 401) {
         try {
           const refreshToken = getRefreshTokenFromLocalStorage()
