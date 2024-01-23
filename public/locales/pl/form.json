@@ -1,0 +1,42 @@
+{
+  "common": {
+    "required": "pole wymagane",
+    "name": "imię",
+    "surname": "nazwisko",
+    "email": "email",
+    "password": "hasło",
+    "confirmPassword": "potwierdź hasło",
+    "street": "ulica",
+    "city": "miasto",
+    "postalCode": "kod pocztowy",
+    "phoneNumber": "numer telefonu"
+  },
+  "name": {
+    "invalid": "nieprawidłowe imię",
+    "min": "minimum 2 znaki"
+  },
+  "surname": {
+    "invalid": "nieprawidłowe nazwisko",
+    "min": "minimum 2 znaki"
+  },
+  "email": {
+    "invalid": "nieprawidłowy email"
+  },
+  "phoneNumber": {
+    "invalid": "nieprawidłowy numer"
+  },
+  "password": {
+    "min": "minimum 8 znaków",
+    "invalid": "hasło musi się składać z przynajmniej jednej małej i wielkiej litery, cyfry oraz symbolu (!@#$%^& itd.)"
+  },
+  "confirmPassword": {
+    "invalid": "oba hasła muszą być takie same"
+  },
+  "postalCode": {
+    "invalid": "nieprawidłowy kod pocztowy"
+  },
+  "file": {
+    "maxFileSize": "plik jest zbyt duży",
+    "invalidFormat": "nieprawidłowy format pliku"
+  }
+}

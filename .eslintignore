@@ -1,0 +1,8 @@
+*.css
+*.svg
+build
+node_modules
+.github
+*.json
+*.png
+yarn.lock

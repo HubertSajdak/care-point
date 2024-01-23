@@ -1,0 +1,16 @@
+export enum RouteNames {
+  LOGIN = "/login",
+  REGISTER = "/register",
+  DASHBOARD = "/dashboard",
+  START = `${DASHBOARD}/start`,
+  ALL_PATIENTS = `${DASHBOARD}/allPatients`,
+  SPECIALIZATIONS = `${DASHBOARD}/specializations`,
+  CLINIC_AFFILIATION = `${DASHBOARD}/clinicAffiliations`,
+  ADD_CLINIC = `${DASHBOARD}/addClinic`,
+  ALL_CLINICS = `${DASHBOARD}/allClinics`,
+  ACCOUNT_MANAGEMENT = `${DASHBOARD}/accountManagement`,
+  ALL_DOCTORS = `${DASHBOARD}/allDoctors`,
+  MAKE_APPOINTMENT = `${DASHBOARD}/makeAppointment`,
+  MY_APPOINTMENTS = `${DASHBOARD}/myAppointments`,
+  UNAUTHORIZED = "/unauthorized",
+}

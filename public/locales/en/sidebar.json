@@ -1,0 +1,18 @@
+{
+  "start": "start",
+  "doctors": "doctors",
+  "allDoctors": "all doctors",
+  "appointment": "appointment",
+  "makeAppointment": "make appointment",
+  "myAppointments": "my appointments",
+  "settings": "settings",
+  "accountManagement": "account management",
+  "patients": "patients",
+  "allPatients": "all patients",
+  "specializations": "specializations",
+  "mySpecializations": "my specializations",
+  "clinicAffiliation": "clinic affiliation",
+  "clinics": "clinics",
+  "addClinic": "add clinic",
+  "allClinics": "all clinics"
+}

@@ -1,0 +1,13 @@
+{
+  "submit": "zatwierdź",
+  "remove": "usuń",
+  "cancel": "anuluj",
+  "clear": "wyczyść",
+  "refresh": "odśwież",
+  "add": "dodaj",
+  "return": "powrót",
+  "logout": "wyloguj",
+  "saveDetails": "zapisz dane",
+  "deletePhoto": "usuń zdjęcie",
+  "uploadPhoto": "dodaj zdjęcie"
+}

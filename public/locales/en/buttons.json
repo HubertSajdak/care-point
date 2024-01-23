@@ -1,0 +1,13 @@
+{
+  "submit": "submit",
+  "remove": "delete",
+  "cancel": "cancel",
+  "clear": "clear",
+  "refresh": "refresh",
+  "add": "add",
+  "return": "return",
+  "logout": "logout",
+  "saveDetails": "save details",
+  "deletePhoto": "delete photo",
+  "uploadPhoto": "upload photo"
+}

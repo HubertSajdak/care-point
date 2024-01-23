@@ -1,0 +1,18 @@
+{
+  "start": "start",
+  "doctors": "lekarze",
+  "allDoctors": "wszyscy lekarze",
+  "appointment": "wizyta",
+  "makeAppointment": "umów wizytę",
+  "myAppointments": "moje wizyty",
+  "settings": "ustawienia",
+  "accountManagement": "zarządzaj kontem",
+  "patients": "pacjenci",
+  "allPatients": "wszyscy pacjenci",
+  "specializations": "specjalizacje",
+  "mySpecializations": "moje specjalizacje",
+  "clinicAffiliation": "biura",
+  "clinics": "kliniki",
+  "addClinic": "dodaj klinikę",
+  "allClinics": "wszystkie kliniki"
+}

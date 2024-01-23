@@ -1,0 +1,15 @@
+{
+  "account": "konto",
+  "unauthorized": "brak autoryzacji",
+  "orNavigateTo": "lub przejdź do",
+  "profile": "profil",
+  "editInformation": "edytuj informacje",
+  "password": "hasło",
+  "changePassword": "zmień hasło",
+  "logoutMsg": {
+    "sessionExpired": "sesja wygasła",
+    "logout": "wylogowano",
+    "accRemoved": "konto usunięte",
+    "serverError": "błąd serwera. wylogowywanie..."
+  }
+}

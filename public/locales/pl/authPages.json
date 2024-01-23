@@ -1,0 +1,12 @@
+{
+  "signUp": "zarejestruj się",
+  "signIn": "zaloguj się",
+  "enterCredentials": "wprowadź swoje dane, aby kontynuować",
+  "alreadyHaveAcc": "masz już konto?",
+  "dontHaveAcc": "nie masz konta?",
+  "iAgreeOn": "zgadzam się na",
+  "terms": "warunki",
+  "conditions": "i zasady",
+  "asPatient": "jako pacjent",
+  "asDoctor": "jako lekarz"
+}

@@ -1,0 +1,42 @@
+{
+  "common": {
+    "required": "required field",
+    "name": "name",
+    "surname": "surname",
+    "email": "email",
+    "password": "password",
+    "confirmPassword": "confirm password",
+    "street": "street",
+    "city": "city",
+    "postalCode": "postal code",
+    "phoneNumber": "phone number"
+  },
+  "name": {
+    "invalid": "invalid name",
+    "min": "minimum 2 characters"
+  },
+  "surname": {
+    "invalid": "invalid surname",
+    "min": "minimum 2 characters"
+  },
+  "email": {
+    "invalid": "invalid email"
+  },
+  "phoneNumber": {
+    "invalid": "invalid phone number"
+  },
+  "password": {
+    "min": "minimum 8 characters",
+    "invalid": "password must contain at least one lowercase and uppercase letter, a number and symbol (!@#$%^&* etc.)"
+  },
+  "confirmPassword": {
+    "invalid": "passwords must match"
+  },
+  "postalCode": {
+    "invalid": "invalid postal code"
+  },
+  "file": {
+    "maxFileSize": "the file size is too large",
+    "invalidFormat": "invalid file format"
+  }
+}
