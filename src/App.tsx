@@ -3,6 +3,7 @@ import CssBaseline from "@mui/material/CssBaseline"
 import { Suspense } from "react"
 import { RouterProvider } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
+
 import { router } from "./routes/router"
 import FallbackView from "./shared/FallbackView/FallbackView"
 import { GlobalStyles } from "./styles/globalStyles"
