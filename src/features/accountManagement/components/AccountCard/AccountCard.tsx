@@ -34,7 +34,7 @@ const AccountCard = () => {
               {`${user?.name} ${user?.surname}`}
             </Typography>
             <Typography color="text.secondary" variant="body2">
-              {user?.address?.street}, {user?.address?.postalCode}
+              {user?.address?.street} {user?.address?.postalCode}
             </Typography>
             <Typography color="text.secondary" variant="body2">
               {user?.address?.city}
