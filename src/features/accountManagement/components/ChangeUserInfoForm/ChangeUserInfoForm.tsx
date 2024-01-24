@@ -1,3 +1,8 @@
+import { Box, Unstable_Grid2 as Grid } from "@mui/material"
+import { FormikProvider, useFormik } from "formik"
+import { useTranslation } from "react-i18next"
+import styled from "styled-components"
+
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { UserRoles } from "@/constants/userRoles"
 import { updateUserInfo } from "@/features/auth/authThunks"
@@ -14,11 +19,6 @@ import {
 } from "@/types/api-types"
 import { Either } from "@/types/globals"
 import { handlePostalCodeKeyUp } from "@/utils/functions"
-import { Box, Divider, Unstable_Grid2 as Grid } from "@mui/material"
-import { FormikProvider, useFormik } from "formik"
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
-import styled from "styled-components"
 interface ChangeUserInfoValues
   extends Omit<
     Either<ReqeustRegisterPatientCredentials, ReqeustRegisterDoctorCredentials>,
@@ -26,19 +26,18 @@ interface ChangeUserInfoValues
   > {
   role: IUserRoles | string
 }
+
+const StyledForm = styled.form`
+  display: "flex";
+  flex-direction: "column";
+  justify-content: "space-between";
+  height: "100%";
+`
+
 const ChangeUserInfoForm = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const currentUser = useAppSelector((state) => state.auth.user)
-  const status = useAppSelector((state) => state.auth.status)
-  const [values, setValues] = useState({
-    firstName: "Anika",
-    lastName: "Visser",
-    email: "demo@devias.io",
-    phone: "",
-    state: "los-angeles",
-    country: "USA",
-  })
 
   const updateUserInfoFormik = useFormik<ChangeUserInfoValues>({
     initialValues: {
@@ -55,7 +54,7 @@ const ChangeUserInfoForm = () => {
     },
     enableReinitialize: true,
     onSubmit: async (values) => {
-      const { name, surname, phoneNumber, email, address } = values
+      const { address, email, name, phoneNumber, surname } = values
       await dispatch(
         updateUserInfo({
           name,
@@ -74,62 +73,70 @@ const ChangeUserInfoForm = () => {
 
   return (
     <FormikProvider value={updateUserInfoFormik}>
-      <StyledForm onSubmit={updateUserInfoFormik.handleSubmit}>
-        <Grid container spacing={3}>
-          <Grid xs={12} md={6}>
+      <StyledForm
+        style={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+        onSubmit={updateUserInfoFormik.handleSubmit}
+      >
+        <Grid spacing={3} container>
+          <Grid md={6} xs={12}>
             <TextFieldFormik
               id="name"
-              name="name"
               label={t("form:common.name")}
+              name="name"
             />
           </Grid>
-          <Grid xs={12} md={6}>
+          <Grid md={6} xs={12}>
             <TextFieldFormik
               id="surname"
-              name="surname"
               label={t("form:common.surname")}
+              name="surname"
             />
           </Grid>
-          <Grid xs={12} md={6}>
+          <Grid md={6} xs={12}>
             <TextFieldFormik
               id="email"
-              name="email"
               label={t("form:common.email")}
+              name="email"
             />
           </Grid>
           {currentUser && currentUser.role === UserRoles.PATIENT && (
             <>
-              <Grid xs={12} md={6}>
+              <Grid md={6} xs={12}>
                 <TextFieldFormik
                   id="phoneNumber"
-                  name="phoneNumber"
                   label={t("form:common.phoneNumber")}
+                  name="phoneNumber"
                   type="tel"
                 />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid md={6} xs={12}>
                 <TextFieldFormik
                   id="street"
-                  name="address.street"
                   label={t("form:common.street")}
+                  name="address.street"
                 />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid md={6} xs={12}>
                 <TextFieldFormik
                   id="city"
-                  name="address.city"
                   label={t("form:common.city")}
+                  name="address.city"
                 />
               </Grid>
-              <Grid xs={12} md={6}>
+              <Grid md={6} xs={12}>
                 <TextFieldFormik
                   id="postalCode"
-                  name="address.postalCode"
-                  onKeyUp={handlePostalCodeKeyUp}
                   inputProps={{
                     maxLength: 6,
                   }}
                   label={t("form:common.postalCode")}
+                  name="address.postalCode"
+                  onKeyUp={handlePostalCodeKeyUp}
                 />
               </Grid>
             </>
@@ -137,9 +144,9 @@ const ChangeUserInfoForm = () => {
         </Grid>
         <Box display="flex" justifyContent="flex-end" mt={2}>
           <Button
-            variant="contained"
-            type="submit"
             isSubmitting={updateUserInfoFormik.isSubmitting}
+            type="submit"
+            variant="contained"
           >
             {t("buttons:saveDetails")}
           </Button>
@@ -150,10 +157,3 @@ const ChangeUserInfoForm = () => {
 }
 
 export default ChangeUserInfoForm
-
-const StyledForm = styled.form`
-  display: "flex";
-  flex-direction: "column";
-  justify-content: "space-between";
-  height: "100%";
-`

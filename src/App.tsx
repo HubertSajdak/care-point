@@ -11,8 +11,8 @@ import { theme } from "./styles/theme"
 function App() {
   return (
     <div className="App">
-      <GlobalStyles />
       <CssBaseline />
+      <GlobalStyles />
       <ThemeProvider theme={theme}>
         <Suspense fallback={<FallbackView />}>
           <RouterProvider router={router} />
