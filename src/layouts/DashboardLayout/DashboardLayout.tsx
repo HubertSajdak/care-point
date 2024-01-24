@@ -2,24 +2,24 @@ import { CircularProgress, Container } from "@mui/material"
 import Box from "@mui/material/Box"
 import { useState } from "react"
 import { Outlet } from "react-router-dom"
-import styled, { useTheme } from "styled-components"
+import styled from "styled-components"
+
 import AppBar from "./components/AppBar/AppBar"
 import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs"
 import Drawer from "./components/Drawer/Drawer"
 import { SidebarLinksProps } from "./types"
 export interface DashboardLayoutProps {
-  sidebarLinks: SidebarLinksProps[]
-  userName: string
-  userAvatar: string
   isUserDataLoading: boolean
+  sidebarLinks: SidebarLinksProps[]
+  userAvatar: string
+  userName: string
 }
 const DashboardLayout = ({
-  sidebarLinks,
-  userName,
-  userAvatar,
   isUserDataLoading,
+  sidebarLinks,
+  userAvatar,
+  userName,
 }: DashboardLayoutProps) => {
-  const theme = useTheme()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const drawerWidth = 250
   const handleOpenSidebar = () => {
@@ -29,17 +29,17 @@ const DashboardLayout = ({
   return (
     <Box data-testid="dashboard-layout">
       <AppBar
-        isOpen={isSidebarOpen}
-        handleDrawerToggle={handleOpenSidebar}
         drawerWidth={drawerWidth}
-        userName={userName}
-        userAvatar={userAvatar}
+        handleDrawerToggle={handleOpenSidebar}
+        isOpen={isSidebarOpen}
         isUserDataLoading={isUserDataLoading}
+        userAvatar={userAvatar}
+        userName={userName}
       />
       <Drawer
-        isOpen={isSidebarOpen}
-        handleDrawerToggle={handleOpenSidebar}
         drawerWidth={drawerWidth}
+        handleDrawerToggle={handleOpenSidebar}
+        isOpen={isSidebarOpen}
         sidebarLinks={sidebarLinks}
       />
       <Breadcrumbs drawerWidth={drawerWidth} isSidebarOpen={isSidebarOpen} />
@@ -65,7 +65,7 @@ export default DashboardLayout
 const StyledBox = styled(Box)<{
   $drawerwidth: number
   $issidebaropen: boolean
-}>(({ theme, $drawerwidth, $issidebaropen }) => ({
+}>(({ $drawerwidth, $issidebaropen, theme }) => ({
   padding: theme.spacing(3),
   flexGrow: 1,
   transition: theme.transitions.create(["margin", "width"], {
