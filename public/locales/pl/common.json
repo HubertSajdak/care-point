@@ -6,6 +6,8 @@
   "editInformation": "edytuj informacje",
   "password": "hasło",
   "changePassword": "zmień hasło",
+  "patients": "pacjenci",
+  "doctors": "lekarze",
   "logoutMsg": {
     "sessionExpired": "sesja wygasła",
     "logout": "wylogowano",

@@ -1,4 +1,3 @@
-import { BASE_URL } from "@/constants/endpoints"
 import CameraEnhanceIcon from "@mui/icons-material/CameraEnhance"
 import CloudUploadIcon from "@mui/icons-material/CloudUpload"
 import { Avatar, Box, CircularProgress, FormHelperText } from "@mui/material"
@@ -6,30 +5,31 @@ import { useField } from "formik"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled, { useTheme } from "styled-components"
+
+import { BASE_URL } from "@/constants/endpoints"
 interface FileInputFormikProps {
-  children?: React.ReactNode
-  name: string
   accept?: string
+  children?: React.ReactNode
   disabled?: boolean
-  imgPreview?: File | null
-  photo?: string
-  helperText?: string
   errorText?: string
+  helperText?: string
+  imgPreview?: File | null
+  name: string
+  photo?: string
 }
 const FileInputFormik = ({
-  name,
   accept,
   disabled = false,
-  children,
-  imgPreview,
-  photo,
   errorText,
   helperText,
+  imgPreview,
+  name,
+  photo,
 }: FileInputFormikProps) => {
   const theme = useTheme()
   const { t } = useTranslation()
   const [dragOverCount, setDragOverCount] = useState(0)
-  const [field, meta, helpers] = useField(name)
+  const [helpers] = useField(name)
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -48,22 +48,19 @@ const FileInputFormik = ({
   return (
     <>
       <StyledInputBox
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
+        className={dragOverCount ? "is-drag-over" : ""}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
-        className={dragOverCount ? "is-drag-over" : ""}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
       >
         {disabled && (
           <Box
-            display="grid"
-            zIndex={1}
-            width="100%"
-            height="100%"
-            position="absolute"
-            left={0}
-            top={0}
             bottom={0}
+            display="grid"
+            height="100%"
+            left={0}
+            position="absolute"
             right={0}
             sx={{
               background: theme.palette.grey[50],
@@ -71,6 +68,9 @@ const FileInputFormik = ({
               borderRadius: "50%",
               placeItems: "center",
             }}
+            top={0}
+            width="100%"
+            zIndex={1}
           >
             <CircularProgress size={100} />
           </Box>
@@ -98,20 +98,20 @@ const FileInputFormik = ({
         />
         <CameraEnhanceIcon
           className="camera-icon"
-          fontSize="large"
           color="primary"
+          fontSize="large"
         />
         <StyledLabel>
           <VisuallyHiddenInput
+            accept={accept || ""}
+            disabled={disabled}
             id={name}
+            type="file"
             onChange={(event) => {
               if (event.target.files) {
                 helpers.setValue(event.target.files[0])
               }
             }}
-            accept={accept || ""}
-            disabled={disabled}
-            type="file"
           />
         </StyledLabel>
       </StyledInputBox>

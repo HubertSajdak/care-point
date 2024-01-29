@@ -1,0 +1,20 @@
+{
+  "title": {
+    "patients": "patients",
+    "doctors": "doctors"
+  },
+  "heading": {
+    "photo": "photo",
+    "name": "name",
+    "surname": "surname",
+    "email": "email",
+    "street": "street",
+    "city": "city",
+    "postalCode": "postal code",
+    "phoneNumber": "phone number"
+  },
+  "searchBar": {
+    "placeholder": "search"
+  },
+  "noData": "no data found"
+}

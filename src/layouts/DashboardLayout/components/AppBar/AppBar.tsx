@@ -1,8 +1,3 @@
-import { useAppDispatch } from "@/app/hooks"
-import { RouteNames } from "@/constants/routes"
-import { logoutUser } from "@/features/auth/authSlice"
-import LangSwitcher from "@/shared/LangSwitcher/LangSwitcher"
-import Link from "@/shared/Link/Link"
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew"
 import MenuIcon from "@mui/icons-material/Menu"
 import {
@@ -21,22 +16,28 @@ import Toolbar from "@mui/material/Toolbar"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled, { useTheme } from "styled-components"
+
+import { useAppDispatch } from "@/app/hooks"
+import { RouteNames } from "@/constants/routes"
+import { logoutUser } from "@/features/auth/authSlice"
+import LangSwitcher from "@/shared/LangSwitcher/LangSwitcher"
+import Link from "@/shared/Link/Link"
 const { ACCOUNT_MANAGEMENT } = RouteNames
 export interface AppBarProps extends MuiAppBarProps {
-  isOpen: boolean
-  handleDrawerToggle: () => void
   drawerWidth: number
-  userName: string
-  userAvatar: string
+  handleDrawerToggle: () => void
+  isOpen: boolean
   isUserDataLoading: boolean
+  userAvatar: string
+  userName: string
 }
 const AppBar = ({
-  isOpen,
-  handleDrawerToggle,
   drawerWidth,
-  userName,
-  userAvatar,
+  handleDrawerToggle,
+  isOpen,
   isUserDataLoading,
+  userAvatar,
+  userName,
   ...MuiAppBarProps
 }: AppBarProps) => {
   const theme = useTheme()
@@ -53,68 +54,68 @@ const AppBar = ({
   }
   return (
     <StyledAppBar
-      position="fixed"
-      open={isOpen}
       $drawerwidth={drawerWidth}
+      open={isOpen}
+      position="fixed"
       {...MuiAppBarProps}
       data-testid="banner"
     >
       <StyledToolbar>
         <IconButton
-          color="inherit"
           aria-label="toggle drawer"
+          color="inherit"
           edge="start"
           onClick={handleDrawerToggle}
         >
           {isOpen ? <ArrowBackIosNewIcon /> : <MenuIcon />}
         </IconButton>
-        <Box display="flex" alignItems="center" gap={2} sx={{ flexGrow: 0 }}>
+        <Box alignItems="center" display="flex" gap={2} sx={{ flexGrow: 0 }}>
           {isUserDataLoading ? (
-            <Skeleton variant="text" width={40} sx={{ fontSize: "1.2rem" }} />
+            <Skeleton sx={{ fontSize: "1.2rem" }} variant="text" width={40} />
           ) : (
             <Typography sx={{ fontWeight: "bold" }}>{userName}</Typography>
           )}
           <Tooltip title="Open settings">
             <IconButton
-              onClick={handleOpenUserMenu}
+              data-testid="user-menu"
               sx={{
                 p: 0,
                 border: `2px solid ${theme.palette.primary.main}`,
               }}
-              data-testid="user-menu"
+              onClick={handleOpenUserMenu}
             >
               {isUserDataLoading ? (
-                <Skeleton variant="circular" width={40} height={40} />
+                <Skeleton height={40} variant="circular" width={40} />
               ) : (
                 <Avatar alt={userName} src={userAvatar} />
               )}
             </IconButton>
           </Tooltip>
           <Menu
-            sx={{ mt: "45px" }}
-            id="menu-appbar"
-            data-testid="menu-appbar"
             anchorEl={anchorElUser}
             anchorOrigin={{
               vertical: "top",
               horizontal: "right",
             }}
-            keepMounted
+            data-testid="menu-appbar"
+            id="menu-appbar"
+            open={Boolean(anchorElUser)}
+            sx={{ mt: "45px" }}
             transformOrigin={{
               vertical: "top",
               horizontal: "right",
             }}
-            open={Boolean(anchorElUser)}
+            keepMounted
             onClose={handleCloseUserMenu}
           >
             <MenuItem sx={{ padding: 0 }}>
               <Link
-                to={ACCOUNT_MANAGEMENT}
                 style={{
                   width: "100%",
                   color: "#486581",
                   padding: "6px 16px",
                 }}
+                to={ACCOUNT_MANAGEMENT}
               >
                 {t("common:account")}
               </Link>
@@ -130,10 +131,10 @@ const AppBar = ({
               }}
             >
               <Typography
-                textAlign="center"
                 sx={{
                   color: "#486581",
                 }}
+                textAlign="center"
               >
                 {t("buttons:logout")}
               </Typography>
@@ -149,8 +150,8 @@ const AppBar = ({
 
 export default AppBar
 
-const StyledAppBar = styled(MuiAppBar)<{ open: boolean; $drawerwidth: number }>(
-  ({ theme, open, $drawerwidth }) => ({
+const StyledAppBar = styled(MuiAppBar)<{ $drawerwidth: number; open: boolean }>(
+  ({ $drawerwidth, open, theme }) => ({
     padding: 2,
     color: theme.palette.primary.main,
     backgroundColor: theme.palette.common.white,

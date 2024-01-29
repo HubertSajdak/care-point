@@ -6,6 +6,8 @@
   "editInformation": "edit information",
   "password": "password",
   "changePassword": "change password",
+  "patients": "patients",
+  "doctors": "doctors",
   "logoutMsg": {
     "sessionExpired": "session expired",
     "logout": "logging out",

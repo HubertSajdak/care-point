@@ -1,14 +1,16 @@
-import Logo from "@/assets/images/care-point-full-logo.svg?react"
-import LangSwitcher from "@/shared/LangSwitcher/LangSwitcher"
 import { Container } from "@mui/material"
 import { Outlet } from "react-router-dom"
+import styled from "styled-components"
+
+import Logo from "@/assets/images/care-point-full-logo.svg?react"
+import LangSwitcher from "@/shared/LangSwitcher/LangSwitcher"
 
 const BasePageLayout = () => {
   return (
     <Wrapper>
       <LangSwitcher $variant="standalone" />
       <LogoContainerWrapper>
-        {<Logo width={250} height={100} />}
+        {<Logo height={100} width={250} />}
       </LogoContainerWrapper>
       <Container
         sx={{
@@ -24,8 +26,6 @@ const BasePageLayout = () => {
 }
 
 export default BasePageLayout
-
-import styled from "styled-components"
 
 export const Wrapper = styled.div`
   display: flex;
