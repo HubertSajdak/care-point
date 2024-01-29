@@ -1,0 +1,20 @@
+{
+  "title": {
+    "patients": "pacjenci",
+    "doctors": "lekarze"
+  },
+  "heading": {
+    "photo": "zdjęcie",
+    "name": "imię",
+    "surname": "nazwisko",
+    "email": "email",
+    "street": "ulica",
+    "city": "miasto",
+    "postalCode": "kod pocztowy",
+    "phoneNumber": "telefon"
+  },
+  "searchBar": {
+    "placeholder": "wyszukaj"
+  },
+  "noData": "nie znaleziono danych"
+}

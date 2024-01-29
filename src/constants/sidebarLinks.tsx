@@ -1,4 +1,3 @@
-import { SidebarLinksProps } from "@/layouts/DashboardLayout/types"
 import BookmarkIcon from "@mui/icons-material/Bookmark"
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd"
 import BookmarksIcon from "@mui/icons-material/Bookmarks"
@@ -13,18 +12,21 @@ import MeetingRoomIcon from "@mui/icons-material/MeetingRoom"
 import PersonIcon from "@mui/icons-material/Person"
 import PlayArrowIcon from "@mui/icons-material/PlayArrow"
 import SettingsIcon from "@mui/icons-material/Settings"
+
+import { SidebarLinksProps } from "@/layouts/DashboardLayout/types"
+
 import { RouteNames } from "./routes"
 const {
-  START,
-  ALL_PATIENTS,
-  SPECIALIZATIONS,
-  CLINIC_AFFILIATION,
+  ACCOUNT_MANAGEMENT,
   ADD_CLINIC,
   ALL_CLINICS,
-  ACCOUNT_MANAGEMENT,
+  ALL_DOCTORS,
+  ALL_PATIENTS,
+  CLINIC_AFFILIATION,
   MAKE_APPOINTMENT,
   MY_APPOINTMENTS,
-  ALL_DOCTORS,
+  SPECIALIZATIONS,
+  START,
 } = RouteNames
 export const doctorSidebarLinks: SidebarLinksProps[] = [
   {

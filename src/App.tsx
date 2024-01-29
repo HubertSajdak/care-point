@@ -4,6 +4,7 @@ import { Suspense } from "react"
 import { RouterProvider } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 
+import MuiLocaleProvider from "./i18n/MuiLocaleProvider"
 import { router } from "./routes/router"
 import FallbackView from "./shared/FallbackView/FallbackView"
 import { GlobalStyles } from "./styles/globalStyles"
@@ -15,7 +16,9 @@ function App() {
       <GlobalStyles />
       <ThemeProvider theme={theme}>
         <Suspense fallback={<FallbackView />}>
-          <RouterProvider router={router} />
+          <MuiLocaleProvider>
+            <RouterProvider router={router} />
+          </MuiLocaleProvider>
         </Suspense>
         <ToastContainer position="top-center" />
       </ThemeProvider>

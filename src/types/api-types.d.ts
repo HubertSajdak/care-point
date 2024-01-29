@@ -1,63 +1,69 @@
 export type ReqStatus = "idle" | "error" | "loading"
 export type IUserRoles = "doctor" | "patient"
+export type ISortDirection = "asc" | "desc"
 export interface SuccessReqMsg {
   message: string
 }
+export interface SuccessReqData<T> {
+  data: T
+  numOfPages: number
+  totalItems: number
+}
 export enum LogoutMsg {
-  LOGOUT = "common:logoutMsg.logout",
-  SESSION_EXPIRED = "common:logoutMsg.sessionExpired",
   ACC_REMOVED = "common:logoutMsg.accRemoved",
+  LOGOUT = "common:logoutMsg.logout",
   SERVER_ERROR = "common:logoutMsg.serverError",
+  SESSION_EXPIRED = "common:logoutMsg.sessionExpired",
 }
 export interface LogoutPayload {
   msg: LogoutMsg
   type: "success" | "error"
 }
 export interface FailedReqMsg {
-  message: string
   error?: any
+  message: string
 }
 export interface IAddress {
-  street: string
   city: string
   postalCode: string
+  street: string
 }
 export interface IPatientUser {
   _id: string
-  name: string
-  surname: string
-  email: string
-  phoneNumber: number | string
   address: IAddress
+  email: string
+  name: string
+  phoneNumber: number | string
   photo?: string
   role: IUserRoles
+  surname: string
 }
 
 export interface IDoctorUser {
   _id: string
-  name: string
-  surname: string
   email: string
+  name: string
   photo?: string
   professionalStatement: string | null
   role: IUserRoles
+  surname: string
 }
 
 export interface ReqeustRegisterPatientCredentials {
-  name: string
-  surname: string
-  phoneNumber: number | string
-  email: string
-  password: string
   address: IAddress
+  email: string
+  name: string
+  password: string
+  phoneNumber: number | string
   role: IUserRoles
+  surname: string
 }
 export interface ReqeustRegisterDoctorCredentials {
-  name: string
-  surname: string
   email: string
+  name: string
   password: string
   role: IUserRoles
+  surname: string
 }
 
 export interface ReqLoginCredentials {
@@ -65,7 +71,7 @@ export interface ReqLoginCredentials {
   password: string
 }
 export interface ResLogin {
-  message: string
   accessToken: string
+  message: string
   refreshToken: string
 }
