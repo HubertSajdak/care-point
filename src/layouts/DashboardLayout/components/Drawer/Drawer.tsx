@@ -1,38 +1,43 @@
-import Logo from "@/assets/images/care-point-full-logo.svg?react"
+import { useMediaQuery } from "@mui/material"
 import Box from "@mui/material/Box"
 import MuiDrawer from "@mui/material/Drawer"
 import List from "@mui/material/List"
-import { SidebarLinksProps } from "../../types"
-import SidebarListItem from "../SidebarListItem/SidebarListItem"
 import { useTheme } from "styled-components"
 
+import Logo from "@/assets/images/care-point-full-logo.svg?react"
+
+import { SidebarLinksProps } from "../../types"
+import SidebarListItem from "../SidebarListItem/SidebarListItem"
+
 export default function Drawer({
-  isOpen,
-  handleDrawerToggle,
   drawerWidth,
+  handleDrawerToggle,
+  isOpen,
   sidebarLinks,
 }: {
-  isOpen: boolean
-  handleDrawerToggle: () => void
   drawerWidth: number
+  handleDrawerToggle: () => void
+  isOpen: boolean
   sidebarLinks: SidebarLinksProps[]
 }) {
   const theme = useTheme()
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"))
   const drawer = (
     <div>
-      <Logo height={56} width={"100%"} style={{ marginTop: 20 }} />
+      <Logo height={56} style={{ marginTop: 20 }} width={"100%"} />
       <List>
         {sidebarLinks.map((item) => {
           return (
             <SidebarListItem
-              key={item.id}
-              id={item.id}
               icon={item.icon}
-              text={item.text}
+              id={item.id}
+              key={item.id}
               path={item.path}
+              text={item.text}
               variant={item.variant}
-              children={item.children}
-            />
+            >
+              {item.children}
+            </SidebarListItem>
           )
         })}
       </List>
@@ -42,44 +47,52 @@ export default function Drawer({
   return (
     <Box sx={{ display: "flex" }}>
       <Box
+        aria-label="mailbox folders"
         component="nav"
         sx={{
           width: { sm: drawerWidth },
           flexShrink: { sm: 0 },
         }}
-        aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <MuiDrawer
-          variant="temporary"
-          open={isOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </MuiDrawer>
-        <MuiDrawer
-          variant="persistent"
-          sx={{
-            display: { xs: "none", sm: "block" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-          open={isOpen}
-        >
-          {drawer}
-        </MuiDrawer>
+        {isSmall ? (
+          <MuiDrawer
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            open={isOpen}
+            sx={{
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+                borderRadius: 0,
+                px: 0,
+              },
+            }}
+            variant="temporary"
+            onClose={handleDrawerToggle}
+          >
+            {drawer}
+          </MuiDrawer>
+        ) : (
+          <MuiDrawer
+            ModalProps={{
+              disableScrollLock: true,
+            }}
+            open={isOpen}
+            sx={{
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+                borderRadius: 0,
+                px: 0,
+              },
+            }}
+            variant="persistent"
+          >
+            {drawer}
+          </MuiDrawer>
+        )}
       </Box>
     </Box>
   )

@@ -18,10 +18,9 @@ import { useTranslation } from "react-i18next"
 import styled, { useTheme } from "styled-components"
 
 import { useAppDispatch } from "@/app/hooks"
-import { RouteNames } from "@/constants/routes"
-import { logoutUser } from "@/features/auth/authSlice"
-import LangSwitcher from "@/shared/LangSwitcher/LangSwitcher"
-import Link from "@/shared/Link/Link"
+import { RouteNames } from "@/constants"
+import { logoutUser } from "@/features/auth"
+import { LangSwitcher, Link } from "@/shared"
 const { ACCOUNT_MANAGEMENT } = RouteNames
 export interface AppBarProps extends MuiAppBarProps {
   drawerWidth: number
@@ -100,7 +99,13 @@ const AppBar = ({
             data-testid="menu-appbar"
             id="menu-appbar"
             open={Boolean(anchorElUser)}
-            sx={{ mt: "45px" }}
+            sx={{
+              mt: "45px",
+              ".MuiPaper-elevation": {
+                px: 0,
+                py: 0.2,
+              },
+            }}
             transformOrigin={{
               vertical: "top",
               horizontal: "right",
@@ -131,6 +136,7 @@ const AppBar = ({
               }}
             >
               <Typography
+                fontWeight="bold"
                 sx={{
                   color: "#486581",
                 }}
@@ -155,6 +161,7 @@ const StyledAppBar = styled(MuiAppBar)<{ $drawerwidth: number; open: boolean }>(
     padding: 2,
     color: theme.palette.primary.main,
     backgroundColor: theme.palette.common.white,
+    borderRadius: 0,
     boxShadow: "none",
     outline: `1px solid ${theme.palette.grey[300]}`,
     transition: theme.transitions.create(["margin", "width"], {

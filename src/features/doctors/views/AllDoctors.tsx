@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import Table from "@/shared/Table/Table"
+import { Table } from "@/shared"
 import { ISortDirection } from "@/types/api-types"
 
 import {
@@ -12,8 +12,8 @@ import {
   changeRowsPerPage,
   changeSearch,
   changeSort,
-} from "../doctorsSlice"
-import { getAllDoctors } from "../doctorsThunks"
+} from "../store/doctorsSlice"
+import { getAllDoctors } from "../store/doctorsThunks"
 
 const AllDoctors = () => {
   const {

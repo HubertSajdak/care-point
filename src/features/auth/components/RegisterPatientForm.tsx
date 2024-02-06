@@ -6,13 +6,15 @@ import { useTheme } from "styled-components"
 import { useAppDispatch } from "@/app/hooks"
 import pdf from "@/documents/Terms.pdf"
 import { registerPatientSchema } from "@/libs/yup/schemas/register"
-import Button from "@/shared/Button/Button"
-import CheckboxFormik from "@/shared/CheckboxFormik/CheckboxFormik"
-import TextFieldFormik from "@/shared/TextFieldFormik/TextFieldFormik"
+import {
+  Button,
+  CheckboxFormik,
+  TextFieldFormik,
+  handlePostalCodeKeyUp,
+} from "@/shared"
 import { ReqeustRegisterPatientCredentials } from "@/types/api-types"
-import { handlePostalCodeKeyUp } from "@/utils/functions"
 
-import { registerUser } from "../authThunks"
+import { registerUser } from "../store/authThunks"
 
 interface RegisterPatientValues extends ReqeustRegisterPatientCredentials {
   confirmPassword: string

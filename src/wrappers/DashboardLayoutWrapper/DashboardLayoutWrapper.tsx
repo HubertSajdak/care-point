@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from "react"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { BASE_URL } from "@/constants/endpoints"
 import {
+  BASE_URL,
+  UserRoles,
   doctorSidebarLinks,
   patientSidebarLinks,
-} from "@/constants/sidebarLinks"
-import { UserRoles } from "@/constants/userRoles"
-import { getUserData } from "@/features/auth/authThunks"
+} from "@/constants"
+import { getUserData } from "@/features/auth"
 import DashboardLayout from "@/layouts/DashboardLayout/DashboardLayout"
 
 const DashboardLayoutWrapper = () => {

@@ -23,7 +23,7 @@ const {
   ALL_DOCTORS,
   ALL_PATIENTS,
   CLINIC_AFFILIATION,
-  MAKE_APPOINTMENT,
+  DOCTORS_SELECTION,
   MY_APPOINTMENTS,
   SPECIALIZATIONS,
   START,
@@ -137,7 +137,7 @@ export const patientSidebarLinks: SidebarLinksProps[] = [
       {
         id: 4,
         text: "sidebar:makeAppointment",
-        path: MAKE_APPOINTMENT,
+        path: DOCTORS_SELECTION,
         icon: <BookmarkAddIcon />,
       },
       {

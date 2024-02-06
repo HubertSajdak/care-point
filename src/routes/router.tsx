@@ -1,15 +1,14 @@
 import { Navigate, createBrowserRouter } from "react-router-dom"
 
-import { RouteNames } from "@/constants/routes"
-import { UserRoles } from "@/constants/userRoles"
-import AccountManagement from "@/features/accountManagement/views/AccountManagement"
-import Login from "@/features/auth/views/Login"
-import Register from "@/features/auth/views/Register"
-import AllDoctors from "@/features/doctors/views/AllDoctors"
-import AllPatients from "@/features/patients/views/AllPatients"
-import Start from "@/features/start/views/Start"
+import { RouteNames, UserRoles } from "@/constants"
+import { AccountManagement } from "@/features/accountManagement"
+import { DoctorSelection, MakeAppointment } from "@/features/appointments"
+import { Login, Register } from "@/features/auth"
+import { AllDoctors } from "@/features/doctors"
+import { AllPatients } from "@/features/patients"
+import { Start } from "@/features/start"
 import BasePageLayout from "@/layouts/BasePageLayout/BasePageLayout"
-import UnauthorizedView from "@/shared/UnauthorizedView/UnauthorizedView"
+import { UnauthorizedView } from "@/shared"
 import DashboardLayoutWrapper from "@/wrappers/DashboardLayoutWrapper/DashboardLayoutWrapper"
 
 import PrivateRoute from "./PrivateRoute"
@@ -19,7 +18,9 @@ const {
   ALL_DOCTORS,
   ALL_PATIENTS,
   DASHBOARD,
+  DOCTORS_SELECTION,
   LOGIN,
+  MAKE_APPOINTMENT,
   REGISTER,
   START,
   UNAUTHORIZED,
@@ -92,6 +93,8 @@ export const router = createBrowserRouter([
         element: <Navigate to={START} />,
       },
       { path: ALL_DOCTORS, element: <AllDoctors /> },
+      { path: DOCTORS_SELECTION, element: <DoctorSelection /> },
+      { path: `${MAKE_APPOINTMENT}/:doctorId`, element: <MakeAppointment /> },
     ],
   },
 ])

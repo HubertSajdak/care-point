@@ -1,12 +1,13 @@
-import { useAppDispatch } from "@/app/hooks"
-import loginSchema from "@/libs/yup/schemas/login"
-import Button from "@/shared/Button/Button"
-import TextFieldFormik from "@/shared/TextFieldFormik/TextFieldFormik"
-import { ReqLoginCredentials } from "@/types/api-types"
 import { Grid } from "@mui/material"
 import { FormikProvider, useFormik } from "formik"
 import { useTranslation } from "react-i18next"
-import { loginUser } from "../authThunks"
+
+import { useAppDispatch } from "@/app/hooks"
+import loginSchema from "@/libs/yup/schemas/login"
+import { Button, TextFieldFormik } from "@/shared"
+import { ReqLoginCredentials } from "@/types/api-types"
+
+import { loginUser } from "../store/authThunks"
 
 const LoginForm = () => {
   const { t } = useTranslation()
@@ -24,28 +25,28 @@ const LoginForm = () => {
   return (
     <FormikProvider value={loginFormik}>
       <form onSubmit={loginFormik.handleSubmit}>
-        <Grid container spacing={4} direction="column" justifyContent="center">
-          <Grid item xs={8}>
+        <Grid direction="column" justifyContent="center" spacing={4} container>
+          <Grid xs={8} item>
             <TextFieldFormik
               id="email"
-              name="email"
               label={t("form:common.email")}
+              name="email"
             />
           </Grid>
-          <Grid item xs={8}>
+          <Grid xs={8} item>
             <TextFieldFormik
               id="password"
-              name="password"
               label={t("form:common.password")}
+              name="password"
               type="password"
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid xs={12} item>
             <Button
-              fullWidth
-              variant="contained"
-              type="submit"
               isSubmitting={loginFormik.isSubmitting}
+              type="submit"
+              variant="contained"
+              fullWidth
             >
               {t("buttons:submit")}
             </Button>

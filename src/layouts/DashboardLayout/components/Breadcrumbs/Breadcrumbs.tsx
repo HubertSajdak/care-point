@@ -1,8 +1,11 @@
-import Link from "@/shared/Link/Link"
-import { Typography, styled } from "@mui/material"
+import { Skeleton, Typography, styled } from "@mui/material"
 import MuiBreadcrumbs, { BreadcrumbsOwnProps } from "@mui/material/Breadcrumbs"
 import { useTranslation } from "react-i18next"
 import { useLocation } from "react-router-dom"
+
+import { useAppSelector } from "@/app/hooks"
+import { RouteNames } from "@/constants"
+import { Link } from "@/shared"
 export interface BreadcrumbsProps extends BreadcrumbsOwnProps {
   drawerWidth: number
   isSidebarOpen: boolean
@@ -14,6 +17,8 @@ const Breadcrumbs = ({
 }: BreadcrumbsProps) => {
   const location = useLocation()
   const { t } = useTranslation(["sidebar"])
+  const doctorName = useAppSelector((state) => state.doctors.selectedDoctorData)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let currentLink = ""
   const crumbs = location.pathname
     .split("/")
@@ -23,21 +28,41 @@ const Breadcrumbs = ({
       if (crumb === "dashboard") {
         return <Typography key="dashboard">{crumb}</Typography>
       }
+      if (arr.includes("makeAppointment") && idx > 2) return
+      if (crumb === "makeAppointment") {
+        if (!doctorName?.name || !doctorName?.surname) {
+          return <Skeleton key={crumb} variant="text" width={150} />
+        }
+        return (
+          <Link
+            color="inherit"
+            key={crumb}
+            to={`${RouteNames.DASHBOARD}/${crumb}`}
+          >
+            {t(`sidebar:makeAppointmentWith`)}{" "}
+            {`${doctorName?.name} ${doctorName?.surname}`}
+          </Link>
+        )
+      }
       return idx !== arr.length - 1 ? (
-        <Link key={crumb} color="inherit" to={`/${crumb}`} onClick={() => {}}>
+        <Link
+          color="inherit"
+          key={crumb}
+          to={`${RouteNames.DASHBOARD}/${crumb}`}
+          onClick={() => {}}
+        >
           {t(`sidebar:${crumb}`)}
         </Link>
       ) : (
-        <Typography key="3" color="primary" fontWeight="bold">
+        <Typography color="primary" fontWeight="bold" key="3">
           {t(`sidebar:${crumb}`)}
         </Typography>
       )
     })
-
   return (
     <StyledBreadCrumbs
-      $issidebaropen={isSidebarOpen}
       $drawerwidth={drawerWidth}
+      $issidebaropen={isSidebarOpen}
       {...otherProps}
       separator="/"
     >
@@ -51,7 +76,7 @@ export default Breadcrumbs
 const StyledBreadCrumbs = styled(MuiBreadcrumbs)<{
   $drawerwidth: number
   $issidebaropen: boolean
-}>(({ theme, $drawerwidth, $issidebaropen }) => ({
+}>(({ $drawerwidth, $issidebaropen, theme }) => ({
   marginTop: "56px",
   padding: theme.spacing(3),
   flexGrow: 1,

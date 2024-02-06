@@ -3,13 +3,13 @@ import { useCallback, useEffect } from "react"
 import { Navigate, useLocation } from "react-router-dom"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { RouteNames } from "@/constants/routes"
-import { logoutUser } from "@/features/auth/authSlice"
-import refreshAccessToken from "@/utils/functions/refreshAccessToken"
+import { RouteNames } from "@/constants"
+import { logoutUser } from "@/features/auth"
+import refreshAccessToken from "@/shared/utils/functions/refreshAccessToken"
 import {
   getAccessTokenFromLocalStorage,
   getRefreshTokenFromLocalStorage,
-} from "@/utils/localStorage/localStorage"
+} from "@/shared/utils/localStorage/localStorage"
 const PrivateRoute = ({
   children,
   role,

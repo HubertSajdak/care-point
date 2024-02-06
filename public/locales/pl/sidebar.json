@@ -14,5 +14,7 @@
   "clinicAffiliation": "biura",
   "clinics": "kliniki",
   "addClinic": "dodaj klinikę",
-  "allClinics": "wszystkie kliniki"
+  "allClinics": "wszystkie kliniki",
+  "doctorsSelection": "wybór lekarza",
+  "makeAppointmentWith": "umów wizytę z"
 }

@@ -10,7 +10,8 @@ export enum RouteNames {
   ALL_CLINICS = `${DASHBOARD}/allClinics`,
   ACCOUNT_MANAGEMENT = `${DASHBOARD}/accountManagement`,
   ALL_DOCTORS = `${DASHBOARD}/allDoctors`,
-  MAKE_APPOINTMENT = `${DASHBOARD}/makeAppointment`,
+  MAKE_APPOINTMENT = `${DASHBOARD}/doctorsSelection/makeAppointment`,
   MY_APPOINTMENTS = `${DASHBOARD}/myAppointments`,
   UNAUTHORIZED = "/unauthorized",
+  DOCTORS_SELECTION = `${DASHBOARD}/doctorsSelection`,
 }

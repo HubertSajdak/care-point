@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom"
 
 import { useAppSelector } from "@/app/hooks"
-import { RouteNames } from "@/constants/routes"
+import { RouteNames } from "@/constants"
 
 const PublicRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAppSelector((state) => state.auth)

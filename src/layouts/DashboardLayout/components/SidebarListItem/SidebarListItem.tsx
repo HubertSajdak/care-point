@@ -8,15 +8,16 @@ import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { NavLink, useLocation } from "react-router-dom"
 import styled from "styled-components"
+
 import { SidebarLinksProps } from "../../types"
 
 const SidebarListItem = ({
-  id,
-  icon,
-  text,
-  path,
-  variant,
   children,
+  icon,
+  id,
+  path,
+  text,
+  variant,
 }: SidebarLinksProps) => {
   const location = useLocation()
   const { t } = useTranslation()
@@ -50,8 +51,8 @@ const SidebarListItem = ({
             {children?.map((child) => {
               return (
                 <StyledNestedListItemButton
-                  sx={{ pl: 4 }}
                   key={child.id}
+                  sx={{ pl: 4 }}
                   {...{ component: NavLink, to: child.path }}
                   selected={location.pathname === child.path}
                 >

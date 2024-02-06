@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify"
 
 import MuiLocaleProvider from "./i18n/MuiLocaleProvider"
 import { router } from "./routes/router"
-import FallbackView from "./shared/FallbackView/FallbackView"
+import FallbackView from "./shared/ui/FallbackView/FallbackView"
 import { GlobalStyles } from "./styles/globalStyles"
 import { theme } from "./styles/theme"
 function App() {

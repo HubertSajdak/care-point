@@ -64,10 +64,10 @@
         "no-restricted-imports": [
           "error",
           {
-            "patterns": []
+            "patterns": ["@/features/*/*"]
           }
         ],
-        "linebreak-style": ["error", "unix"],
+        // "linebreak-style": ["error", "windows"],
         "react/prop-types": "off",
         "react/jsx-sort-props": [
           2,

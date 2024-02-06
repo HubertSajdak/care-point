@@ -6,10 +6,9 @@ import { FormikProvider, useFormik } from "formik"
 import { useTranslation } from "react-i18next"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { deleteUserPhoto, uploadUserPhoto } from "@/features/auth/authThunks"
+import { deleteUserPhoto, uploadUserPhoto } from "@/features/auth"
 import uploadPhotoSchema from "@/libs/yup/schemas/uploadPhoto"
-import Button from "@/shared/Button/Button"
-import FileInputFormik from "@/shared/FileInputFormik/FileInputFormik"
+import { Button, FileInputFormik } from "@/shared"
 interface ChangeAvatarFormValues {
   file: File | null
 }

@@ -28,6 +28,53 @@ export interface IAddress {
   postalCode: string
   street: string
 }
+export interface ISpecialization {
+  _id: string
+  specializationKey: string
+}
+export interface IDoctorSpecialization {
+  Specialization: ISpecialization
+  _id: string
+  doctorId: string
+  specializationId: string
+}
+export type IWeekDays =
+  | "monday"
+  | "tuesday"
+  | "wednesday"
+  | "thursday"
+  | "friday"
+  | "saturday"
+  | "sunday"
+export interface IWorkingHours {
+  _id: string
+  startTime: string
+  stopTime: string
+  weekDay: IWeekDays
+}
+
+export interface IClinicInfo {
+  _id: string
+  address: IAddress
+  clinicName: string
+  phoneNumber: number
+}
+export interface IClinicAffiliation {
+  _id: string
+  absenceTime: {
+    from: string
+    to: string
+  }
+  available: boolean
+  clinicId: string
+  clinicInfo: IClinicInfo
+  clinicName: string
+  consultationFee: number
+  doctorId: string
+  reasonOfAbsence: string
+  timePerPatient: number
+  workingHours: IWorkingHours[]
+}
 export interface IPatientUser {
   _id: string
   address: IAddress
@@ -40,6 +87,8 @@ export interface IPatientUser {
 }
 
 export interface IDoctorUser {
+  ClinicAffiliation: IClinicAffiliation[]
+  DoctorSpecialization: IDoctorSpecialization[]
   _id: string
   email: string
   name: string
@@ -74,4 +123,13 @@ export interface ResLogin {
   accessToken: string
   message: string
   refreshToken: string
+}
+export type ReqChangePassword = Record<password, confirmPassword, "string">
+
+export interface ParamsValues {
+  currentPage: number
+  pageSize: number
+  search?: string | undefined
+  sortBy: string
+  sortDirection: ISortDirection
 }

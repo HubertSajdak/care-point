@@ -8,6 +8,7 @@
   "changePassword": "change password",
   "patients": "patients",
   "doctors": "doctors",
+  "searchDoctor": "search doctor",
   "logoutMsg": {
     "sessionExpired": "session expired",
     "logout": "logging out",

@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom"
 import styled from "styled-components"
 
 import Logo from "@/assets/images/care-point-full-logo.svg?react"
-import LangSwitcher from "@/shared/LangSwitcher/LangSwitcher"
+import { LangSwitcher } from "@/shared"
 
 const BasePageLayout = () => {
   return (
