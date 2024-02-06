@@ -14,5 +14,7 @@
   "clinicAffiliation": "clinic affiliation",
   "clinics": "clinics",
   "addClinic": "add clinic",
-  "allClinics": "all clinics"
+  "allClinics": "all clinics",
+  "doctorsSelection": "doctor selection",
+  "makeAppointmentWith": "make appointment with"
 }

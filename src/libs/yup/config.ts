@@ -1,20 +1,21 @@
-import { RegexType } from "@/constants/regex"
 import * as yup from "yup"
+
+import { RegexType } from "@/constants"
 const VALID_IMAGE_EXTENSIONS = ["jpg", "png", "jpeg"]
 const DEFAULT_MAX_FILE_SIZE = 2
 declare module "yup" {
-  interface StringSchema<TType, TContext, TDefault, TFlags> {
-    password(): this
+  interface StringSchema {
+    isChecked(errorText: string): this
+    isEmail(): this
     isMatch(matchWith: string): this
     name(errorText: string): this
-    isChecked(errorText: string): this
+    password(): this
     phoneNumber(): this
-    isEmail(): this
     postalCode(): this
   }
-  interface MixedSchema<TType, TContext, TDefault, TFlags> {
-    maxFileSize(maxSize?: number): this
+  interface MixedSchema {
     imageFormat(): this
+    maxFileSize(maxSize?: number): this
   }
 }
 yup.addMethod(yup.string, "name", function name(errorText: string) {

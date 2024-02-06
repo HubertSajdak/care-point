@@ -4,21 +4,19 @@ import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { UserRoles } from "@/constants/userRoles"
-import { updateUserInfo } from "@/features/auth/authThunks"
+import { UserRoles } from "@/constants"
+import { updateUserInfo } from "@/features/auth"
 import {
   updateDoctorInfoSchema,
   updatePatientInfoSchema,
 } from "@/libs/yup/schemas/updateUserInfo"
-import Button from "@/shared/Button/Button"
-import TextFieldFormik from "@/shared/TextFieldFormik/TextFieldFormik"
+import { Button, TextFieldFormik, handlePostalCodeKeyUp } from "@/shared"
 import {
   IUserRoles,
   ReqeustRegisterDoctorCredentials,
   ReqeustRegisterPatientCredentials,
 } from "@/types/api-types"
 import { Either } from "@/types/globals"
-import { handlePostalCodeKeyUp } from "@/utils/functions"
 interface ChangeUserInfoValues
   extends Omit<
     Either<ReqeustRegisterPatientCredentials, ReqeustRegisterDoctorCredentials>,

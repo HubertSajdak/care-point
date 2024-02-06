@@ -8,6 +8,7 @@
   "changePassword": "zmień hasło",
   "patients": "pacjenci",
   "doctors": "lekarze",
+  "searchDoctor": "znajdź lekarza",
   "logoutMsg": {
     "sessionExpired": "sesja wygasła",
     "logout": "wylogowano",

@@ -1,14 +1,16 @@
-import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { RouteNames } from "@/constants/routes"
-import FullWidthTabs from "@/shared/Tabs/Tabs"
 import { Box, styled } from "@mui/material"
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
+
+import { useAppDispatch, useAppSelector } from "@/app/hooks"
+import { RouteNames } from "@/constants"
+import { Tabs } from "@/shared"
+
 import RegisterDoctorForm from "../components/RegisterDoctorForm"
-import RegisterFormWrapper from "../components/RegisterFormWrapper"
 import RegisterPatientForm from "../components/RegisterPatientForm"
-import { setRegistrationState } from "../authSlice"
+import RegisterFormWrapper from "../containers/RegisterFormWrapper"
+import { setRegistrationState } from "../store/authSlice"
 const Register = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -21,10 +23,10 @@ const Register = () => {
       dispatch(setRegistrationState(false))
       navigate(RouteNames.LOGIN)
     }
-  }, [isRegistrationSuccess])
+  }, [dispatch, isRegistrationSuccess, navigate])
   return (
-    <Box mb={4} boxShadow={2}>
-      <FullWidthTabs
+    <Box boxShadow={2} mb={4}>
+      <Tabs
         content={[
           {
             id: 0,

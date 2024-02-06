@@ -1,0 +1,12 @@
+{
+  "findDoctor": "choose from the available doctors and make an appointment",
+  "doctorCard": {
+    "noStatement": "no statement",
+    "specializations": "specializations",
+    "noSpecializationsAssigned": "no specializations assigned",
+    "worksAt": "works at",
+    "noOfficeAssigned": "no offices assigned",
+    "makeAppointment": "make appointment",
+    "viewProfile": "view profile"
+  }
+}

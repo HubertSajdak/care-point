@@ -1,15 +1,16 @@
-import { useAppDispatch } from "@/app/hooks"
-import pdf from "@/documents/Terms.pdf"
-import { registerDoctorSchema } from "@/libs/yup/schemas/register"
-import Button from "@/shared/Button/Button"
-import CheckboxFormik from "@/shared/CheckboxFormik/CheckboxFormik"
-import TextFieldFormik from "@/shared/TextFieldFormik/TextFieldFormik"
-import { ReqeustRegisterDoctorCredentials } from "@/types/api-types"
 import { Grid, Typography } from "@mui/material"
 import { FormikProvider, useFormik } from "formik"
 import { useTranslation } from "react-i18next"
 import { useTheme } from "styled-components"
-import { registerUser } from "../authThunks"
+
+import { useAppDispatch } from "@/app/hooks"
+import pdf from "@/documents/Terms.pdf"
+import { registerDoctorSchema } from "@/libs/yup/schemas/register"
+import { Button, CheckboxFormik, TextFieldFormik } from "@/shared"
+import { ReqeustRegisterDoctorCredentials } from "@/types/api-types"
+
+import { registerUser } from "../store/authThunks"
+
 interface RegisterDoctorValues extends ReqeustRegisterDoctorCredentials {
   confirmPassword: string
   termsAndConditions: boolean
@@ -23,9 +24,9 @@ const RegisterDoctorForm = () => {
       {t("authPages:iAgreeOn")}{" "}
       <a
         href={pdf}
-        target="_blank"
         rel="noreferrer"
         style={{ color: theme.palette.primary.main }}
+        target="_blank"
       >
         {t("authPages:terms")}{" "}
       </a>
@@ -44,7 +45,7 @@ const RegisterDoctorForm = () => {
       termsAndConditions: false,
     },
     onSubmit: async (values) => {
-      const { name, surname, email, password, role } = values
+      const { email, name, password, role, surname } = values
       await dispatch(registerUser({ name, surname, email, password, role }))
     },
     validationSchema: registerDoctorSchema,
@@ -52,57 +53,57 @@ const RegisterDoctorForm = () => {
   return (
     <FormikProvider value={registerDoctorFormik}>
       <form onSubmit={registerDoctorFormik.handleSubmit}>
-        <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={12} sm={6}>
+        <Grid justifyContent="center" spacing={4} container>
+          <Grid sm={6} xs={12} item>
             <TextFieldFormik
               id="name"
-              name="name"
               label={t("form:common.name")}
+              name="name"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid sm={6} xs={12} item>
             <TextFieldFormik
               id="surname"
-              name="surname"
               label={t("form:common.surname")}
+              name="surname"
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid xs={12} item>
             <TextFieldFormik
               id="email"
-              name="email"
               label={t("form:common.email")}
+              name="email"
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid xs={12} item>
             <TextFieldFormik
               id="password"
-              name="password"
               label={t("form:common.password")}
+              name="password"
               type="password"
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid xs={12} item>
             <TextFieldFormik
               id="confirmPassword"
-              name="confirmPassword"
               label={t("form:common.confirmPassword")}
+              name="confirmPassword"
               type="password"
             />
           </Grid>
-          <Grid item xs={12} sm={12} md={12} minHeight="100px">
+          <Grid md={12} minHeight="100px" sm={12} xs={12} item>
             <CheckboxFormik
               id="termsAndConditions"
-              name="termsAndConditions"
               label={label}
+              name="termsAndConditions"
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid xs={12} item>
             <Button
-              fullWidth
-              variant="contained"
-              type="submit"
               isSubmitting={registerDoctorFormik.isSubmitting}
+              type="submit"
+              variant="contained"
+              fullWidth
             >
               {t("buttons:submit")}
             </Button>

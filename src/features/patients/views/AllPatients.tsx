@@ -4,16 +4,16 @@ import { useTranslation } from "react-i18next"
 import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import Table from "@/shared/Table/Table"
+import { Table } from "@/shared"
 import { ISortDirection } from "@/types/api-types"
 
 import {
-  changeSort,
   changePage,
   changeRowsPerPage,
   changeSearch,
-} from "../patientsSlice"
-import { getAllPatients } from "../patientsThunks"
+  changeSort,
+} from "../store/patientsSlice"
+import { getAllPatients } from "../store/patientsThunks"
 
 const AllPatients = () => {
   const { t } = useTranslation()

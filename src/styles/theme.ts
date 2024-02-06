@@ -47,6 +47,15 @@ export const theme: Theme = createTheme({
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: "20px",
+          boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
+          padding: "16px",
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -85,5 +94,14 @@ export const theme: Theme = createTheme({
         },
       },
     },
+    // MuiPaper: {
+    //   styleOverrides: {
+    //     root: {
+    //       borderRadius: "20px",
+    //       boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
+    //       padding: "16px",
+    //     },
+    //   },
+    // },
   },
 })

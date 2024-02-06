@@ -15,7 +15,15 @@ i18n
       order: ["localStorage", "cookie", "htmlTag", "navigator", "path"],
       caches: ["localStorage", "cookie"],
     },
-    ns: ["buttons", "form", "authPages", "sidebar", "common", "table"],
+    ns: [
+      "buttons",
+      "form",
+      "authPages",
+      "sidebar",
+      "common",
+      "table",
+      "appointment",
+    ],
   })
 
 export default i18n
