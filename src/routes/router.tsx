@@ -2,9 +2,12 @@ import { Navigate, createBrowserRouter } from "react-router-dom"
 
 import { RouteNames, UserRoles } from "@/constants"
 import { AccountManagement } from "@/features/accountManagement"
-import { DoctorSelection, MakeAppointment } from "@/features/appointments"
 import { Login, Register } from "@/features/auth"
-import { AllDoctors } from "@/features/doctors"
+import {
+  AllDoctors,
+  DoctorSelection,
+  MakeAppointment,
+} from "@/features/doctors"
 import { AllPatients } from "@/features/patients"
 import { Start } from "@/features/start"
 import BasePageLayout from "@/layouts/BasePageLayout/BasePageLayout"
@@ -13,6 +16,7 @@ import DashboardLayoutWrapper from "@/wrappers/DashboardLayoutWrapper/DashboardL
 
 import PrivateRoute from "./PrivateRoute"
 import PublicRoute from "./PublicRoute"
+
 const {
   ACCOUNT_MANAGEMENT,
   ALL_DOCTORS,

@@ -9,5 +9,8 @@
   "logout": "logout",
   "saveDetails": "save details",
   "deletePhoto": "delete photo",
-  "uploadPhoto": "upload photo"
+  "uploadPhoto": "upload photo",
+  "back": "back",
+  "next": "next",
+  "select": "select"
 }

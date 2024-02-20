@@ -13,7 +13,7 @@ import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { changePage, changeSearch, getAllDoctors } from "@/features/doctors"
-import { Search } from "@/shared"
+import { NoDataMsg, Search } from "@/shared"
 
 import DoctorCard from "../components/DoctorCard/DoctorCard"
 
@@ -50,7 +50,7 @@ const DoctorSelection = () => {
         onRefreshContent={handleRefreshContent}
       />
       <Grid columnSpacing={3} marginY={4} rowSpacing={4} container>
-        {data && status !== "loading" ? (
+        {data && data.length > 0 && status !== "loading" ? (
           data.map(
             ({
               _id,
@@ -75,10 +75,12 @@ const DoctorSelection = () => {
               )
             },
           )
-        ) : (
+        ) : status === "loading" ? (
           <Box display="flex" justifyContent="center" width="100%">
             <CircularProgress />
           </Box>
+        ) : (
+          <NoDataMsg />
         )}
       </Grid>
       <Paper

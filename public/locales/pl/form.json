@@ -38,5 +38,18 @@
   "file": {
     "maxFileSize": "plik jest zbyt duży",
     "invalidFormat": "nieprawidłowy format pliku"
+  },
+  "appointment": {
+    "selectClinic": "wybierz klinikę",
+    "selectDate": "wybierz dzień wizyty",
+    "confirm": "potwierdź wizytę",
+    "consultationFee": "opłata za konsultację",
+    "workingHours": "godziny pracy lekarza",
+    "doctor": "lekarz",
+    "dayOfVisit": "dzień wizyty",
+    "visitTime": "o godzinie",
+    "clinicName": "nazwa kliniki",
+    "address": "adres",
+    "confirmBtn": "potwierdź wizytę"
   }
 }

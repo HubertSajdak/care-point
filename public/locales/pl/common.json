@@ -9,10 +9,24 @@
   "patients": "pacjenci",
   "doctors": "lekarze",
   "searchDoctor": "znajdź lekarza",
+  "makeAppointment": "umów wizytę",
   "logoutMsg": {
     "sessionExpired": "sesja wygasła",
     "logout": "wylogowano",
     "accRemoved": "konto usunięte",
     "serverError": "błąd serwera. wylogowywanie..."
+  },
+  "weekDays": {
+    "monday": "poniedziałek",
+    "tuesday": "wtorek",
+    "wednesday": "środa",
+    "thursday": "czwartek",
+    "friday": "piątek",
+    "saturday": "sobota",
+    "sunday": "niedziela"
+  },
+  "errors": {
+    "fetchDataError": "Wystąpił problem z pobraniem danych",
+    "noClinicAffiliations": "Wybrany lekarz nie jest przypisany do żadnej kliniki"
   }
 }
