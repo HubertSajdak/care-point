@@ -1,5 +1,10 @@
 export type ReqStatus = "idle" | "error" | "loading"
 export type IUserRoles = "doctor" | "patient"
+export type IAppointmentStatus =
+  | "active"
+  | "canceled"
+  | "postponed"
+  | "completed"
 export type ISortDirection = "asc" | "desc"
 export interface SuccessReqMsg {
   message: string
@@ -58,6 +63,8 @@ export interface IClinicInfo {
   address: IAddress
   clinicName: string
   phoneNumber: number
+  photo?: string
+  workingTime: IWorkingHours[]
 }
 export interface IClinicAffiliation {
   _id: string

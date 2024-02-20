@@ -38,5 +38,18 @@
   "file": {
     "maxFileSize": "the file size is too large",
     "invalidFormat": "invalid file format"
+  },
+  "appointment": {
+    "selectClinic": "select a clinic",
+    "selectDate": "select appointment date",
+    "confirm": "confirm appointment",
+    "consultationFee": "consultation fee",
+    "workingHours": "doctor's working hours",
+    "doctor": "doctor",
+    "dayOfVisit": "day of visit",
+    "visitTime": "at",
+    "clinicName": "clinic name",
+    "address": "address",
+    "confirmBtn": "confirm appointment"
   }
 }

@@ -9,10 +9,24 @@
   "patients": "patients",
   "doctors": "doctors",
   "searchDoctor": "search doctor",
+  "makeAppointment": "make appointment",
   "logoutMsg": {
     "sessionExpired": "session expired",
     "logout": "logging out",
     "accRemoved": "account removed",
     "serverError": "server error"
+  },
+  "weekDays": {
+    "monday": "monday",
+    "tuesday": "tuesday",
+    "wednesday": "wednesday",
+    "thursday": "thursday",
+    "friday": "friday",
+    "saturday": "saturday",
+    "sunday": "sunday"
+  },
+  "errors": {
+    "fetchDataError": "There was an error with fetching the data",
+    "noClinicAffiliations": "The selected doctor is not assigned to any clinic"
   }
 }

@@ -1,5 +1,6 @@
 import { Box, Card, CardContent, CardHeader } from "@mui/material"
 import { useTranslation } from "react-i18next"
+
 import ChangePasswordForm from "../ChangePasswordForm/ChangePasswordForm"
 
 const PasswordCard = () => {

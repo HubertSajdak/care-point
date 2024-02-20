@@ -28,6 +28,7 @@ const AllPatients = () => {
     status,
     totalItems,
   } = useAppSelector((state) => state.patients)
+
   useEffect(() => {
     dispatch(getAllPatients())
   }, [dispatch, search, sortBy, sortDirection, pageSize, currentPage])

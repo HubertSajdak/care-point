@@ -1,5 +1,6 @@
 {
   "findDoctor": "choose from the available doctors and make an appointment",
+  "makeAppointmentDescription": "choose one of the locations where the doctor works. check available office hours and make an appointment",
   "doctorCard": {
     "noStatement": "no statement",
     "specializations": "specializations",
@@ -8,5 +9,9 @@
     "noOfficeAssigned": "no offices assigned",
     "makeAppointment": "make appointment",
     "viewProfile": "view profile"
+  },
+  "clinicCard": {
+    "consultationFee": "consultation fee",
+    "workingHours": "doctor's working hours"
   }
 }

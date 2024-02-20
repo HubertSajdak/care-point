@@ -9,5 +9,8 @@
   "logout": "wyloguj",
   "saveDetails": "zapisz dane",
   "deletePhoto": "usuń zdjęcie",
-  "uploadPhoto": "dodaj zdjęcie"
+  "uploadPhoto": "dodaj zdjęcie",
+  "back": "cofnij",
+  "next": "dalej",
+  "select": "wybierz"
 }

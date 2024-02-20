@@ -1,5 +1,6 @@
 export const BASE_URL = import.meta.env.VITE_API_KEY
 export enum Endpoints {
+  CREATE_APPOINTMENT = "/appointments",
   DELETE_PHOTO = "/auth/me/deletePhoto",
   GET_ALL_DOCTORS = "/doctors",
   GET_ALL_PATIENTS = "/patients",
