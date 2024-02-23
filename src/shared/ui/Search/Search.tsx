@@ -8,23 +8,22 @@ import {
   SvgIcon,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
+import styled from "styled-components"
 
 import { capitalizeFirstChar } from "@/shared/utils/functions"
 interface UserSearchProps {
+  additionalOptions?: React.ReactNode
   onChangeSearch: (search: string) => void
   onRefreshContent: (() => void) | undefined
 }
-const Search = ({ onChangeSearch, onRefreshContent }: UserSearchProps) => {
+const Search = ({
+  additionalOptions,
+  onChangeSearch,
+  onRefreshContent,
+}: UserSearchProps) => {
   const { t } = useTranslation()
   return (
-    <Card
-      sx={{
-        p: 2,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
+    <StyledCard>
       <OutlinedInput
         defaultValue=""
         inputProps={{
@@ -42,6 +41,7 @@ const Search = ({ onChangeSearch, onRefreshContent }: UserSearchProps) => {
         fullWidth
         onChange={(e) => onChangeSearch(e.target.value)}
       />
+      {additionalOptions && additionalOptions}
       <IconButton
         color="primary"
         sx={{
@@ -55,8 +55,20 @@ const Search = ({ onChangeSearch, onRefreshContent }: UserSearchProps) => {
       >
         <RefreshIcon />
       </IconButton>
-    </Card>
+    </StyledCard>
   )
 }
 
 export default Search
+
+const StyledCard = styled(Card)(({ theme }) => ({
+  padding: theme.spacing(2),
+  display: "flex",
+  flexDirection: "column",
+  [theme.breakpoints.up("sm")]: {
+    flexDirection: "row",
+  },
+  justifyContent: "space-between",
+  alignItems: "center",
+  gap: theme.spacing(2),
+}))

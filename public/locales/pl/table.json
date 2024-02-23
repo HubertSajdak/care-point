@@ -11,10 +11,23 @@
     "street": "ulica",
     "city": "miasto",
     "postalCode": "kod pocztowy",
-    "phoneNumber": "telefon"
+    "phoneNumber": "telefon",
+    "doctor": "lekarz",
+    "appointmentDate": "termin wizyty",
+    "clinicName": "nazwa kliniki",
+    "appointmentAddress": "adres wizyty",
+    "appointmentStatus": "status wizyty",
+    "actions": "akcje"
   },
   "searchBar": {
-    "placeholder": "wyszukaj"
+    "placeholder": "wyszukaj",
+    "appointmentsSelector": {
+      "allAppointments": "wszystkie wizyty",
+      "activeAppointments": "aktywne wizyty",
+      "completedAppointments": "zakończone wizyty",
+      "canceledAppointments": "odwołane wizyty",
+      "postponedAppointments": "przesunięte wizyty"
+    }
   },
   "noData": "nie znaleziono danych"
 }

@@ -11,6 +11,7 @@ import {
   TableRow,
   TableSortLabel,
 } from "@mui/material"
+import React from "react"
 import Highlighter from "react-highlight-words"
 import styled, { useTheme } from "styled-components"
 
@@ -22,6 +23,7 @@ import NoDataMsg from "../NoDataMsg/NoDataMsg"
 
 export type ColumnsValues<T> = {
   align?: "left" | "center" | "right"
+  highlight: boolean
   isImage?: boolean
   isSortable?: boolean
   /**
@@ -38,6 +40,10 @@ export type ColumnsValues<T> = {
   render: (row: T) => React.ReactNode
 }
 export interface TableProps<T> {
+  /**
+   * Render additional filters for search tab inside the table
+   */
+  additionalOptions?: React.ReactNode
   /**
    * Based on "columns" prop, column headings are being rendered. 
    * 
@@ -168,6 +174,7 @@ export interface TableProps<T> {
   tableName?: string
 }
 const Table = <T,>({
+  additionalOptions,
   columns,
   data,
   isLoading,
@@ -188,6 +195,7 @@ TableProps<T>) => {
   return (
     <Box display="flex" flexDirection="column" gap={4} sx={{ py: 0 }}>
       <Search
+        additionalOptions={additionalOptions}
         onChangeSearch={onChangeSearch}
         onRefreshContent={onRefreshContent}
       />
@@ -278,34 +286,40 @@ TableProps<T>) => {
               {data.map((item, index) => {
                 return (
                   <StyledTableRow key={index}>
-                    {columns.map(({ align, isImage, key, render }) => {
-                      if (isImage) {
+                    {columns.map(
+                      ({ align, highlight, isImage, key, render }) => {
+                        if (isImage) {
+                          return (
+                            <TableCell align={align} key={key}>
+                              <Avatar
+                                src={`${BASE_URL}/${render(item)}` || ""}
+                                sx={{
+                                  outline: `1px solid ${theme.palette.primary.main}`,
+                                }}
+                              />
+                            </TableCell>
+                          )
+                        }
                         return (
                           <TableCell align={align} key={key}>
-                            <Avatar
-                              src={`${BASE_URL}/${render(item)}` || ""}
-                              sx={{
-                                outline: `1px solid ${theme.palette.primary.main}`,
-                              }}
-                            />
+                            {highlight === true ? (
+                              <Highlighter
+                                autoEscape={true}
+                                highlightClassName="highlighter"
+                                highlightStyle={{
+                                  color: theme.palette.primary.contrastText,
+                                  backgroundColor: theme.palette.primary.light,
+                                }}
+                                searchWords={searchWords.split(" ")}
+                                textToHighlight={`${render(item)}`}
+                              />
+                            ) : (
+                              render(item)
+                            )}
                           </TableCell>
                         )
-                      }
-                      return (
-                        <TableCell align={align} key={key}>
-                          <Highlighter
-                            autoEscape={true}
-                            highlightClassName="highlighter"
-                            highlightStyle={{
-                              color: theme.palette.primary.contrastText,
-                              backgroundColor: theme.palette.primary.light,
-                            }}
-                            searchWords={searchWords.split(" ")}
-                            textToHighlight={`${render(item)}`}
-                          />
-                        </TableCell>
-                      )
-                    })}
+                      },
+                    )}
                   </StyledTableRow>
                 )
               })}

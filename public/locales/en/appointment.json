@@ -1,6 +1,7 @@
 {
   "findDoctor": "choose from the available doctors and make an appointment",
   "makeAppointmentDescription": "choose one of the locations where the doctor works. check available office hours and make an appointment",
+  "myAppointmentsDescription": "below you will find your upcoming and completed visits",
   "doctorCard": {
     "noStatement": "no statement",
     "specializations": "specializations",
@@ -13,5 +14,15 @@
   "clinicCard": {
     "consultationFee": "consultation fee",
     "workingHours": "doctor's working hours"
+  },
+  "status": {
+    "active": "active",
+    "canceled": "canceled",
+    "completed": "completed",
+    "postponed": "postponed"
+  },
+  "cancelAppointment": {
+    "text": "it is not possible to undo this operation",
+    "title": "are you sure you want to cancel your appointment?"
   }
 }

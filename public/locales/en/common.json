@@ -10,6 +10,7 @@
   "doctors": "doctors",
   "searchDoctor": "search doctor",
   "makeAppointment": "make appointment",
+  "myAppointments": "my appointments",
   "logoutMsg": {
     "sessionExpired": "session expired",
     "logout": "logging out",

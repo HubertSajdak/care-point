@@ -10,6 +10,7 @@
   "doctors": "lekarze",
   "searchDoctor": "znajdź lekarza",
   "makeAppointment": "umów wizytę",
+  "myAppointments": "moje wizyty",
   "logoutMsg": {
     "sessionExpired": "sesja wygasła",
     "logout": "wylogowano",
