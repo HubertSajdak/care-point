@@ -2,6 +2,7 @@ import { Navigate, createBrowserRouter } from "react-router-dom"
 
 import { RouteNames, UserRoles } from "@/constants"
 import { AccountManagement } from "@/features/accountManagement"
+import { MyAppointments } from "@/features/appointments"
 import { Login, Register } from "@/features/auth"
 import {
   AllDoctors,
@@ -25,6 +26,7 @@ const {
   DOCTORS_SELECTION,
   LOGIN,
   MAKE_APPOINTMENT,
+  MY_APPOINTMENTS,
   REGISTER,
   START,
   UNAUTHORIZED,
@@ -99,6 +101,7 @@ export const router = createBrowserRouter([
       { path: ALL_DOCTORS, element: <AllDoctors /> },
       { path: DOCTORS_SELECTION, element: <DoctorSelection /> },
       { path: `${MAKE_APPOINTMENT}/:doctorId`, element: <MakeAppointment /> },
+      { path: MY_APPOINTMENTS, element: <MyAppointments /> },
     ],
   },
 ])

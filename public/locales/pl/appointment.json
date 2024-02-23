@@ -1,6 +1,7 @@
 {
   "findDoctor": "wybierz spośród dostępnych lekarzy i umów się na wizytę",
   "makeAppointmentDescription": "wybierz jedno z miejsc, w których pracuje lekarz. sprawdź dostępne godziny pracy i umów się na wizytę",
+  "myAppointmentsDescription": "poniżej znajdziesz twoje nadchodzące i zakończone wizyty",
   "doctorCard": {
     "noStatement": "brak opisu",
     "specializations": "specjalizacje",
@@ -13,5 +14,15 @@
   "clinicCard": {
     "consultationFee": "opłata za konsultację",
     "workingHours": "godziny pracy lekarza"
+  },
+  "status": {
+    "active": "aktywne",
+    "canceled": "odwołane",
+    "completed": "zakończone",
+    "postponed": "przesunięte"
+  },
+  "cancelAppointment": {
+    "text": "tej operacji nie można cofnąc.",
+    "title": "czy na pewno chcesz odwołać wizytę?"
   }
 }

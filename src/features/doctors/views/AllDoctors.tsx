@@ -1,9 +1,13 @@
-import { Box, Typography } from "@mui/material"
+import AssignmentIcon from "@mui/icons-material/Assignment"
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
+import { Box, IconButton, Typography } from "@mui/material"
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
+import { Link } from "react-router-dom"
 import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
+import { RouteNames } from "@/constants"
 import { Table } from "@/shared"
 import { ISortDirection } from "@/types/api-types"
 
@@ -64,24 +68,48 @@ const AllDoctors = () => {
             render: (row) => row.photo,
             isImage: true,
             align: "center",
+            highlight: false,
           },
           {
             label: t("table:heading.name"),
             key: "name",
             render: (row) => row.name,
+            highlight: true,
             isSortable: true,
           },
           {
             label: t("table:heading.surname"),
             key: "surname",
             render: (row) => row.surname,
+            highlight: true,
             isSortable: true,
           },
           {
             label: t("table:heading.email"),
             key: "email",
             render: (row) => row.email,
+            highlight: true,
             isSortable: true,
+          },
+          {
+            key: "actions",
+            label: t("table:heading.actions"),
+            render: (row) => (
+              <>
+                <IconButton
+                  component={Link}
+                  to={`${RouteNames.MAKE_APPOINTMENT}/${row._id}`}
+                >
+                  <AssignmentIcon color="primary" />
+                </IconButton>
+                <IconButton>
+                  <AssignmentIndIcon color="primary" />
+                </IconButton>
+              </>
+            ),
+            isImage: false,
+            isSortable: false,
+            highlight: false,
           },
         ]}
         data={data ? data : []}

@@ -5,6 +5,7 @@ export enum Endpoints {
   GET_ALL_DOCTORS = "/doctors",
   GET_ALL_PATIENTS = "/patients",
   LOGIN = "/auth/login",
+  MY_APPOINTMENTS = "/appointments/myAppointments",
   REFRESH_ACCESS_TOKEN = "/auth/refreshToken",
   REGISTER_DOCTOR = "/doctors/register",
   REGISTER_PATIENT = "/patients/register",

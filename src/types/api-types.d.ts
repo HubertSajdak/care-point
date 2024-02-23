@@ -140,3 +140,17 @@ export interface ParamsValues {
   sortBy: string
   sortDirection: ISortDirection
 }
+
+export interface IAppointment {
+  _id: string
+  appointmentAddress: IAddress
+  appointmentDate: string
+  appointmentStatus: IAppointmentStatus
+  clinicAffiliationId: string
+  clinicId: stirng
+  clinicInfo: Pick<IClinicInfo, "clinicName" | "_id", "photo" | "phoneNumber">
+  consultationFee: number
+  doctorId: string
+  doctorInfo: Pick<IDoctorUser, "name" | "surname" | "photo" | "_id">
+  patientId: string
+}

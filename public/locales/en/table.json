@@ -11,10 +11,23 @@
     "street": "street",
     "city": "city",
     "postalCode": "postal code",
-    "phoneNumber": "phone number"
+    "phoneNumber": "phone number",
+    "doctor": "doctor",
+    "appointmentDate": "appointment date",
+    "clinicName": "clinic name",
+    "appointmentAddress": "appointment address",
+    "appointmentStatus": "appointment status",
+    "actions": "actions"
   },
   "searchBar": {
-    "placeholder": "search"
+    "placeholder": "search",
+    "appointmentsSelector": {
+      "allAppointments": "all appointments",
+      "activeAppointments": "active appointments",
+      "completedAppointments": "completed appointments",
+      "canceledAppointments": "canceled appointments",
+      "postponedAppointments": "postponed appointments"
+    }
   },
   "noData": "no data found"
 }
