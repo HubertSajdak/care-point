@@ -6,10 +6,7 @@ import styled from "styled-components"
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { UserRoles } from "@/constants"
 import { updateUserInfo } from "@/features/auth"
-import {
-  updateDoctorInfoSchema,
-  updatePatientInfoSchema,
-} from "@/libs/yup/schemas/updateUserInfo"
+import { updateDoctorInfoSchema, updatePatientInfoSchema } from "@/libs"
 import { Button, TextFieldFormik, handlePostalCodeKeyUp } from "@/shared"
 import {
   IUserRoles,

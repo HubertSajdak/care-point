@@ -1,4 +1,4 @@
-import { Box, styled } from "@mui/material"
+import { Box, Paper, styled } from "@mui/material"
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
@@ -25,7 +25,7 @@ const Register = () => {
     }
   }, [dispatch, isRegistrationSuccess, navigate])
   return (
-    <Box boxShadow={2} mb={4}>
+    <Paper sx={{ boxShadow: 2, mb: 4, overflow: "hidden" }}>
       <Tabs
         content={[
           {
@@ -48,7 +48,7 @@ const Register = () => {
           },
         ]}
       />
-    </Box>
+    </Paper>
   )
 }
 

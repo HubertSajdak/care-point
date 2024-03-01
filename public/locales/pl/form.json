@@ -9,7 +9,10 @@
     "street": "ulica",
     "city": "miasto",
     "postalCode": "kod pocztowy",
-    "phoneNumber": "numer telefonu"
+    "phoneNumber": "numer telefonu",
+    "address": "adres",
+    "from": "od",
+    "to": "do"
   },
   "name": {
     "invalid": "nieprawidłowe imię",
@@ -51,5 +54,13 @@
     "clinicName": "nazwa kliniki",
     "address": "adres",
     "confirmBtn": "potwierdź wizytę"
+  },
+  "clinic": {
+    "clinicName": "nazwa kliniki",
+    "addAddress": "dodaj adres",
+    "addWorkingTime": "dodaj godziny pracy",
+    "addPhoto": "dodaj zdjęcie (opcjonalne)",
+    "chooseWorkingTime": "wybierz czas pracy kliniki",
+    "addClinicPhoto": "dodaj zdjęcie kliniki"
   }
 }

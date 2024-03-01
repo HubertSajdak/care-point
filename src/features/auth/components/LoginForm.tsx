@@ -3,7 +3,7 @@ import { FormikProvider, useFormik } from "formik"
 import { useTranslation } from "react-i18next"
 
 import { useAppDispatch } from "@/app/hooks"
-import loginSchema from "@/libs/yup/schemas/login"
+import { loginSchema } from "@/libs"
 import { Button, TextFieldFormik } from "@/shared"
 import { ReqLoginCredentials } from "@/types/api-types"
 
