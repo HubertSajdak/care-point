@@ -52,7 +52,6 @@ export type IWeekDays =
   | "saturday"
   | "sunday"
 export interface IWorkingHours {
-  _id: string
   startTime: string
   stopTime: string
   weekDay: IWeekDays

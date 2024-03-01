@@ -9,4 +9,4 @@ const uploadPhotoSchema = yup.object().shape({
 })
 export type UploadPhotoValues = yup.InferType<typeof uploadPhotoSchema>
 
-export default uploadPhotoSchema
+export { uploadPhotoSchema }

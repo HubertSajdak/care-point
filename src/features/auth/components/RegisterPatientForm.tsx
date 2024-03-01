@@ -5,7 +5,7 @@ import { useTheme } from "styled-components"
 
 import { useAppDispatch } from "@/app/hooks"
 import pdf from "@/documents/Terms.pdf"
-import { registerPatientSchema } from "@/libs/yup/schemas/register"
+import { registerPatientSchema } from "@/libs"
 import {
   Button,
   CheckboxFormik,

@@ -50,7 +50,7 @@ export default function Tabs({ content }: FullWidthTabsProps) {
   }
 
   return (
-    <Box sx={{ bgcolor: "background.paper" }}>
+    <>
       <AppBar position="static">
         <MuiTabs
           aria-label="full width tabs example"
@@ -85,6 +85,6 @@ export default function Tabs({ content }: FullWidthTabsProps) {
           )
         })}
       </SwipeableViews>
-    </Box>
+    </>
   )
 }

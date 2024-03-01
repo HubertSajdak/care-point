@@ -2,8 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { toast } from "react-toastify"
 
 import { Endpoints } from "@/constants"
-import { ChangePasswordSchema } from "@/libs/yup/schemas/changePassword"
-import { UploadPhotoValues } from "@/libs/yup/schemas/uploadPhoto"
+import { ChangePasswordSchema, UploadPhotoValues } from "@/libs"
 import {
   errorHandler,
   generateUniqueFileName,

@@ -1,17 +1,17 @@
 import {
-  Paper,
   StepConnector,
   stepConnectorClasses,
   StepLabel,
+  useMediaQuery,
 } from "@mui/material"
 import Box from "@mui/material/Box"
 import Step from "@mui/material/Step"
 import MuiStepper from "@mui/material/Stepper"
 import React from "react"
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
+import styled, { useTheme } from "styled-components"
 
-import { Button } from "@/shared"
+import { Button, PaddingPaper } from "@/shared"
 interface StepperProps {
   activeStep: number
   handleBack: () => void
@@ -33,13 +33,16 @@ const Stepper = ({
   steps,
 }: StepperProps) => {
   const { t } = useTranslation()
+  const theme = useTheme()
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"))
   return (
     <Box display="flex" flexDirection="column" gap={3} sx={{ width: "100%" }}>
-      <Paper>
+      <PaddingPaper padding={0}>
         <MuiStepper
           activeStep={activeStep}
+          alternativeLabel={isSmall ? true : false}
           connector={<QontoConnector />}
-          sx={{ width: "100%" }}
+          sx={{ width: "100%", p: 2 }}
         >
           {steps.map((el) => {
             const stepProps: { completed?: boolean } = {}
@@ -50,10 +53,15 @@ const Stepper = ({
             )
           })}
         </MuiStepper>
-      </Paper>
+      </PaddingPaper>
       <React.Fragment>
-        <Paper sx={{ width: "100%" }}>{steps[activeStep].stepElement}</Paper>
-        <Paper sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+        <PaddingPaper padding={2} sx={{ width: "100%" }}>
+          {steps[activeStep].stepElement}
+        </PaddingPaper>
+        <PaddingPaper
+          padding={1}
+          sx={{ display: "flex", flexDirection: "row" }}
+        >
           <Button
             color="inherit"
             disabled={activeStep === 0}
@@ -69,10 +77,10 @@ const Stepper = ({
             onClick={handleNext}
           >
             {activeStep === steps.length - 1
-              ? t("form:appointment.confirmBtn")
+              ? t("buttons:submit")
               : t("buttons:next")}
           </Button>
-        </Paper>
+        </PaddingPaper>
       </React.Fragment>
     </Box>
   )

@@ -1,4 +1,5 @@
 import { authSlice } from "@/features/auth"
+import { clinicsSlice } from "@/features/clinics"
 import { doctorsSlice } from "@/features/doctors"
 import { patientsSlice } from "@/features/patients"
 import { appointmentsSlice } from "@/redux"
@@ -12,6 +13,7 @@ export const store = configureStore({
     patients: patientsSlice,
     doctors: doctorsSlice,
     appointments: appointmentsSlice,
+    clinics: clinicsSlice,
   },
 })
 

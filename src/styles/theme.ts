@@ -13,6 +13,9 @@ export const theme: Theme = createTheme({
       main: "#8D00A3",
     },
   },
+  shape: {
+    borderRadius: 20,
+  },
   typography: {
     fontFamily: "'Nunito Sans', sans-serif",
     allVariants: {
@@ -47,15 +50,15 @@ export const theme: Theme = createTheme({
         },
       },
     },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          borderRadius: "20px",
-          boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
-          padding: "16px",
-        },
-      },
-    },
+    // MuiPaper: {
+    //   styleOverrides: {
+    //     root: {
+    //       borderRadius: "20px",
+    //       boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
+    //       padding: "16px",
+    //     },
+    //   },
+    // },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -70,7 +73,6 @@ export const theme: Theme = createTheme({
       styleOverrides: {
         root: {
           "& .MuiOutlinedInput-notchedOutline": {
-            borderRadius: "8px",
             transition:
               "border-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
           },
@@ -91,6 +93,14 @@ export const theme: Theme = createTheme({
           "& .MuiTableCell-head": {
             fontWeight: "bold",
           },
+        },
+      },
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          fontWeight: "bold",
+          "&::first-letter": { textTransform: "uppercase" },
         },
       },
     },

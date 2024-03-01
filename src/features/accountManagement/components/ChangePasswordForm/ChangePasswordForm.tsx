@@ -4,10 +4,7 @@ import { useTranslation } from "react-i18next"
 
 import { useAppDispatch } from "@/app/hooks"
 import { changeUserPassword } from "@/features/auth"
-import {
-  ChangePasswordSchema,
-  changePasswordSchema,
-} from "@/libs/yup/schemas/changePassword"
+import { ChangePasswordSchema, changePasswordSchema } from "@/libs"
 import { Button, TextFieldFormik } from "@/shared"
 
 const ChangePasswordForm = () => {

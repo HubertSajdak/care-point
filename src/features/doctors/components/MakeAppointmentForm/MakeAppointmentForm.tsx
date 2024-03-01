@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import { makeAppointmentSchema } from "@/libs/yup/schemas/makeAppointment"
+import { makeAppointmentSchema } from "@/libs"
 import { MakeAppointmentValues, createAppointment } from "@/redux"
 import {
   FetchDataError,

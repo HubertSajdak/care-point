@@ -16,6 +16,7 @@ interface FileInputFormikProps {
   imgPreview?: File | null
   name: string
   photo?: string
+  variant?: "rounded" | "circular" | "square"
 }
 const FileInputFormik = ({
   accept,
@@ -25,6 +26,7 @@ const FileInputFormik = ({
   imgPreview,
   name,
   photo,
+  variant = "circular",
 }: FileInputFormikProps) => {
   const theme = useTheme()
   const { t } = useTranslation()
@@ -49,6 +51,7 @@ const FileInputFormik = ({
     <>
       <StyledInputBox
         className={dragOverCount ? "is-drag-over" : ""}
+        variant={variant}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
@@ -95,6 +98,7 @@ const FileInputFormik = ({
               ? URL.createObjectURL(imgPreview)
               : `${BASE_URL}/${photo}`
           }
+          variant={variant}
         />
         <CameraEnhanceIcon
           className="camera-icon"
@@ -154,14 +158,20 @@ const VisuallyHiddenInput = styled("input")({
   zIndex: 100,
 })
 
-const StyledInputBox = styled(Box)(({ theme }) => ({
+const StyledInputBox = styled(Box)<{
+  variant: "rounded" | "square" | "circular"
+}>(({ theme, variant }) => ({
   position: "relative",
   border: `3px solid ${theme.palette.primary.main}`,
-  borderRadius: "50%",
+  borderRadius: 0,
+  ...(variant === "circular" && {
+    borderRadius: "50%",
+  }),
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-
+  width: "260px",
+  height: "260px",
   ".camera-icon": {
     position: "absolute",
     right: 0,
@@ -175,8 +185,8 @@ const StyledInputBox = styled(Box)(({ theme }) => ({
     transition: "background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
   },
   ".avatar": {
-    width: "200px",
-    height: "200px",
+    width: "100%",
+    height: "100%",
     backgroundColor: theme.palette.grey[100],
     transition: "background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
   },

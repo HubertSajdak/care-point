@@ -23,6 +23,7 @@ i18n
       "common",
       "table",
       "appointment",
+      "clinic",
     ],
   })
 

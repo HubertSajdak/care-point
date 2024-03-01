@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { t } from "i18next"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
@@ -25,10 +25,9 @@ const MakeAppointment = () => {
       <Typography component="h3" mb={2} variant="subtitle1">
         {t("appointment:makeAppointmentDescription")}
       </Typography>
-      <Grid container>
-        <Grid item></Grid>
+      <Box>
         <MakeAppointmentForm />
-      </Grid>
+      </Box>
     </Box>
   )
 }

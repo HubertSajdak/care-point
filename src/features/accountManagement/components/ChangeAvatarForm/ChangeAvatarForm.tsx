@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { deleteUserPhoto, uploadUserPhoto } from "@/features/auth"
-import uploadPhotoSchema from "@/libs/yup/schemas/uploadPhoto"
+import { uploadPhotoSchema } from "@/libs"
 import { Button, FileInputFormik } from "@/shared"
 interface ChangeAvatarFormValues {
   file: File | null

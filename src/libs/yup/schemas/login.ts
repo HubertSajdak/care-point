@@ -7,4 +7,4 @@ const loginSchema = yup.object().shape({
 
 export type LoginFormValues = yup.InferType<typeof loginSchema>
 
-export default loginSchema
+export { loginSchema }

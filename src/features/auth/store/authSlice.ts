@@ -70,6 +70,9 @@ export const authSlice = createSlice({
       .addCase(getUserData.fulfilled, (state, { payload }) => {
         ;(state.status = "idle"), (state.user = payload)
       })
+      .addCase(getUserData.rejected, (state) => {
+        state.status = "error"
+      })
       .addCase(updateUserInfo.pending, (state) => {
         state.status = "loading"
       })
