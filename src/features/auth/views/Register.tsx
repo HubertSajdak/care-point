@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
+import { setRegistrationState } from "@/redux"
 import { Tabs } from "@/shared"
 
 import RegisterDoctorForm from "../components/RegisterDoctorForm"
 import RegisterPatientForm from "../components/RegisterPatientForm"
 import RegisterFormWrapper from "../containers/RegisterFormWrapper"
-import { setRegistrationState } from "../store/authSlice"
 const Register = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()

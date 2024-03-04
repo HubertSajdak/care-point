@@ -2,7 +2,7 @@ import CameraEnhanceIcon from "@mui/icons-material/CameraEnhance"
 import CloudUploadIcon from "@mui/icons-material/CloudUpload"
 import { Avatar, Box, CircularProgress, FormHelperText } from "@mui/material"
 import { useField } from "formik"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import styled, { useTheme } from "styled-components"
 
@@ -47,6 +47,9 @@ const FileInputFormik = ({
   const handleDragLeave = () => {
     setDragOverCount((prev) => prev - 1)
   }
+  useEffect(() => {
+    console.log(imgPreview)
+  }, [imgPreview])
   return (
     <>
       <StyledInputBox

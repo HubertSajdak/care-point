@@ -17,7 +17,8 @@
     "clinicName": "nazwa kliniki",
     "appointmentAddress": "adres wizyty",
     "appointmentStatus": "status wizyty",
-    "actions": "akcje"
+    "actions": "akcje",
+    "address": "adres"
   },
   "searchBar": {
     "placeholder": "wyszukaj",

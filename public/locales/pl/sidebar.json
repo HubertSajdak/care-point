@@ -16,5 +16,6 @@
   "addClinic": "dodaj klinikę",
   "allClinics": "wszystkie kliniki",
   "doctorsSelection": "wybór lekarza",
-  "makeAppointmentWith": "umów wizytę u"
+  "makeAppointmentWith": "umów wizytę u",
+  "editClinic": "edytuj klinikę"
 }

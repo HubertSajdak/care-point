@@ -16,5 +16,6 @@
   "addClinic": "add clinic",
   "allClinics": "all clinics",
   "doctorsSelection": "doctor selection",
-  "makeAppointmentWith": "make appointment with"
+  "makeAppointmentWith": "make appointment with",
+  "editClinic": "edit clinic"
 }

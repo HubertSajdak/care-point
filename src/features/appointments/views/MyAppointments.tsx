@@ -36,11 +36,10 @@ const MyAppointments = () => {
     search,
     sortBy,
     sortDirection,
+    status,
     totalItems,
   } = useAppSelector((state) => state.appointments)
-
-  const status = useAppSelector((state) => state.appointments.status)
-
+  useEffect(() => console.log(status), [status])
   const handleChangeSort = (
     sortingProperty: string,
     sortingDirection: ISortDirection,

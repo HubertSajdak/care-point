@@ -18,6 +18,9 @@ const Breadcrumbs = ({
   const location = useLocation()
   const { t } = useTranslation(["sidebar"])
   const doctorName = useAppSelector((state) => state.doctors.selectedDoctorData)
+  const clinicName = useAppSelector(
+    (state) => state.clinics.singleClinic?.clinicName,
+  )
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let currentLink = ""
   const crumbs = location.pathname
@@ -29,6 +32,15 @@ const Breadcrumbs = ({
         return <Typography key="dashboard">{crumb}</Typography>
       }
       if (arr.includes("makeAppointment") && idx > 2) return
+      if (arr.includes("editClinic") && idx === 1) {
+        return <Typography key={crumb}>{t("sidebar:editClinic")}</Typography>
+      }
+      if (arr.includes("editClinic") && idx > 1) {
+        if (!clinicName) {
+          return <Skeleton key={crumb} variant="text" width={150} />
+        }
+        return <Typography key={crumb}>{clinicName}</Typography>
+      }
       if (crumb === "makeAppointment") {
         if (!doctorName?.name || !doctorName?.surname) {
           return <Skeleton key={crumb} variant="text" width={150} />

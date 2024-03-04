@@ -5,8 +5,8 @@ import styled from "styled-components"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { UserRoles } from "@/constants"
-import { updateUserInfo } from "@/features/auth"
 import { updateDoctorInfoSchema, updatePatientInfoSchema } from "@/libs"
+import { updateUserInfo } from "@/redux"
 import { Button, TextFieldFormik, handlePostalCodeKeyUp } from "@/shared"
 import {
   IUserRoles,

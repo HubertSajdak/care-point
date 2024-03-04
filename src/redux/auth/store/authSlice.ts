@@ -11,6 +11,7 @@ import { IDoctorUser, IPatientUser, ReqStatus } from "@/types/api-types"
 import { Either } from "@/types/globals"
 
 import { getUserData, loginUser, updateUserInfo } from "./authThunks"
+
 export interface LogoutPayload {
   msg: string
   type: "error" | "success"

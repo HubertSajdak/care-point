@@ -4,7 +4,7 @@ import { Navigate, useLocation } from "react-router-dom"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import { logoutUser } from "@/features/auth"
+import { logoutUser } from "@/redux"
 import refreshAccessToken from "@/shared/utils/functions/refreshAccessToken"
 import {
   getAccessTokenFromLocalStorage,

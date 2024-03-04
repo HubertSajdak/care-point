@@ -6,8 +6,8 @@ import { FormikProvider, useFormik } from "formik"
 import { useTranslation } from "react-i18next"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { deleteUserPhoto, uploadUserPhoto } from "@/features/auth"
 import { uploadPhotoSchema } from "@/libs"
+import { deleteUserPhoto, uploadUserPhoto } from "@/redux"
 import { Button, FileInputFormik } from "@/shared"
 interface ChangeAvatarFormValues {
   file: File | null
@@ -39,7 +39,7 @@ const ChangeAvatarForm = () => {
   return (
     <FormikProvider value={changeAvatarFormik}>
       <form onSubmit={changeAvatarFormik.handleSubmit}>
-        <Box display="grid">
+        <Box>
           <FileInputFormik
             accept="image/*"
             disabled={changeAvatarFormik.isSubmitting}

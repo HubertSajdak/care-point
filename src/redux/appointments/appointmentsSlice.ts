@@ -67,7 +67,7 @@ const appointmentsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getCurrentUserAppointments.pending, (state) => {
-      state.status === "loading"
+      state.status = "loading"
     })
     builder.addCase(
       getCurrentUserAppointments.fulfilled,
@@ -76,11 +76,11 @@ const appointmentsSlice = createSlice({
           state.userAppointmentsData = payload.data
           state.totalItems = payload.totalItems
         }
-        state.status === "idle"
+        state.status = "idle"
       },
     )
     builder.addCase(getCurrentUserAppointments.rejected, (state) => {
-      state.status === "error"
+      state.status = "error"
     })
   },
 })
