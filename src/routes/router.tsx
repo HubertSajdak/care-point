@@ -4,7 +4,7 @@ import { RouteNames, UserRoles } from "@/constants"
 import { AccountManagement } from "@/features/accountManagement"
 import { MyAppointments } from "@/features/appointments"
 import { Login, Register } from "@/features/auth"
-import { AddClinic } from "@/features/clinics"
+import { AddClinic, AllClinics, EditClinic } from "@/features/clinics"
 import {
   AllDoctors,
   DoctorSelection,
@@ -22,10 +22,12 @@ import PublicRoute from "./PublicRoute"
 const {
   ACCOUNT_MANAGEMENT,
   ADD_CLINIC,
+  ALL_CLINICS,
   ALL_DOCTORS,
   ALL_PATIENTS,
   DASHBOARD,
   DOCTORS_SELECTION,
+  EDIT_CLINIC,
   LOGIN,
   MAKE_APPOINTMENT,
   MY_APPOINTMENTS,
@@ -86,6 +88,8 @@ export const router = createBrowserRouter([
       },
       { path: ALL_PATIENTS, element: <AllPatients /> },
       { path: ADD_CLINIC, element: <AddClinic /> },
+      { path: ALL_CLINICS, element: <AllClinics /> },
+      { path: `${EDIT_CLINIC}/:clinicId`, element: <EditClinic /> },
     ],
   },
   {

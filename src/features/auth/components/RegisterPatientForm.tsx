@@ -6,6 +6,7 @@ import { useTheme } from "styled-components"
 import { useAppDispatch } from "@/app/hooks"
 import pdf from "@/documents/Terms.pdf"
 import { registerPatientSchema } from "@/libs"
+import { registerUser } from "@/redux"
 import {
   Button,
   CheckboxFormik,
@@ -13,8 +14,6 @@ import {
   handlePostalCodeKeyUp,
 } from "@/shared"
 import { ReqeustRegisterPatientCredentials } from "@/types/api-types"
-
-import { registerUser } from "../store/authThunks"
 
 interface RegisterPatientValues extends ReqeustRegisterPatientCredentials {
   confirmPassword: string

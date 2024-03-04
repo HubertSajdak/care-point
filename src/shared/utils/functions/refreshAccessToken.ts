@@ -1,6 +1,6 @@
 import { store } from "@/app/store"
 import { Endpoints } from "@/constants"
-import { logoutUser } from "@/features/auth"
+import { logoutUser } from "@/redux"
 import { axiosPublicInstance } from "@/shared"
 
 import { setAccessTokenToLocalStorage } from "../localStorage/localStorage"

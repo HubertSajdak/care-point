@@ -1,4 +1,10 @@
 {
   "addClinicTitle": "dodaj klinikę",
+  "allClinicsTitle": "wszystkie kliniki",
+  "editClinicTitle": "edytuj klinikę",
+  "clinicInformationTitle": "podstawowe informacje",
+  "editClinicSubtitle": "edytuj informacje o klinice",
+  "workingHoursTitle": "godziny pracy kliniki",
+  "workingHoursSubtitle": "wybierz godziny pracy kliniki (zmiany będą widoczne dla wszystkich zarejestrowanych użytkowników)",
   "addClinicSubtitle": "dodaj nową klinikę, aby następnie móc przypisać je jako swoje miejsce pracy"
 }

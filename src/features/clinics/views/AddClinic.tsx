@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
-import AddClinicForm from "../components/AddClinicForm"
+import AddClinicForm from "../components/AddClinicForm/AddClinicForm"
 
 const AddClinic = () => {
   const { t } = useTranslation()

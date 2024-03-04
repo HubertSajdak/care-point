@@ -8,6 +8,7 @@ export enum RouteNames {
   CLINIC_AFFILIATION = `${DASHBOARD}/clinicAffiliations`,
   ADD_CLINIC = `${DASHBOARD}/addClinic`,
   ALL_CLINICS = `${DASHBOARD}/allClinics`,
+  EDIT_CLINIC = `${DASHBOARD}/editClinic`,
   ACCOUNT_MANAGEMENT = `${DASHBOARD}/accountManagement`,
   ALL_DOCTORS = `${DASHBOARD}/allDoctors`,
   MAKE_APPOINTMENT = `${DASHBOARD}/doctorsSelection/makeAppointment`,

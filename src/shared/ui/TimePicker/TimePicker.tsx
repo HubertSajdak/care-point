@@ -21,6 +21,10 @@ const TimePicker = ({
   const onKeyDown = (e: { preventDefault: () => void }) => {
     e.preventDefault()
   }
+
+  const formatTime = dayjs()
+    .set("hour", field.value.split(":")[0])
+    .set("minute", field.value.split(":")[1])
   return (
     <Box display="flex" flexDirection="column">
       <MuiDesktopTimePicker
@@ -46,7 +50,7 @@ const TimePicker = ({
             onKeyDown: onKeyDown,
           },
         }}
-        value={field.value}
+        value={formatTime}
         onChange={(value, context) => {
           if (onChange) {
             onChange(value, context)

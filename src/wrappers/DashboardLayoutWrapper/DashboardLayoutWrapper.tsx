@@ -7,8 +7,8 @@ import {
   doctorSidebarLinks,
   patientSidebarLinks,
 } from "@/constants"
-import { getUserData } from "@/features/auth"
 import DashboardLayout from "@/layouts/DashboardLayout/DashboardLayout"
+import { getUserData } from "@/redux"
 
 const DashboardLayoutWrapper = () => {
   const dispatch = useAppDispatch()

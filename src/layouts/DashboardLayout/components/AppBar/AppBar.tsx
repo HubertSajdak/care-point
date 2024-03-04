@@ -19,7 +19,7 @@ import styled, { useTheme } from "styled-components"
 
 import { useAppDispatch } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import { logoutUser } from "@/features/auth"
+import { logoutUser } from "@/redux"
 import { LangSwitcher, Link } from "@/shared"
 const { ACCOUNT_MANAGEMENT } = RouteNames
 export interface AppBarProps extends MuiAppBarProps {

@@ -6,10 +6,9 @@ import { useTheme } from "styled-components"
 import { useAppDispatch } from "@/app/hooks"
 import pdf from "@/documents/Terms.pdf"
 import { registerDoctorSchema } from "@/libs"
+import { registerUser } from "@/redux"
 import { Button, CheckboxFormik, TextFieldFormik } from "@/shared"
 import { ReqeustRegisterDoctorCredentials } from "@/types/api-types"
-
-import { registerUser } from "../store/authThunks"
 
 interface RegisterDoctorValues extends ReqeustRegisterDoctorCredentials {
   confirmPassword: string

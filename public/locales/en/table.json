@@ -17,7 +17,8 @@
     "clinicName": "clinic name",
     "appointmentAddress": "appointment address",
     "appointmentStatus": "appointment status",
-    "actions": "actions"
+    "actions": "actions",
+    "address": "adres"
   },
   "searchBar": {
     "placeholder": "search",
