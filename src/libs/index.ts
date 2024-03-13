@@ -1,4 +1,5 @@
 export * from "./yup/schemas/addClinic"
+export * from "./yup/schemas/addClinicAffiliation"
 export * from "./yup/schemas/changePassword"
 export * from "./yup/schemas/editClinic"
 export * from "./yup/schemas/login"

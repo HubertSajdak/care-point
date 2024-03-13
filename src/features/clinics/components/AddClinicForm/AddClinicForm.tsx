@@ -1,5 +1,6 @@
 import CancelIcon from "@mui/icons-material/Cancel"
 import { Box, Container, Grid, Typography } from "@mui/material"
+import dayjs from "dayjs"
 import { FormikProvider, useFormik } from "formik"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -101,7 +102,7 @@ const AddClinicForm = () => {
                 container
               >
                 <Grid xs={12} item>
-                  <Typography component="h3" mb={2} variant="h5">
+                  <Typography component="h4" mb={2} variant="h5">
                     {t("form:clinic.clinicName")}
                   </Typography>
                   <TextFieldFormik
@@ -110,7 +111,7 @@ const AddClinicForm = () => {
                   />
                 </Grid>
                 <Grid xs={12} item>
-                  <Typography mb={2} variant="h5">
+                  <Typography component="h4" mb={2} variant="h5">
                     {t("form:common.address")}
                   </Typography>
                   <Box
@@ -137,7 +138,7 @@ const AddClinicForm = () => {
                   </Box>
                 </Grid>
                 <Grid xs={12} item>
-                  <Typography mb={2} variant="h5">
+                  <Typography component="h4" mb={2} variant="h5">
                     {t("form:common.phoneNumber")}
                   </Typography>
                   <TextFieldFormik
@@ -172,12 +173,20 @@ const AddClinicForm = () => {
                 {workingDayConfig.map((day) => {
                   return (
                     <WorkingDayRow
+                      disableStopTime={
+                        !addClinicFormik.values.workingTime[day.id].startTime
+                      }
                       id={day.id}
                       key={day.id}
                       label={t(translateWeekDays(day.label))}
                       startTimeLabel={t(`form:common.${day.startTimeLabel}`)}
                       startTimeName={day.startTimeName}
                       stopTimeLabel={t(`form:common.${day.stopTimeLabel}`)}
+                      stopTimeMinTime={dayjs(
+                        `2018-04-04 ${
+                          addClinicFormik.values.workingTime[day.id].startTime
+                        }`,
+                      ).add(15, "minute")}
                       stopTimeName={day.stopTimeName}
                     />
                   )

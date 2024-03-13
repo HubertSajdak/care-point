@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
 import { makeAppointmentSchema } from "@/libs"
-import { MakeAppointmentValues, createAppointment } from "@/redux"
+import { createAppointment, MakeAppointmentValues } from "@/redux"
 import {
-  FetchDataError,
-  StaticDateTimePicker,
-  Stepper,
   capitalizeFirstChar,
   enabledDays,
   enabledTime,
+  FetchDataError,
+  StaticDateTimePicker,
+  Stepper,
 } from "@/shared"
 import CommonError from "@/shared/ui/CommonError/CommonError"
 import { IAddress, IClinicAffiliation } from "@/types/api-types"
@@ -28,6 +28,9 @@ const MakeAppointmentForm = () => {
   const navigate = useNavigate()
   const selectedDoctor = useAppSelector(
     (state) => state.doctors.selectedDoctorData,
+  )
+  const selectedDoctorAppointments = useAppSelector(
+    (state) => state.appointments.doctorAppointments,
   )
   const status = useAppSelector((state) => state.doctors.status)
   const { t } = useTranslation()
@@ -123,10 +126,14 @@ const MakeAppointmentForm = () => {
               displayStaticWrapperAs="mobile"
               minutesStep={selectedClinic?.timePerPatient}
               shouldDisableDate={(date) =>
-                enabledDays(date, selectedClinic!.workingHours)
+                enabledDays(date, selectedClinic!.workingTime)
               }
               shouldDisableTime={(date) => {
-                return !enabledTime(date, selectedClinic!.workingHours)
+                return !enabledTime(
+                  date,
+                  selectedClinic!.workingTime,
+                  selectedDoctorAppointments?.data || [],
+                )
               }}
               slotProps={{
                 actionBar: {

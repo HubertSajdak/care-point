@@ -31,7 +31,7 @@ const ClinicSelection = ({
               consultationFee={el.consultationFee}
               id={el._id}
               photo={el.clinicInfo.photo}
-              workingHours={el.workingHours}
+              workingTime={el.workingTime}
               onClick={onClick}
             />
           </Grid>

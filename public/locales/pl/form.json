@@ -53,7 +53,8 @@
     "visitTime": "o godzinie",
     "clinicName": "nazwa kliniki",
     "address": "adres",
-    "confirmBtn": "potwierdź wizytę"
+    "confirmBtn": "potwierdź wizytę",
+    "consultationTime": "czas wizyty"
   },
   "clinic": {
     "clinicName": "nazwa kliniki",

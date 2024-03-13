@@ -1,10 +1,11 @@
 import { clinicsSlice } from "@/features/clinics"
 import { doctorsSlice } from "@/features/doctors"
 import { patientsSlice } from "@/features/patients"
+import { specializationsSlice } from "@/features/specializations"
 import { appointmentsSlice, authSlice } from "@/redux"
 
 // eslint-disable-next-line import/order
-import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit"
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit"
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     doctors: doctorsSlice,
     appointments: appointmentsSlice,
     clinics: clinicsSlice,
+    specializations: specializationsSlice,
   },
 })
 

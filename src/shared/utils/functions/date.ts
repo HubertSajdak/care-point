@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from "dayjs"
 
-import { IWorkingHours } from "@/types/api-types"
+import { IAppointment, IWorkingHours } from "@/types/api-types"
 
 export const mapDayNamesToNumbers = (weekDay: string): number | undefined => {
   if (weekDay === "monday") return 1
@@ -26,7 +26,20 @@ export const enabledDays = (date: Dayjs, workingTime: IWorkingHours[]) => {
   return true
 }
 
-export const enabledTime = (date: Dayjs, workingTime: IWorkingHours[]) => {
+export const enabledTime = (
+  date: Dayjs,
+  workingTime: IWorkingHours[],
+  appointments: IAppointment[],
+) => {
+  const formattedSelectedDate = date.format("YYYY-MM-DD HH:mm")
+  const findAppointmentDate = appointments?.filter(
+    (appointment) =>
+      appointment.appointmentDate.split(" ")[0] ===
+      formattedSelectedDate.split(" ")[0],
+  )
+  const getHoursFromAppointments = findAppointmentDate.map((appointment) => {
+    return appointment.appointmentDate
+  })
   const findWorkingDay = workingTime.find(
     (el) => el.weekDay === dayjs(date).format("dddd").toLowerCase(),
   )
@@ -38,9 +51,19 @@ export const enabledTime = (date: Dayjs, workingTime: IWorkingHours[]) => {
     return false
   }
   const getHoursFromDate = dayjs(date).format("HH:mm")
+
   return (
     dayjs(getHoursFromDate, "HH:mm") >
       dayjs(findWorkingDay.startTime, "HH:mm") &&
-    dayjs(getHoursFromDate, "HH:mm") < dayjs(findWorkingDay.stopTime, "HH:mm")
+    dayjs(getHoursFromDate, "HH:mm") <
+      dayjs(findWorkingDay.stopTime, "HH:mm") &&
+    !getHoursFromAppointments.some((el) => {
+      return (
+        dayjs(el).format("YYYY-MM-DD HH:mm").split(" ")[1] ===
+        dayjs(getHoursFromDate, "HH:mm")
+          .format("YYYY-MM-DD HH:mm")
+          .split(" ")[1]
+      )
+    })
   )
 }

@@ -1,16 +1,24 @@
-import { Navigate, createBrowserRouter } from "react-router-dom"
+import { createBrowserRouter, Navigate } from "react-router-dom"
 
 import { RouteNames, UserRoles } from "@/constants"
 import { AccountManagement } from "@/features/accountManagement"
 import { MyAppointments } from "@/features/appointments"
 import { Login, Register } from "@/features/auth"
-import { AddClinic, AllClinics, EditClinic } from "@/features/clinics"
+import {
+  AddClinic,
+  AddClinicAffiliation,
+  AllClinics,
+  EditClinic,
+  EditClinicAffiliation,
+  MyClinics,
+} from "@/features/clinics"
 import {
   AllDoctors,
   DoctorSelection,
   MakeAppointment,
 } from "@/features/doctors"
 import { AllPatients } from "@/features/patients"
+import { MySpecializations } from "@/features/specializations"
 import { Start } from "@/features/start"
 import BasePageLayout from "@/layouts/BasePageLayout/BasePageLayout"
 import { UnauthorizedView } from "@/shared"
@@ -22,15 +30,19 @@ import PublicRoute from "./PublicRoute"
 const {
   ACCOUNT_MANAGEMENT,
   ADD_CLINIC,
+  ADD_CLINIC_AFFILIATION,
   ALL_CLINICS,
   ALL_DOCTORS,
   ALL_PATIENTS,
   DASHBOARD,
   DOCTORS_SELECTION,
   EDIT_CLINIC,
+  EDIT_CLINIC_AFFILIATION,
   LOGIN,
   MAKE_APPOINTMENT,
   MY_APPOINTMENTS,
+  MY_CLINICS,
+  MY_SPECIALIZATIONS,
   REGISTER,
   START,
   UNAUTHORIZED,
@@ -90,6 +102,16 @@ export const router = createBrowserRouter([
       { path: ADD_CLINIC, element: <AddClinic /> },
       { path: ALL_CLINICS, element: <AllClinics /> },
       { path: `${EDIT_CLINIC}/:clinicId`, element: <EditClinic /> },
+      { path: MY_CLINICS, element: <MyClinics /> },
+      { path: MY_SPECIALIZATIONS, element: <MySpecializations /> },
+      {
+        path: `${ADD_CLINIC_AFFILIATION}/:clinicId`,
+        element: <AddClinicAffiliation />,
+      },
+      {
+        path: `${EDIT_CLINIC_AFFILIATION}/:clinicAffiliationId`,
+        element: <EditClinicAffiliation />,
+      },
     ],
   },
   {

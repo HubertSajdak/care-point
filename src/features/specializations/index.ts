@@ -1,0 +1,7 @@
+export { default as MySpecializations } from "./views/MySpecializations"
+export { default as specializationsSlice } from "./store/specializationsSlice"
+export * from "./api/getSpecializations"
+export * from "./store/specializationsThunks"
+export * from "./api/getCurrentUserSpecializations"
+export * from "./api/createUserSpecialization"
+export * from "./api/deleteUserSpecialization"
