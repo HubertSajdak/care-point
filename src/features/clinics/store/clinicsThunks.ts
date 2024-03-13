@@ -6,9 +6,19 @@ import { errorHandler, generateUniqueFileName } from "@/shared"
 import { IAddress } from "@/types/api-types"
 
 import { addClinic } from "../api/addClinic"
+import {
+  addClinicAffiliation,
+  RequestAddClinicAffiliationData,
+} from "../api/addClinicAffiliation"
 import { getClinic } from "../api/getClinic"
+import { getClinicAffiliation } from "../api/getClinicAffiliation"
 import { getClinics } from "../api/getClinics"
+import { getUserClinics } from "../api/getUserClinics"
 import { removeClinicPhoto } from "../api/removeClinicPhoto"
+import {
+  RequestUpdateClinicAffiliationData,
+  updateAffiliation,
+} from "../api/updateAffiliation"
 import { updateClinic } from "../api/updateClinic"
 import { uploadPhoto } from "../api/uploadPhoto"
 
@@ -76,6 +86,53 @@ export const getAllClinics = createAsyncThunk(
     try {
       const res = await getClinics(params)
       return res.data
+    } catch (error) {
+      errorHandler({ error, thunkAPI })
+    }
+  },
+)
+
+export const getUserClinicsAffiliations = createAsyncThunk(
+  "clinics/getUserClinicsAffiliations",
+  async (_, thunkAPI) => {
+    try {
+      const res = await getUserClinics()
+      return res.data
+    } catch (error) {
+      errorHandler({ error, thunkAPI })
+    }
+  },
+)
+export const getSingleClinicAffiliation = createAsyncThunk(
+  "clinics/getSingleClinicAffiliation",
+  async (id: string, thunkAPI) => {
+    try {
+      const res = await getClinicAffiliation(id)
+      return res.data
+    } catch (error) {
+      errorHandler({ error, thunkAPI })
+    }
+  },
+)
+export const createUserClinicAffiliation = createAsyncThunk(
+  "clinics/createUserClinicAffiliation",
+  async (values: RequestAddClinicAffiliationData, thunkAPI) => {
+    try {
+      const res = await addClinicAffiliation(values)
+      toast.success(res.data.message)
+    } catch (error) {
+      errorHandler({ error, thunkAPI })
+    }
+  },
+)
+export const updateClinicAffiliation = createAsyncThunk(
+  "clinics/updateClinicAffiliation",
+  async (values: RequestUpdateClinicAffiliationData, thunkAPI) => {
+    try {
+      const res = await updateAffiliation(values.clinicAffiliationId, {
+        ...values,
+      })
+      toast.success(res.data.message)
     } catch (error) {
       errorHandler({ error, thunkAPI })
     }

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 
 import { useAppDispatch } from "@/app/hooks"
 import { getSingleDoctor } from "@/features/doctors"
+import { getDoctorAppointments } from "@/redux"
 
 import MakeAppointmentForm from "../components/MakeAppointmentForm/MakeAppointmentForm"
 
@@ -15,6 +16,7 @@ const MakeAppointment = () => {
   useEffect(() => {
     if (!doctorId) return
     dispatch(getSingleDoctor(doctorId))
+    dispatch(getDoctorAppointments(doctorId))
   }, [dispatch, doctorId])
 
   return (

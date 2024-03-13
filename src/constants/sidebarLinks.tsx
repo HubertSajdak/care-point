@@ -6,6 +6,7 @@ import DomainAddIcon from "@mui/icons-material/DomainAdd"
 import GroupIcon from "@mui/icons-material/Group"
 import GroupsIcon from "@mui/icons-material/Groups"
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital"
+import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork"
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation"
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices"
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom"
@@ -16,6 +17,7 @@ import SettingsIcon from "@mui/icons-material/Settings"
 import { SidebarLinksProps } from "@/layouts/DashboardLayout/types"
 
 import { RouteNames } from "./routes"
+
 const {
   ACCOUNT_MANAGEMENT,
   ADD_CLINIC,
@@ -25,7 +27,8 @@ const {
   CLINIC_AFFILIATION,
   DOCTORS_SELECTION,
   MY_APPOINTMENTS,
-  SPECIALIZATIONS,
+  MY_CLINICS,
+  MY_SPECIALIZATIONS,
   START,
 } = RouteNames
 export const doctorSidebarLinks: SidebarLinksProps[] = [
@@ -59,7 +62,7 @@ export const doctorSidebarLinks: SidebarLinksProps[] = [
       {
         id: 4,
         text: "sidebar:mySpecializations",
-        path: SPECIALIZATIONS,
+        path: MY_SPECIALIZATIONS,
         icon: <MedicalServicesIcon />,
       },
     ],
@@ -89,10 +92,16 @@ export const doctorSidebarLinks: SidebarLinksProps[] = [
         path: ALL_CLINICS,
         icon: <CorporateFareIcon />,
       },
+      {
+        id: 9,
+        text: "sidebar:myClinics",
+        path: MY_CLINICS,
+        icon: <MapsHomeWorkIcon />,
+      },
     ],
   },
   {
-    id: 9,
+    id: 10,
     variant: "nested",
     text: "sidebar:settings",
     icon: <SettingsIcon />,

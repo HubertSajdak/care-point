@@ -1,5 +1,6 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
+import { getCurrentUserAppointments, getDoctorAppointments } from "@/redux"
 import {
   IAppointment,
   IAppointmentStatus,
@@ -7,10 +8,13 @@ import {
   ReqStatus,
 } from "@/types/api-types"
 
-import { getCurrentUserAppointments } from "./appointmentsThunks"
 interface InitialStateValues {
   appointmentFilter: IAppointmentStatus | "all"
   currentPage: number
+  doctorAppointments: {
+    data: IAppointment[]
+    totalItems: number
+  } | null
   pageSize: number
   search: string
   sortBy: string
@@ -19,6 +23,7 @@ interface InitialStateValues {
   totalItems: number
   userAppointmentsData: IAppointment[] | null
 }
+
 const initialState: InitialStateValues = {
   status: "idle",
   currentPage: 1,
@@ -29,6 +34,7 @@ const initialState: InitialStateValues = {
   userAppointmentsData: null,
   totalItems: 0,
   appointmentFilter: "all",
+  doctorAppointments: null,
 }
 const appointmentsSlice = createSlice({
   name: "appointments",
@@ -79,9 +85,22 @@ const appointmentsSlice = createSlice({
         state.status = "idle"
       },
     )
-    builder.addCase(getCurrentUserAppointments.rejected, (state) => {
-      state.status = "error"
-    })
+    builder
+      .addCase(getCurrentUserAppointments.rejected, (state) => {
+        state.status = "error"
+      })
+      .addCase(getDoctorAppointments.pending, (state) => {
+        state.status = "loading"
+      })
+      .addCase(getDoctorAppointments.fulfilled, (state, { payload }) => {
+        if (payload) {
+          state.doctorAppointments = payload
+        }
+        state.status = "idle"
+      })
+      .addCase(getDoctorAppointments.rejected, (state) => {
+        state.status = "error"
+      })
   },
 })
 export const {

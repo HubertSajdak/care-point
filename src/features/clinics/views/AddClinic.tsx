@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material"
+import { Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
 import AddClinicForm from "../components/AddClinicForm/AddClinicForm"
@@ -13,9 +13,9 @@ const AddClinic = () => {
       <Typography component="h3" mb={2} variant="subtitle1">
         {t("clinic:addClinicSubtitle")}
       </Typography>
-      <Box>
+      <div>
         <AddClinicForm />
-      </Box>
+      </div>
     </div>
   )
 }

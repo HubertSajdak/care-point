@@ -7,14 +7,14 @@ import {
   Divider,
   Paper,
   Stack,
-  Typography,
   styled,
+  Typography,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import { useTheme } from "styled-components"
 
 import { BASE_URL, RouteNames } from "@/constants"
-import { LinkButton, truncateString } from "@/shared"
+import { LinkButton, stringToColor, truncateString } from "@/shared"
 import { IClinicAffiliation, IDoctorSpecialization } from "@/types/api-types"
 
 interface DoctorCardProps {
@@ -26,25 +26,6 @@ interface DoctorCardProps {
   specializations: IDoctorSpecialization[]
 }
 
-const stringToColor = (string: string) => {
-  let hash = 0
-  let i
-
-  /* eslint-disable no-bitwise */
-  for (i = 0; i < string.length; i += 1) {
-    hash = string.charCodeAt(i) + ((hash << 5) - hash)
-  }
-
-  let color = "#"
-
-  for (i = 0; i < 3; i += 1) {
-    const value = (hash >> (i * 8)) & 0xff
-    color += `00${value.toString(16)}`.slice(-2)
-  }
-  /* eslint-enable no-bitwise */
-
-  return color
-}
 const DoctorCard = ({
   clinicAffiliations,
   doctorId,
@@ -57,7 +38,12 @@ const DoctorCard = ({
   const { t } = useTranslation(["appointment"])
   return (
     <StyledPaper>
-      <Box alignItems="center" display="flex" gap={2}>
+      <Box
+        alignItems="center"
+        display="flex"
+        gap={2}
+        sx={{ flexDirection: { xs: "column", sm: "row" } }}
+      >
         <Avatar
           alt={name}
           src={photo ? BASE_URL + photo : ""}

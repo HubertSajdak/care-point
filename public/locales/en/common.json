@@ -26,6 +26,36 @@
     "saturday": "saturday",
     "sunday": "sunday"
   },
+  "consultationTimeOptions": {
+    "15mins": "15 minutes",
+    "30mins": "30 minutes",
+    "45mins": "45 minutes",
+    "1hour": "1 hour",
+    "1hour15mins": "1 hour 15 minutes",
+    "1hour30mins": "1 hour 30 minutes",
+    "1hour45mins": "1 hour 45 minutes",
+    "2hours": "2 hours"
+  },
+  "specializations": {
+    "radiology": "radiology",
+    "allergology": "allergology",
+    "surgery": "surgery",
+    "dermatology": "dermatology",
+    "endocrinology": "endocrinology",
+    "gynecology": "gynecology",
+    "dietetics": "dietetics",
+    "gastroenterology": "gastroenterology",
+    "cardiology": "cardiology",
+    "laryngology": "laryngology",
+    "ophthalmology": "ophthalmology",
+    "neurology": "neurology",
+    "oncology": "oncology",
+    "orthopedics": "orthopedics",
+    "pediatrics": "pediatrics",
+    "dentistry": "dentistry",
+    "pulmonology": "pulmonology",
+    "urology": "urology"
+  },
   "errors": {
     "fetchDataError": "There was an error with fetching the data",
     "noClinicAffiliations": "The selected doctor is not assigned to any clinic"

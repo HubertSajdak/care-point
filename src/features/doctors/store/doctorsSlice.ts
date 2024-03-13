@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { IDoctorUser, ISortDirection, ReqStatus } from "@/types/api-types"
 
@@ -15,11 +15,12 @@ interface InitialDoctorsDataValues {
   status: ReqStatus
   totalItems: number
 }
+
 const initialState: InitialDoctorsDataValues = {
   search: "",
   sortBy: "name",
   sortDirection: "asc",
-  pageSize: 5,
+  pageSize: 6,
   currentPage: 1,
   status: "idle",
   data: null,

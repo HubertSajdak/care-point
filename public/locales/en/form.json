@@ -53,7 +53,8 @@
     "visitTime": "at",
     "clinicName": "clinic name",
     "address": "address",
-    "confirmBtn": "confirm appointment"
+    "confirmBtn": "confirm appointment",
+    "consultationTime": "consultation time"
   },
   "clinic": {
     "clinicName": "clinic name",

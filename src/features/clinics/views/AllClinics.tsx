@@ -1,4 +1,5 @@
 import EditNoteIcon from "@mui/icons-material/EditNote"
+import SettingsIcon from "@mui/icons-material/Settings"
 import VisibilityIcon from "@mui/icons-material/Visibility"
 import { Box, IconButton, Typography } from "@mui/material"
 import { useEffect } from "react"
@@ -104,9 +105,15 @@ const AllClinics = () => {
                 </IconButton>
                 <IconButton
                   component={Link}
-                  to={`${RouteNames.EDIT_CLINIC}/${row._id}`}
+                  to={`${RouteNames.ADD_CLINIC_AFFILIATION}/${row._id}`}
                 >
                   <EditNoteIcon color="primary" />
+                </IconButton>
+                <IconButton
+                  component={Link}
+                  to={`${RouteNames.EDIT_CLINIC}/${row._id}`}
+                >
+                  <SettingsIcon color="primary" />
                 </IconButton>
               </>
             ),

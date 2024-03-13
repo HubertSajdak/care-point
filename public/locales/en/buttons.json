@@ -12,5 +12,6 @@
   "uploadPhoto": "upload photo",
   "back": "back",
   "next": "next",
-  "select": "select"
+  "select": "select",
+  "edit": "edit"
 }

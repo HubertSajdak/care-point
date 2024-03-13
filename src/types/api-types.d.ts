@@ -6,43 +6,52 @@ export type IAppointmentStatus =
   | "postponed"
   | "completed"
 export type ISortDirection = "asc" | "desc"
+
 export interface SuccessReqMsg {
   message: string
 }
+
 export interface SuccessReqData<T> {
   data: T
   numOfPages: number
   totalItems: number
 }
+
 export enum LogoutMsg {
   ACC_REMOVED = "common:logoutMsg.accRemoved",
   LOGOUT = "common:logoutMsg.logout",
   SERVER_ERROR = "common:logoutMsg.serverError",
   SESSION_EXPIRED = "common:logoutMsg.sessionExpired",
 }
+
 export interface LogoutPayload {
   msg: LogoutMsg
   type: "success" | "error"
 }
+
 export interface FailedReqMsg {
   error?: any
   message: string
 }
+
 export interface IAddress {
   city: string
   postalCode: string
   street: string
 }
+
 export interface ISpecialization {
   _id: string
   specializationKey: string
 }
+
 export interface IDoctorSpecialization {
   Specialization: ISpecialization
   _id: string
   doctorId: string
   specializationId: string
 }
+
 export type IWeekDays =
   | "monday"
   | "tuesday"
@@ -51,6 +60,7 @@ export type IWeekDays =
   | "friday"
   | "saturday"
   | "sunday"
+
 export interface IWorkingHours {
   _id: string
   startTime: string
@@ -66,6 +76,7 @@ export interface IClinicInfo {
   photo?: string
   workingTime: IWorkingHours[]
 }
+
 export interface IClinicAffiliation {
   _id: string
   absenceTime: {
@@ -80,8 +91,9 @@ export interface IClinicAffiliation {
   doctorId: string
   reasonOfAbsence: string
   timePerPatient: number
-  workingHours: IWorkingHours[]
+  workingTime: IWorkingHours[]
 }
+
 export interface IPatientUser {
   _id: string
   address: IAddress
@@ -114,6 +126,7 @@ export interface ReqeustRegisterPatientCredentials {
   role: IUserRoles
   surname: string
 }
+
 export interface ReqeustRegisterDoctorCredentials {
   email: string
   name: string
@@ -126,11 +139,13 @@ export interface ReqLoginCredentials {
   email: string
   password: string
 }
+
 export interface ResLogin {
   accessToken: string
   message: string
   refreshToken: string
 }
+
 export type ReqChangePassword = Record<password, confirmPassword, "string">
 
 export interface ParamsValues {
@@ -153,4 +168,16 @@ export interface IAppointment {
   doctorId: string
   doctorInfo: Pick<IDoctorUser, "name" | "surname" | "photo" | "_id">
   patientId: string
+}
+
+export interface ISpecializations {
+  _id: string
+  specializationKey: string
+}
+
+export interface IUserSpecializations {
+  Specialization: ISpecialization
+  _id: string
+  doctorId: string
+  specializationId: string
 }

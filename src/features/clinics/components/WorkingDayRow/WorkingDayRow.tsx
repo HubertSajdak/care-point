@@ -1,23 +1,35 @@
 import { Divider, Grid, Typography } from "@mui/material"
-import dayjs from "dayjs"
+import { Dayjs } from "dayjs"
 import { useFormikContext } from "formik"
 
 import { AddClinicFormValues } from "@/libs"
 import { TimePicker } from "@/shared"
 interface WorkingDayRowProps {
+  disableStartTime?: boolean
+  disableStopTime?: boolean
   id: number
   label: string
   startTimeLabel: string
+  startTimeMaxTime?: Dayjs | undefined
+  startTimeMinTime?: Dayjs | undefined
   startTimeName: string
   stopTimeLabel: string
+  stopTimeMaxTime?: Dayjs | undefined
+  stopTimeMinTime?: Dayjs | undefined
   stopTimeName: string
 }
 const WorkingDayRow = ({
+  disableStartTime,
+  disableStopTime,
   id,
   label,
   startTimeLabel,
+  startTimeMaxTime,
+  startTimeMinTime,
   startTimeName,
   stopTimeLabel,
+  stopTimeMaxTime,
+  stopTimeMinTime,
   stopTimeName,
 }: WorkingDayRowProps) => {
   const { setFieldValue, values } = useFormikContext<AddClinicFormValues>()
@@ -36,11 +48,14 @@ const WorkingDayRow = ({
       <Grid sm={3} xs={12} item>
         <TimePicker
           ampm={false}
+          disabled={disableStartTime}
           label={startTimeLabel}
+          maxTime={startTimeMaxTime}
+          minTime={startTimeMinTime}
           minutesStep={5}
           name={startTimeName}
           onChange={() => {
-            setFieldValue(`workingTime[${id}].stopTime`, "")
+            setFieldValue(`${stopTimeName}`, "")
           }}
         />
       </Grid>
@@ -57,12 +72,10 @@ const WorkingDayRow = ({
       <Grid sm={3} xs={12} item>
         <TimePicker
           ampm={false}
-          disabled={!values.workingTime[id].startTime}
+          disabled={disableStopTime}
           label={stopTimeLabel}
-          minTime={dayjs(`2018-04-04 ${values.workingTime[id].startTime}`).add(
-            15,
-            "minute",
-          )}
+          maxTime={stopTimeMaxTime}
+          minTime={stopTimeMinTime}
           minutesStep={5}
           name={stopTimeName}
         />

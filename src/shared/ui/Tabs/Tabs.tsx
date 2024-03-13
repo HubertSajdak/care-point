@@ -1,6 +1,6 @@
 import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
-import { useTheme } from "@mui/material/styles"
+import { SxProps, useTheme } from "@mui/material/styles"
 import MuiTab from "@mui/material/Tab"
 import MuiTabs from "@mui/material/Tabs"
 import * as React from "react"
@@ -34,10 +34,19 @@ export interface ItemsToRenderProps {
   label: string
   render: React.ReactNode
 }
+
 export interface FullWidthTabsProps {
+  appBarSx?: SxProps
   content: ItemsToRenderProps[]
+  tabsSx?: SxProps
+  viewSx?: SxProps
 }
-export default function Tabs({ content }: FullWidthTabsProps) {
+
+export default function Tabs({
+  appBarSx,
+  content,
+  tabsSx,
+}: FullWidthTabsProps) {
   const theme = useTheme()
   const [value, setValue] = React.useState(0)
 
@@ -51,7 +60,7 @@ export default function Tabs({ content }: FullWidthTabsProps) {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="static" sx={appBarSx}>
         <MuiTabs
           aria-label="full width tabs example"
           indicatorColor="secondary"
@@ -62,7 +71,12 @@ export default function Tabs({ content }: FullWidthTabsProps) {
         >
           {content.map((item) => {
             return (
-              <MuiTab key={item.id} label={item.label} tabIndex={item.id} />
+              <MuiTab
+                key={item.id}
+                label={item.label}
+                sx={tabsSx}
+                tabIndex={item.id}
+              />
             )
           })}
         </MuiTabs>

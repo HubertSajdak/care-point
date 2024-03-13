@@ -29,7 +29,7 @@ export interface ClinicCardProps {
     clinicId: string,
   ) => void
   photo?: string
-  workingHours: IWorkingHours[]
+  workingTime: IWorkingHours[]
 }
 
 const ClinicCard = ({
@@ -41,7 +41,7 @@ const ClinicCard = ({
   id,
   onClick,
   photo,
-  workingHours,
+  workingTime,
 }: ClinicCardProps) => {
   const { t } = useTranslation()
   return (
@@ -74,7 +74,7 @@ const ClinicCard = ({
           >
             {t("appointment:clinicCard.workingHours")}:
           </Typography>
-          {workingHours.map((el) => {
+          {workingTime.map((el) => {
             return (
               <Typography
                 color="text.secondary"
