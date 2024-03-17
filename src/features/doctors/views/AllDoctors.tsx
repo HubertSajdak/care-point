@@ -8,52 +8,48 @@ import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
+import { setTableQueryParams } from "@/features/doctors"
 import { Table } from "@/shared"
 import { ISortDirection } from "@/types/api-types"
 
-import {
-  changePage,
-  changeRowsPerPage,
-  changeSearch,
-  changeSort,
-} from "../store/doctorsSlice"
 import { getAllDoctors } from "../store/doctorsThunks"
 
 const AllDoctors = () => {
   const {
-    currentPage,
     data,
-    pageSize,
-    search,
-    sortBy,
-    sortDirection,
     status,
+    tableQueryParams: { currentPage, pageSize, search, sortBy, sortDirection },
     totalItems,
   } = useAppSelector((state) => state.doctors)
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   useEffect(() => {
-    dispatch(getAllDoctors())
-  }, [dispatch, search, sortBy, sortDirection, pageSize, currentPage])
+    dispatch(getAllDoctors(false))
+  }, [dispatch, currentPage, pageSize, search, sortBy, sortDirection])
 
   const handleChangeSort = (
     sortingProperty: string,
     sortingDirection: ISortDirection,
   ) => {
-    dispatch(changeSort({ sortingProperty, sortingDirection }))
+    dispatch(
+      setTableQueryParams({
+        sortBy: sortingProperty,
+        sortDirection: sortingDirection,
+      }),
+    )
   }
   const handleChangePage = (page: number) => {
-    dispatch(changePage(page))
+    dispatch(setTableQueryParams({ currentPage: page }))
   }
 
   const handleChangeRowsPerPage = (rowsPerPage: number) => {
-    dispatch(changeRowsPerPage(rowsPerPage))
+    dispatch(setTableQueryParams({ pageSize: rowsPerPage }))
   }
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
-    dispatch(changeSearch(search))
+    dispatch(setTableQueryParams({ search }))
   }, 1000)
   const handleRefreshContent = async () => {
-    await dispatch(getAllDoctors())
+    await dispatch(getAllDoctors(false))
   }
   return (
     <Box>
@@ -95,17 +91,20 @@ const AllDoctors = () => {
             key: "actions",
             label: t("table:heading.actions"),
             render: (row) => (
-              <>
+              <Box display="flex">
                 <IconButton
                   component={Link}
                   to={`${RouteNames.MAKE_APPOINTMENT}/${row._id}`}
                 >
                   <AssignmentIcon color="primary" />
                 </IconButton>
-                <IconButton>
+                <IconButton
+                  component={Link}
+                  to={`${RouteNames.ALL_DOCTORS}/${row._id}`}
+                >
                   <AssignmentIndIcon color="primary" />
                 </IconButton>
-              </>
+              </Box>
             ),
             isImage: false,
             isSortable: false,

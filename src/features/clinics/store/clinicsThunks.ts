@@ -74,15 +74,8 @@ export const getAllClinics = createAsyncThunk(
   "clinics/getAllClinics",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState() as RootState
-    const { currentPage, pageSize, search, sortBy, sortDirection } =
-      state.clinics
-    const params = {
-      sortBy,
-      sortDirection,
-      pageSize,
-      currentPage,
-      ...(search && { search }),
-    }
+    const { queryParams } = state.clinics
+    const params = { ...queryParams }
     try {
       const res = await getClinics(params)
       return res.data

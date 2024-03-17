@@ -16,8 +16,9 @@ import {
   AllDoctors,
   DoctorSelection,
   MakeAppointment,
+  SingleDoctor,
 } from "@/features/doctors"
-import { AllPatients } from "@/features/patients"
+import { AllPatients, SinglePatient } from "@/features/patients"
 import { MySpecializations } from "@/features/specializations"
 import { Start } from "@/features/start"
 import BasePageLayout from "@/layouts/BasePageLayout/BasePageLayout"
@@ -61,7 +62,7 @@ export const router = createBrowserRouter([
         <BasePageLayout />
       </PublicRoute>
     ),
-    errorElement: <h1>An Error Occured</h1>,
+    errorElement: <h1>An Error Occurred</h1>,
     children: [
       { index: true, element: <Navigate to={LOGIN} /> },
       { path: LOGIN, element: <Login /> },
@@ -112,6 +113,7 @@ export const router = createBrowserRouter([
         path: `${EDIT_CLINIC_AFFILIATION}/:clinicAffiliationId`,
         element: <EditClinicAffiliation />,
       },
+      { path: `${ALL_PATIENTS}/:patientId`, element: <SinglePatient /> },
     ],
   },
   {
@@ -131,6 +133,7 @@ export const router = createBrowserRouter([
       { path: DOCTORS_SELECTION, element: <DoctorSelection /> },
       { path: `${MAKE_APPOINTMENT}/:doctorId`, element: <MakeAppointment /> },
       { path: MY_APPOINTMENTS, element: <MyAppointments /> },
+      { path: `${ALL_DOCTORS}/:doctorId`, element: <SingleDoctor /> },
     ],
   },
 ])

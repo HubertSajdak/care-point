@@ -1,60 +1,65 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-import { IDoctorUser, ISortDirection, ReqStatus } from "@/types/api-types"
+import { IDoctorUser, IQueryParams, ReqStatus } from "@/types/api-types"
 
 import { getAllDoctors, getSingleDoctor } from "./doctorsThunks"
 
 interface InitialDoctorsDataValues {
-  currentPage: number
+  appointmentsQueryParams: IQueryParams
   data: IDoctorUser[] | null
-  pageSize: number
-  search: string
   selectedDoctorData: IDoctorUser | null
-  sortBy: string
-  sortDirection: ISortDirection
   status: ReqStatus
+  tableQueryParams: IQueryParams
   totalItems: number
 }
 
 const initialState: InitialDoctorsDataValues = {
-  search: "",
-  sortBy: "name",
-  sortDirection: "asc",
-  pageSize: 6,
-  currentPage: 1,
   status: "idle",
   data: null,
   selectedDoctorData: null,
   totalItems: 0,
+  tableQueryParams: {
+    currentPage: 1,
+    pageSize: 5,
+    search: "",
+    sortBy: "name",
+    sortDirection: "asc",
+  },
+  appointmentsQueryParams: {
+    currentPage: 1,
+    pageSize: 6,
+    search: "",
+    sortBy: "name",
+    sortDirection: "asc",
+  },
 }
 
 const doctorsSlice = createSlice({
   name: "doctors",
   initialState,
   reducers: {
-    changeSort: (
+    setTableQueryParams: (
       state,
-      {
-        payload,
-      }: PayloadAction<{
-        sortingDirection: ISortDirection
-        sortingProperty: string
-      }>,
-    ) => {
-      state.sortBy = payload.sortingProperty
-      state.sortDirection = payload.sortingDirection
-    },
-    changePage: (state, { payload }: PayloadAction<number>) => {
-      state.currentPage = payload
-    },
-    changeRowsPerPage: (state, { payload }: PayloadAction<number>) => {
-      state.pageSize = payload
-      state.currentPage = 1
-    },
-    changeSearch: (state, { payload }: PayloadAction<string>) => {
-      state.search = payload
-      state.currentPage = 1
-    },
+      { payload }: PayloadAction<Partial<IQueryParams>>,
+    ) => ({
+      ...state,
+      tableQueryParams: {
+        ...state.tableQueryParams,
+        ...payload,
+        ...(!payload.currentPage && { currentPage: 1 }),
+      },
+    }),
+    setAppointmentsQueryParams: (
+      state,
+      { payload }: PayloadAction<Partial<IQueryParams>>,
+    ) => ({
+      ...state,
+      appointmentsQueryParams: {
+        ...state.appointmentsQueryParams,
+        ...payload,
+        ...(!payload.currentPage && { currentPage: 1 }),
+      },
+    }),
   },
   extraReducers: (builder) => {
     builder
@@ -85,6 +90,6 @@ const doctorsSlice = createSlice({
       })
   },
 })
-export const { changePage, changeRowsPerPage, changeSearch, changeSort } =
+export const { setAppointmentsQueryParams, setTableQueryParams } =
   doctorsSlice.actions
 export default doctorsSlice.reducer

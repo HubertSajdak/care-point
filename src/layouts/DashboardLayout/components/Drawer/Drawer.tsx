@@ -1,8 +1,6 @@
-import { useMediaQuery } from "@mui/material"
 import Box from "@mui/material/Box"
 import MuiDrawer from "@mui/material/Drawer"
 import List from "@mui/material/List"
-import { useTheme } from "styled-components"
 
 import Logo from "@/assets/images/care-point-full-logo.svg?react"
 
@@ -13,15 +11,15 @@ export default function Drawer({
   drawerWidth,
   handleDrawerToggle,
   isOpen,
+  isSmallView,
   sidebarLinks,
 }: {
   drawerWidth: number
   handleDrawerToggle: () => void
   isOpen: boolean
+  isSmallView: boolean
   sidebarLinks: SidebarLinksProps[]
 }) {
-  const theme = useTheme()
-  const isSmall = useMediaQuery(theme.breakpoints.down("sm"))
   const drawer = (
     <div>
       <Logo height={56} style={{ marginTop: 20 }} width={"100%"} />
@@ -55,7 +53,7 @@ export default function Drawer({
         }}
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        {isSmall ? (
+        {isSmallView ? (
           <MuiDrawer
             ModalProps={{
               keepMounted: true, // Better open performance on mobile.

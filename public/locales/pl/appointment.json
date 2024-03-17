@@ -9,7 +9,9 @@
     "worksAt": "pracuje w",
     "noOfficeAssigned": "brak przypisanych biur",
     "makeAppointment": "umów wizytę",
-    "viewProfile": "wyświetl profil"
+    "viewProfile": "wyświetl profil",
+    "incomingAppointments": "nadchodzące wizyty",
+    "completedAppointments": "zakończone wizyty"
   },
   "clinicCard": {
     "consultationFee": "opłata za konsultację",

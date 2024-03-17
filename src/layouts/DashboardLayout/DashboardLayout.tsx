@@ -1,19 +1,21 @@
-import { CircularProgress, Container } from "@mui/material"
+import { CircularProgress, Container, useMediaQuery } from "@mui/material"
 import Box from "@mui/material/Box"
 import { useState } from "react"
 import { Outlet } from "react-router-dom"
-import styled from "styled-components"
+import styled, { useTheme } from "styled-components"
 
 import AppBar from "./components/AppBar/AppBar"
 import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs"
 import Drawer from "./components/Drawer/Drawer"
 import { SidebarLinksProps } from "./types"
+
 export interface DashboardLayoutProps {
   isUserDataLoading: boolean
   sidebarLinks: SidebarLinksProps[]
   userAvatar: string
   userName: string
 }
+
 const DashboardLayout = ({
   isUserDataLoading,
   sidebarLinks,
@@ -25,6 +27,8 @@ const DashboardLayout = ({
   const handleOpenSidebar = () => {
     setIsSidebarOpen((prev) => !prev)
   }
+  const theme = useTheme()
+  const isSmall = useMediaQuery(theme.breakpoints.down("md"))
 
   return (
     <Box data-testid="dashboard-layout">
@@ -32,6 +36,7 @@ const DashboardLayout = ({
         drawerWidth={drawerWidth}
         handleDrawerToggle={handleOpenSidebar}
         isOpen={isSidebarOpen}
+        isSmallView={isSmall}
         isUserDataLoading={isUserDataLoading}
         userAvatar={userAvatar}
         userName={userName}
@@ -40,29 +45,22 @@ const DashboardLayout = ({
         drawerWidth={drawerWidth}
         handleDrawerToggle={handleOpenSidebar}
         isOpen={isSidebarOpen}
+        isSmallView={isSmall}
         sidebarLinks={sidebarLinks}
       />
-      <Breadcrumbs drawerWidth={drawerWidth} isSidebarOpen={isSidebarOpen} />
-      <StyledBox
-        $drawerwidth={drawerWidth}
-        $issidebaropen={isSidebarOpen}
-        component="main"
-      >
-        {isUserDataLoading ? (
-          <CircularProgress />
-        ) : (
-          <Container maxWidth="xl">
-            <Outlet />
-          </Container>
-        )}
-      </StyledBox>
+      <StyledMain $drawerwidth={drawerWidth} $issidebaropen={isSidebarOpen}>
+        <Container maxWidth="xl">
+          <Breadcrumbs />
+          {isUserDataLoading ? <CircularProgress /> : <Outlet />}
+        </Container>
+      </StyledMain>
     </Box>
   )
 }
 
 export default DashboardLayout
 
-const StyledBox = styled(Box)<{
+const StyledMain = styled.main<{
   $drawerwidth: number
   $issidebaropen: boolean
 }>(({ $drawerwidth, $issidebaropen, theme }) => ({
@@ -72,7 +70,7 @@ const StyledBox = styled(Box)<{
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up("md")]: {
     ...($issidebaropen && {
       width: `calc(100% - ${$drawerwidth}px)`,
       marginLeft: `${$drawerwidth}px`,

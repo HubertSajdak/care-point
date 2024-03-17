@@ -1,30 +1,24 @@
-import { Box, Typography } from "@mui/material"
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
+import { Box, IconButton, Typography } from "@mui/material"
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
+import { Link } from "react-router-dom"
 import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
+import { RouteNames } from "@/constants"
+import { setQueryParams } from "@/features/patients"
 import { Table } from "@/shared"
 import { ISortDirection } from "@/types/api-types"
 
-import {
-  changePage,
-  changeRowsPerPage,
-  changeSearch,
-  changeSort,
-} from "../store/patientsSlice"
 import { getAllPatients } from "../store/patientsThunks"
 
 const AllPatients = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const {
-    currentPage,
     data,
-    pageSize,
-    search,
-    sortBy,
-    sortDirection,
+    queryParams: { currentPage, pageSize, search, sortBy, sortDirection },
     status,
     totalItems,
   } = useAppSelector((state) => state.patients)
@@ -32,22 +26,29 @@ const AllPatients = () => {
   useEffect(() => {
     dispatch(getAllPatients())
   }, [dispatch, search, sortBy, sortDirection, pageSize, currentPage])
-
+  useEffect(() => {
+    dispatch(setQueryParams({ pageSize: 5 }))
+  }, [dispatch])
   const handleChangeSort = (
     sortingProperty: string,
     sortingDirection: ISortDirection,
   ) => {
-    dispatch(changeSort({ sortingProperty, sortingDirection }))
+    dispatch(
+      setQueryParams({
+        sortBy: sortingProperty,
+        sortDirection: sortingDirection,
+      }),
+    )
   }
   const handleChangePage = (page: number) => {
-    dispatch(changePage(page))
+    dispatch(setQueryParams({ currentPage: page }))
   }
 
   const handleChangeRowsPerPage = (rowsPerPage: number) => {
-    dispatch(changeRowsPerPage(rowsPerPage))
+    dispatch(setQueryParams({ pageSize: rowsPerPage }))
   }
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
-    dispatch(changeSearch(search))
+    dispatch(setQueryParams({ search }))
   }, 1000)
   const handleRefreshContent = async () => {
     await dispatch(getAllPatients())
@@ -116,6 +117,23 @@ const AllPatients = () => {
             highlight: true,
             render: (row) => row.phoneNumber,
             isSortable: true,
+          },
+          {
+            key: "actions",
+            label: t("table:heading.actions"),
+            render: (row) => (
+              <>
+                <IconButton
+                  component={Link}
+                  to={`${RouteNames.ALL_PATIENTS}/${row._id}`}
+                >
+                  <AssignmentIndIcon color="primary" />
+                </IconButton>
+              </>
+            ),
+            isImage: false,
+            isSortable: false,
+            highlight: false,
           },
         ]}
         data={data ? data : []}

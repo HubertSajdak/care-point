@@ -1,28 +1,24 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import {
   IClinicAffiliation,
   IClinicInfo,
-  ISortDirection,
+  IQueryParams,
   ReqStatus,
 } from "@/types/api-types"
 
 import {
   getAllClinics,
   getSingleClinic,
-  getUserClinicsAffiliations,
   getSingleClinicAffiliation,
+  getUserClinicsAffiliations,
 } from "./clinicsThunks"
 
 interface InitialClinicsValues {
   clinics: IClinicInfo[] | null
-  currentPage: number
-  pageSize: number
-  search: string
+  queryParams: IQueryParams
   singleClinic: IClinicInfo | null
   singleClinicAffiliation: IClinicAffiliation | null
-  sortBy: string
-  sortDirection: ISortDirection
   status: ReqStatus
   totalItems: number
   userClinicAffiliations: {
@@ -34,12 +30,14 @@ interface InitialClinicsValues {
 const initialState: InitialClinicsValues = {
   status: "idle",
   clinics: null,
-  currentPage: 1,
-  pageSize: 5,
-  search: "",
-  sortBy: "clinicName",
-  sortDirection: "asc",
   totalItems: 0,
+  queryParams: {
+    currentPage: 1,
+    pageSize: 5,
+    search: "",
+    sortBy: "clinicName",
+    sortDirection: "asc",
+  },
   singleClinic: null,
   singleClinicAffiliation: null,
   userClinicAffiliations: {
@@ -52,29 +50,17 @@ const clinicsSlice = createSlice({
   name: "clinics",
   initialState,
   reducers: {
-    changeSort: (
+    setQueryParams: (
       state,
-      {
-        payload,
-      }: PayloadAction<{
-        sortingDirection: ISortDirection
-        sortingProperty: string
-      }>,
-    ) => {
-      state.sortBy = payload.sortingProperty
-      state.sortDirection = payload.sortingDirection
-    },
-    changePage: (state, { payload }: PayloadAction<number>) => {
-      state.currentPage = payload
-    },
-    changeRowsPerPage: (state, { payload }: PayloadAction<number>) => {
-      state.pageSize = payload
-      state.currentPage = 1
-    },
-    changeSearch: (state, { payload }: PayloadAction<string>) => {
-      state.search = payload
-      state.currentPage = 1
-    },
+      { payload }: PayloadAction<Partial<IQueryParams>>,
+    ) => ({
+      ...state,
+      queryParams: {
+        ...state.queryParams,
+        ...payload,
+        ...(!payload.currentPage && { currentPage: 1 }),
+      },
+    }),
   },
   extraReducers: (builder) => {
     builder
@@ -130,6 +116,5 @@ const clinicsSlice = createSlice({
       })
   },
 })
-export const { changePage, changeRowsPerPage, changeSearch, changeSort } =
-  clinicsSlice.actions
+export const { setQueryParams } = clinicsSlice.actions
 export default clinicsSlice.reducer
