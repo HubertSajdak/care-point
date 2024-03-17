@@ -1,6 +1,17 @@
-import { Theme, createTheme } from "@mui/material/styles"
+import { createTheme, Theme } from "@mui/material/styles"
+
 declare module "@mui/material/styles" {
-  interface Theme {}
+  interface Theme {
+    mainShadow: {
+      main: string
+    }
+  }
+
+  interface ThemeOptions {
+    mainShadow: {
+      main: string
+    }
+  }
 }
 
 export const theme: Theme = createTheme({
@@ -15,6 +26,9 @@ export const theme: Theme = createTheme({
   },
   shape: {
     borderRadius: 20,
+  },
+  mainShadow: {
+    main: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
   },
   typography: {
     fontFamily: "'Nunito Sans', sans-serif",

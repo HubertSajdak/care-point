@@ -1,10 +1,4 @@
-export {
-  changePage,
-  changeRowsPerPage,
-  changeSearch,
-  changeSort,
-  default as clinicsSlice,
-} from "./store/clinicsSlice"
+export { setQueryParams, default as clinicsSlice } from "./store/clinicsSlice"
 export * from "./store/clinicsThunks"
 export { default as AddClinic } from "./views/AddClinic"
 export { default as AddClinicAffiliation } from "./views/AddClinicAffiliation"

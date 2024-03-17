@@ -9,7 +9,9 @@
     "worksAt": "works at",
     "noOfficeAssigned": "no offices assigned",
     "makeAppointment": "make appointment",
-    "viewProfile": "view profile"
+    "viewProfile": "view profile",
+    "incomingAppointments": "incoming appointments",
+    "completedAppointments": "completed appointments"
   },
   "clinicCard": {
     "consultationFee": "consultation fee",

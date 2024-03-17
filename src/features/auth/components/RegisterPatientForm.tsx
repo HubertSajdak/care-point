@@ -1,4 +1,6 @@
 import { Grid, Typography } from "@mui/material"
+import { DatePicker } from "@mui/x-date-pickers"
+import dayjs, { Dayjs } from "dayjs"
 import { FormikProvider, useFormik } from "formik"
 import { useTranslation } from "react-i18next"
 import { useTheme } from "styled-components"
@@ -10,8 +12,8 @@ import { registerUser } from "@/redux"
 import {
   Button,
   CheckboxFormik,
-  TextFieldFormik,
   handlePostalCodeKeyUp,
+  TextFieldFormik,
 } from "@/shared"
 import { ReqeustRegisterPatientCredentials } from "@/types/api-types"
 
@@ -20,6 +22,7 @@ interface RegisterPatientValues extends ReqeustRegisterPatientCredentials {
   role: "patient"
   termsAndConditions: boolean
 }
+
 const RegisterPatientForm = () => {
   const theme = useTheme()
   const dispatch = useAppDispatch()
@@ -52,11 +55,24 @@ const RegisterPatientForm = () => {
         city: "",
         postalCode: "",
       },
+      birthDate: "",
+      height: 0,
+      weight: 0,
       termsAndConditions: false,
     },
     onSubmit: async (values) => {
-      const { address, email, name, password, phoneNumber, role, surname } =
-        values
+      const {
+        address,
+        birthDate,
+        email,
+        height,
+        name,
+        password,
+        phoneNumber,
+        role,
+        surname,
+        weight,
+      } = values
       dispatch(
         registerUser({
           name,
@@ -66,11 +82,15 @@ const RegisterPatientForm = () => {
           password,
           role,
           address,
+          birthDate,
+          height,
+          weight,
         }),
       )
     },
     validationSchema: registerPatientSchema,
   })
+
   return (
     <FormikProvider value={registerPatientFormik}>
       <form onSubmit={registerPatientFormik.handleSubmit}>
@@ -143,6 +163,47 @@ const RegisterPatientForm = () => {
               label={t("form:common.postalCode")}
               name="address.postalCode"
               onKeyUp={handlePostalCodeKeyUp}
+            />
+          </Grid>
+          <Grid sm={4} xs={12} item>
+            <DatePicker
+              format={"YYYY-MM-DD"}
+              label={t("form:common.birthDate")}
+              slotProps={{
+                textField: {
+                  id: "datepicker",
+                  fullWidth: true,
+                  error: Boolean(registerPatientFormik.errors.birthDate),
+                  helperText: registerPatientFormik.errors.birthDate
+                    ? t(registerPatientFormik.errors.birthDate)
+                    : "",
+                  disabled: registerPatientFormik.isSubmitting,
+                },
+              }}
+              value={dayjs(registerPatientFormik.values.birthDate)}
+              disableFuture
+              onChange={(val: Dayjs | null) => {
+                registerPatientFormik.setFieldValue(
+                  "birthDate",
+                  dayjs(val).format("YYYY-MM-DD"),
+                )
+              }}
+            />
+          </Grid>
+          <Grid sm={4} xs={12} item>
+            <TextFieldFormik
+              id="height"
+              label={t("form:common.height")}
+              name="height"
+              type="number"
+            />
+          </Grid>
+          <Grid sm={4} xs={12} item>
+            <TextFieldFormik
+              id="weight"
+              label={t("form:common.weight")}
+              name="weight"
+              type="number"
             />
           </Grid>
           <Grid md={12} minHeight="100px" sm={12} xs={12} item>

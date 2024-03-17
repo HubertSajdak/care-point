@@ -8,19 +8,16 @@ import { getSingleDoctorData } from "../api/getSingleDoctor"
 
 export const getAllDoctors = createAsyncThunk(
   "doctors/getAllDoctors",
-  async (_, thunkAPI) => {
+  async (appointmentParams: boolean, thunkAPI) => {
     const state = thunkAPI.getState() as RootState
-    const { currentPage, pageSize, search, sortBy, sortDirection } =
-      state.doctors
-    const params = {
-      sortBy,
-      sortDirection,
-      pageSize,
-      currentPage,
-      ...(search && { search }),
-    }
+    const { appointmentsQueryParams, tableQueryParams } = state.doctors
+
     try {
-      const res = await getDoctors(params)
+      const res = await getDoctors(
+        appointmentParams
+          ? { ...appointmentsQueryParams }
+          : { ...tableQueryParams },
+      )
       return res.data
     } catch (error) {
       errorHandler({ error, thunkAPI })

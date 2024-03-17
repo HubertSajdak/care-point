@@ -60,6 +60,19 @@ export type IWeekDays =
   | "friday"
   | "saturday"
   | "sunday"
+export type IMonths =
+  | "january"
+  | "february"
+  | "march"
+  | "april"
+  | "may"
+  | "june"
+  | "july"
+  | "august"
+  | "september"
+  | "october"
+  | "november"
+  | "december"
 
 export interface IWorkingHours {
   _id: string
@@ -97,12 +110,15 @@ export interface IClinicAffiliation {
 export interface IPatientUser {
   _id: string
   address: IAddress
+  birthDate: string
   email: string
+  height: number
   name: string
   phoneNumber: number | string
   photo?: string
   role: IUserRoles
   surname: string
+  weight: number
 }
 
 export interface IDoctorUser {
@@ -119,12 +135,15 @@ export interface IDoctorUser {
 
 export interface ReqeustRegisterPatientCredentials {
   address: IAddress
+  birthDate: string
   email: string
+  height: number
   name: string
   password: string
   phoneNumber: number | string
   role: IUserRoles
   surname: string
+  weight: number
 }
 
 export interface ReqeustRegisterDoctorCredentials {
@@ -168,6 +187,7 @@ export interface IAppointment {
   doctorId: string
   doctorInfo: Pick<IDoctorUser, "name" | "surname" | "photo" | "_id">
   patientId: string
+  patientInfo: Pick<IPatientUser, "name" | "surname" | "photo" | "_id">
 }
 
 export interface ISpecializations {
@@ -180,4 +200,12 @@ export interface IUserSpecializations {
   _id: string
   doctorId: string
   specializationId: string
+}
+
+export interface IQueryParams {
+  currentPage: number
+  pageSize: number
+  search: string
+  sortBy: string
+  sortDirection: ISortDirection
 }

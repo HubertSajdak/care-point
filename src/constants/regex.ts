@@ -6,4 +6,5 @@ export const RegexType = {
   POSTAL_CODE: /\d{2}-\d{3}/,
   PHONE_NUMBER: /^[0-9\- ]{8,14}$/,
   EMAIL: /^[^@]+@[^@]+\.[^@]+$/,
+  HEIGHT: /^([1-9][0-9]{0,2})$/,
 }

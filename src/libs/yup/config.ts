@@ -1,20 +1,35 @@
 import * as yup from "yup"
 
 import { RegexType } from "@/constants"
+
 const VALID_IMAGE_EXTENSIONS = ["jpg", "png", "jpeg"]
 const DEFAULT_MAX_FILE_SIZE = 2
 declare module "yup" {
   interface StringSchema {
     isChecked(errorText: string): this
+
     isEmail(): this
+
     isMatch(matchWith: string): this
+
     name(errorText: string): this
+
     password(): this
+
     phoneNumber(): this
+
     postalCode(): this
   }
+
+  interface NumberSchema {
+    isHeight(): this
+
+    isWeight(): this
+  }
+
   interface MixedSchema {
     imageFormat(): this
+
     maxFileSize(maxSize?: number): this
   }
 }
@@ -55,7 +70,16 @@ yup.addMethod(yup.string, "postalCode", function postalCode() {
     "form:postalCode.invalid",
   )
 })
-
+yup.addMethod(yup.number, "isHeight", function isHeight() {
+  return this.required()
+    .min(1, "form:height.invalid")
+    .max(999, "form:height.invalid")
+})
+yup.addMethod(yup.number, "isWeight", function isWeight() {
+  return this.required()
+    .min(1, "form:weight.invalid")
+    .max(999, "form:weight.invalid")
+})
 yup.addMethod(yup.mixed<File>, "imageFormat", function imageFormat() {
   return this.test("is-valid-image", "form:file.invalidFormat", (value) => {
     if (!value) return true

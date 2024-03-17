@@ -7,17 +7,13 @@ import { useDebouncedCallback } from "use-debounce"
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import {
   cancelAppointment,
-  changeFilters,
-  changePage,
-  changeRowsPerPage,
-  changeSearch,
-  changeSort,
   getCurrentUserAppointments,
+  setQueryParams,
 } from "@/redux"
 import {
+  capitalizeFirstChar,
   Modal,
   Table,
-  capitalizeFirstChar,
   translateAppointmentStatus,
 } from "@/shared"
 import { ISortDirection } from "@/types/api-types"
@@ -30,31 +26,38 @@ const MyAppointments = () => {
     (state) => state.appointments.userAppointmentsData,
   )
   const {
-    appointmentFilter,
-    currentPage,
-    pageSize,
-    search,
-    sortBy,
-    sortDirection,
+    queryParams: {
+      appointmentFilter,
+      currentPage,
+      pageSize,
+      search,
+      sortBy,
+      sortDirection,
+    },
     status,
     totalItems,
   } = useAppSelector((state) => state.appointments)
-  useEffect(() => console.log(status), [status])
+
   const handleChangeSort = (
     sortingProperty: string,
     sortingDirection: ISortDirection,
   ) => {
-    dispatch(changeSort({ sortingProperty, sortingDirection }))
+    dispatch(
+      setQueryParams({
+        sortBy: sortingProperty,
+        sortDirection: sortingDirection,
+      }),
+    )
   }
   const handleChangePage = (page: number) => {
-    dispatch(changePage(page))
+    dispatch(setQueryParams({ currentPage: page }))
   }
 
   const handleChangeRowsPerPage = (rowsPerPage: number) => {
-    dispatch(changeRowsPerPage(rowsPerPage))
+    dispatch(setQueryParams({ pageSize: rowsPerPage }))
   }
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
-    dispatch(changeSearch(search))
+    dispatch(setQueryParams({ search }))
   }, 1000)
   const handleRefreshContent = async () => {
     await dispatch(getCurrentUserAppointments())
@@ -96,7 +99,7 @@ const MyAppointments = () => {
                   | "active"
                   | "canceled"
                   | "completed"
-                dispatch(changeFilters(newValue))
+                dispatch(setQueryParams({ appointmentFilter: newValue }))
               }}
             >
               <MenuItem value={"all"}>

@@ -21,19 +21,24 @@ import { useAppDispatch } from "@/app/hooks"
 import { RouteNames } from "@/constants"
 import { logoutUser } from "@/redux"
 import { LangSwitcher, Link } from "@/shared"
+
 const { ACCOUNT_MANAGEMENT } = RouteNames
+
 export interface AppBarProps extends MuiAppBarProps {
   drawerWidth: number
   handleDrawerToggle: () => void
   isOpen: boolean
+  isSmallView: boolean
   isUserDataLoading: boolean
   userAvatar: string
   userName: string
 }
+
 const AppBar = ({
   drawerWidth,
   handleDrawerToggle,
   isOpen,
+  isSmallView,
   isUserDataLoading,
   userAvatar,
   userName,
@@ -57,6 +62,7 @@ const AppBar = ({
       open={isOpen}
       position="fixed"
       {...MuiAppBarProps}
+      $isSmallView={isSmallView}
       data-testid="banner"
     >
       <StyledToolbar>
@@ -156,30 +162,32 @@ const AppBar = ({
 
 export default AppBar
 
-const StyledAppBar = styled(MuiAppBar)<{ $drawerwidth: number; open: boolean }>(
-  ({ $drawerwidth, open, theme }) => ({
-    padding: 2,
-    color: theme.palette.primary.main,
-    backgroundColor: theme.palette.common.white,
-    borderRadius: 0,
-    boxShadow: "none",
-    outline: `1px solid ${theme.palette.grey[300]}`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    [theme.breakpoints.up("sm")]: {
-      ...(open && {
-        width: `calc(100% - ${$drawerwidth}px)`,
-        marginLeft: `${$drawerwidth}px`,
-        transition: theme.transitions.create(["margin", "width"], {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-      }),
-    },
+const StyledAppBar = styled(MuiAppBar)<{
+  $drawerwidth: number
+  $isSmallView: boolean
+  open: boolean
+}>(({ $drawerwidth, $isSmallView, open, theme }) => ({
+  padding: 2,
+  position: "sticky",
+  color: theme.palette.primary.main,
+  backgroundColor: theme.palette.common.white,
+  borderRadius: 0,
+  boxShadow: "none",
+  outline: `1px solid ${theme.palette.grey[300]}`,
+  transition: theme.transitions.create(["margin", "width"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
   }),
-)
+  ...(open &&
+    !$isSmallView && {
+      width: `calc(100% - ${$drawerwidth}px)`,
+      marginLeft: `${$drawerwidth}px`,
+      transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+}))
 const StyledToolbar = styled(Toolbar)`
   display: flex;
   justify-content: space-between;

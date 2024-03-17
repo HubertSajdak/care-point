@@ -9,26 +9,18 @@ import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
+import { setQueryParams } from "@/features/clinics"
 import { Table } from "@/shared"
 import { ISortDirection } from "@/types/api-types"
 
-import {
-  changePage,
-  changeRowsPerPage,
-  changeSearch,
-  changeSort,
-} from "../store/clinicsSlice"
 import { getAllClinics } from "../store/clinicsThunks"
+
 const AllClinics = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const {
     clinics,
-    currentPage,
-    pageSize,
-    search,
-    sortBy,
-    sortDirection,
+    queryParams: { currentPage, pageSize, search, sortBy, sortDirection },
     status,
     totalItems,
   } = useAppSelector((state) => state.clinics)
@@ -39,17 +31,22 @@ const AllClinics = () => {
     sortingProperty: string,
     sortingDirection: ISortDirection,
   ) => {
-    dispatch(changeSort({ sortingProperty, sortingDirection }))
+    dispatch(
+      setQueryParams({
+        sortBy: sortingProperty,
+        sortDirection: sortingDirection,
+      }),
+    )
   }
   const handleChangePage = (page: number) => {
-    dispatch(changePage(page))
+    dispatch(setQueryParams({ currentPage: page }))
   }
 
   const handleChangeRowsPerPage = (rowsPerPage: number) => {
-    dispatch(changeRowsPerPage(rowsPerPage))
+    dispatch(setQueryParams({ pageSize: rowsPerPage }))
   }
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
-    dispatch(changeSearch(search))
+    dispatch(setQueryParams({ search }))
   }, 1000)
   const handleRefreshContent = async () => {
     await dispatch(getAllClinics())
