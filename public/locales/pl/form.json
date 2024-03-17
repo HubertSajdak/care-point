@@ -12,7 +12,11 @@
     "phoneNumber": "numer telefonu",
     "address": "adres",
     "from": "od",
-    "to": "do"
+    "to": "do",
+    "birthDate": "data urodzin",
+    "height": "wzrost",
+    "weight": "waga",
+    "birthDatePlaceholder": "RRRR-MM-DD"
   },
   "name": {
     "invalid": "nieprawidłowe imię",
@@ -41,6 +45,15 @@
   "file": {
     "maxFileSize": "plik jest zbyt duży",
     "invalidFormat": "nieprawidłowy format pliku"
+  },
+  "height": {
+    "invalid": "nieprawidłowy wzrost"
+  },
+  "weight": {
+    "invalid": "nieprawidłowa waga"
+  },
+  "date": {
+    "invalid": "nieprawidłowa data"
   },
   "appointment": {
     "selectClinic": "wybierz klinikę",

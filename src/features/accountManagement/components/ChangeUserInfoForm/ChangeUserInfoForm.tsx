@@ -1,4 +1,6 @@
 import { Box, Unstable_Grid2 as Grid } from "@mui/material"
+import { DatePicker } from "@mui/x-date-pickers"
+import dayjs, { Dayjs } from "dayjs"
 import { FormikProvider, useFormik } from "formik"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
@@ -7,13 +9,14 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { UserRoles } from "@/constants"
 import { updateDoctorInfoSchema, updatePatientInfoSchema } from "@/libs"
 import { updateUserInfo } from "@/redux"
-import { Button, TextFieldFormik, handlePostalCodeKeyUp } from "@/shared"
+import { Button, handlePostalCodeKeyUp, TextFieldFormik } from "@/shared"
 import {
   IUserRoles,
   ReqeustRegisterDoctorCredentials,
   ReqeustRegisterPatientCredentials,
 } from "@/types/api-types"
 import { Either } from "@/types/globals"
+
 interface ChangeUserInfoValues
   extends Omit<
     Either<ReqeustRegisterPatientCredentials, ReqeustRegisterDoctorCredentials>,
@@ -46,10 +49,22 @@ const ChangeUserInfoForm = () => {
         city: currentUser?.address?.city || "",
         postalCode: currentUser?.address?.postalCode || "",
       },
+      birthDate: currentUser?.birthDate || "",
+      height: currentUser?.height || 0,
+      weight: currentUser?.weight || 0,
     },
     enableReinitialize: true,
     onSubmit: async (values) => {
-      const { address, email, name, phoneNumber, surname } = values
+      const {
+        address,
+        birthDate,
+        email,
+        height,
+        name,
+        phoneNumber,
+        surname,
+        weight,
+      } = values
       await dispatch(
         updateUserInfo({
           name,
@@ -57,6 +72,9 @@ const ChangeUserInfoForm = () => {
           phoneNumber,
           email,
           address,
+          birthDate,
+          height,
+          weight,
         }),
       )
     },
@@ -132,6 +150,47 @@ const ChangeUserInfoForm = () => {
                   label={t("form:common.postalCode")}
                   name="address.postalCode"
                   onKeyUp={handlePostalCodeKeyUp}
+                />
+              </Grid>
+              <Grid md={6} xs={12}>
+                <DatePicker
+                  format={"YYYY-MM-DD"}
+                  label={t("form:common.birthDate")}
+                  slotProps={{
+                    textField: {
+                      id: "datepicker",
+                      fullWidth: true,
+                      error: Boolean(updateUserInfoFormik.errors.birthDate),
+                      helperText: updateUserInfoFormik.errors.birthDate
+                        ? t(updateUserInfoFormik.errors.birthDate)
+                        : "",
+                      disabled: updateUserInfoFormik.isSubmitting,
+                    },
+                  }}
+                  value={dayjs(updateUserInfoFormik.values.birthDate)}
+                  disableFuture
+                  onChange={(val: Dayjs | null) => {
+                    updateUserInfoFormik.setFieldValue(
+                      "birthDate",
+                      dayjs(val).format("YYYY-MM-DD"),
+                    )
+                  }}
+                />
+              </Grid>
+              <Grid md={6} xs={12}>
+                <TextFieldFormik
+                  id="height"
+                  label={t("form:common.height")}
+                  name="height"
+                  type="number"
+                />
+              </Grid>
+              <Grid md={6} xs={12}>
+                <TextFieldFormik
+                  id="weight"
+                  label={t("form:common.weight")}
+                  name="weight"
+                  type="number"
                 />
               </Grid>
             </>

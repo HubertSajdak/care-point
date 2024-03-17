@@ -1,10 +1,6 @@
 export * from "./api/getPatients"
-export {
-  changePage,
-  changeRowsPerPage,
-  changeSearch,
-  changeSort,
-  default as patientsSlice,
-} from "./store/patientsSlice"
+export { setQueryParams, default as patientsSlice } from "./store/patientsSlice"
 export * from "./store/patientsThunks"
 export { default as AllPatients } from "./views/AllPatients"
+export { default as SinglePatient } from "./views/SinglePatient"
+export * from "./api/getSinglePatient"

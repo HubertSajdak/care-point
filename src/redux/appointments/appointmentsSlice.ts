@@ -4,21 +4,22 @@ import { getCurrentUserAppointments, getDoctorAppointments } from "@/redux"
 import {
   IAppointment,
   IAppointmentStatus,
-  ISortDirection,
+  IQueryParams,
   ReqStatus,
 } from "@/types/api-types"
 
+type IAppointmentFilters = "all" | IAppointmentStatus
+
+interface IApointmentQueryParams extends IQueryParams {
+  appointmentFilter: IAppointmentFilters | null
+}
+
 interface InitialStateValues {
-  appointmentFilter: IAppointmentStatus | "all"
-  currentPage: number
   doctorAppointments: {
     data: IAppointment[]
     totalItems: number
   } | null
-  pageSize: number
-  search: string
-  sortBy: string
-  sortDirection: ISortDirection
+  queryParams: IApointmentQueryParams
   status: ReqStatus
   totalItems: number
   userAppointmentsData: IAppointment[] | null
@@ -26,50 +27,34 @@ interface InitialStateValues {
 
 const initialState: InitialStateValues = {
   status: "idle",
-  currentPage: 1,
-  pageSize: 5,
-  search: "",
-  sortBy: "appointmentDate",
-  sortDirection: "asc",
+
   userAppointmentsData: null,
   totalItems: 0,
-  appointmentFilter: "all",
   doctorAppointments: null,
+  queryParams: {
+    pageSize: 5,
+    search: "",
+    sortBy: "appointmentDate",
+    sortDirection: "asc",
+    currentPage: 1,
+    appointmentFilter: "all",
+  },
 }
 const appointmentsSlice = createSlice({
   name: "appointments",
   initialState,
   reducers: {
-    changeSort: (
+    setQueryParams: (
       state,
-      {
-        payload,
-      }: PayloadAction<{
-        sortingDirection: ISortDirection
-        sortingProperty: string
-      }>,
-    ) => {
-      state.sortBy = payload.sortingProperty
-      state.sortDirection = payload.sortingDirection
-    },
-    changePage: (state, { payload }: PayloadAction<number>) => {
-      state.currentPage = payload
-    },
-    changeRowsPerPage: (state, { payload }: PayloadAction<number>) => {
-      state.pageSize = payload
-      state.currentPage = 1
-    },
-    changeSearch: (state, { payload }: PayloadAction<string>) => {
-      state.search = payload
-      state.currentPage = 1
-    },
-    changeFilters: (
-      state,
-      { payload }: PayloadAction<"active" | "canceled" | "completed" | "all">,
-    ) => {
-      state.appointmentFilter = payload
-      state.currentPage = 1
-    },
+      { payload }: PayloadAction<Partial<IApointmentQueryParams>>,
+    ) => ({
+      ...state,
+      queryParams: {
+        ...state.queryParams,
+        ...payload,
+        ...(!payload.currentPage && { currentPage: 1 }),
+      },
+    }),
   },
   extraReducers: (builder) => {
     builder.addCase(getCurrentUserAppointments.pending, (state) => {
@@ -103,11 +88,5 @@ const appointmentsSlice = createSlice({
       })
   },
 })
-export const {
-  changeFilters,
-  changePage,
-  changeRowsPerPage,
-  changeSearch,
-  changeSort,
-} = appointmentsSlice.actions
+export const { setQueryParams } = appointmentsSlice.actions
 export default appointmentsSlice.reducer

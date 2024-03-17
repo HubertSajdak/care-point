@@ -149,7 +149,7 @@ const DoctorCard = ({
           </LinkButton>
           <LinkButton
             size="small"
-            to={`${RouteNames.MAKE_APPOINTMENT}/${doctorId}`}
+            to={`${RouteNames.ALL_DOCTORS}/${doctorId}`}
             variant="text"
           >
             {t("appointment:doctorCard.viewProfile")}
@@ -167,6 +167,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   gap: theme.spacing(1.6),
   borderRadius: theme.spacing(2.5),
   height: "100%",
+  boxShadow: theme.mainShadow.main,
 }))
 
 export default DoctorCard

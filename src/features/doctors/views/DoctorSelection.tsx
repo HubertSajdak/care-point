@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next"
 import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { changePage, changeSearch, getAllDoctors } from "@/features/doctors"
+import { getAllDoctors, setAppointmentsQueryParams } from "@/features/doctors"
 import { NoDataMsg, Search } from "@/shared"
 
 import DoctorCard from "../components/DoctorCard/DoctorCard"
@@ -20,22 +20,25 @@ import DoctorCard from "../components/DoctorCard/DoctorCard"
 const DoctorSelection = () => {
   const theme = useTheme()
   const dispatch = useAppDispatch()
-  const { currentPage, data, search, status, totalItems } = useAppSelector(
-    (state) => state.doctors,
-  )
+  const {
+    appointmentsQueryParams: { currentPage, search },
+    data,
+    status,
+    totalItems,
+  } = useAppSelector((state) => state.doctors)
   const { t } = useTranslation()
   useEffect(() => {
-    dispatch(getAllDoctors())
+    dispatch(getAllDoctors(true))
   }, [currentPage, dispatch, search])
 
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
-    dispatch(changeSearch(search))
+    dispatch(setAppointmentsQueryParams({ search }))
   }, 500)
   const handleRefreshContent = async () => {
-    await dispatch(getAllDoctors())
+    await dispatch(getAllDoctors(true))
   }
   const handleChangePage = (page: number) => {
-    dispatch(changePage(page))
+    dispatch(setAppointmentsQueryParams({ currentPage: page }))
   }
   return (
     <>
@@ -89,6 +92,7 @@ const DoctorSelection = () => {
           borderRadius: theme.spacing(2.5),
           display: "flex",
           justifyContent: "center",
+          boxShadow: theme.mainShadow.main,
         }}
       >
         <Pagination

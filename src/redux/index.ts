@@ -3,11 +3,7 @@ export * from "./appointments/api/getUserAppointments"
 export * from "./appointments/api/makeAppointment"
 export {
   default as appointmentsSlice,
-  changeFilters,
-  changePage,
-  changeRowsPerPage,
-  changeSearch,
-  changeSort,
+  setQueryParams,
 } from "./appointments/appointmentsSlice"
 export * from "./appointments/appointmentsThunks"
 export * from "./auth/api/changePassword"

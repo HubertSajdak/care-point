@@ -12,7 +12,11 @@
     "phoneNumber": "phone number",
     "address": "address",
     "from": "from",
-    "to": "to"
+    "to": "to",
+    "birthDate": "birth date",
+    "height": "height",
+    "weight": "weight",
+    "birthDatePlaceholder": "YYYY-MM-DD"
   },
   "name": {
     "invalid": "invalid name",
@@ -41,6 +45,15 @@
   "file": {
     "maxFileSize": "the file size is too large",
     "invalidFormat": "invalid file format"
+  },
+  "height": {
+    "invalid": "invalid height"
+  },
+  "weight": {
+    "invalid": "invalid weight"
+  },
+  "date": {
+    "invalid": "invalid date"
   },
   "appointment": {
     "selectClinic": "select a clinic",

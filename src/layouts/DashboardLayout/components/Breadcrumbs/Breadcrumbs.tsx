@@ -7,22 +7,18 @@ import { useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
 import { Link } from "@/shared"
 
-export interface BreadcrumbsProps extends BreadcrumbsOwnProps {
-  drawerWidth: number
-  isSidebarOpen: boolean
-}
+export interface BreadcrumbsProps extends BreadcrumbsOwnProps {}
 
-const Breadcrumbs = ({
-  drawerWidth,
-  isSidebarOpen,
-  ...otherProps
-}: BreadcrumbsProps) => {
+const Breadcrumbs = ({ ...otherProps }: BreadcrumbsProps) => {
   const location = useLocation()
   const theme = useTheme()
   const { t } = useTranslation(["sidebar"])
   const doctorName = useAppSelector((state) => state.doctors.selectedDoctorData)
   const clinicName = useAppSelector(
     (state) => state.clinics.singleClinic?.clinicName,
+  )
+  const patientName = useAppSelector(
+    (state) => state.patients.selectedPatientData,
   )
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let currentLink = ""
@@ -98,6 +94,26 @@ const Breadcrumbs = ({
           </Typography>
         )
       }
+      if (arr.includes("allDoctors") && idx > 1) {
+        if (!doctorName?.name || !doctorName?.surname) {
+          return <Skeleton key={crumb} variant="text" width={150} />
+        }
+        return (
+          <Typography color="primary" fontWeight="bold" key={crumb}>
+            {`${doctorName?.name} ${doctorName?.surname}`}
+          </Typography>
+        )
+      }
+      if (arr.includes("allPatients") && idx > 1) {
+        if (!patientName?.name || !patientName?.surname) {
+          return <Skeleton key={crumb} variant="text" width={150} />
+        }
+        return (
+          <Typography color="primary" fontWeight="bold" key={crumb}>
+            {`${patientName?.name} ${patientName?.surname}`}
+          </Typography>
+        )
+      }
       return idx !== arr.length - 1 ? (
         <Link
           color={theme.palette.grey[700]}
@@ -113,12 +129,7 @@ const Breadcrumbs = ({
       )
     })
   return (
-    <StyledBreadCrumbs
-      $drawerwidth={drawerWidth}
-      $issidebaropen={isSidebarOpen}
-      {...otherProps}
-      separator="/"
-    >
+    <StyledBreadCrumbs {...otherProps} separator="/">
       {crumbs}
     </StyledBreadCrumbs>
   )
@@ -126,26 +137,6 @@ const Breadcrumbs = ({
 
 export default Breadcrumbs
 
-const StyledBreadCrumbs = styled(MuiBreadcrumbs)<{
-  $drawerwidth: number
-  $issidebaropen: boolean
-}>(({ $drawerwidth, $issidebaropen, theme }) => ({
-  marginTop: "56px",
-  padding: theme.spacing(3),
-  flexGrow: 1,
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  [theme.breakpoints.up("sm")]: {
-    marginTop: "64px",
-    ...($issidebaropen && {
-      width: `calc(100% - ${$drawerwidth}px)`,
-      marginLeft: `${$drawerwidth}px`,
-      transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  },
+const StyledBreadCrumbs = styled(MuiBreadcrumbs)(({ theme }) => ({
+  marginBottom: theme.spacing(4),
 }))

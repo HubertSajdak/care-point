@@ -1,6 +1,10 @@
 import dayjs, { Dayjs } from "dayjs"
 
-import { IAppointment, IWorkingHours } from "@/types/api-types"
+import {
+  IAppointment,
+  IAppointmentStatus,
+  IWorkingHours,
+} from "@/types/api-types"
 
 export const mapDayNamesToNumbers = (weekDay: string): number | undefined => {
   if (weekDay === "monday") return 1
@@ -53,9 +57,9 @@ export const enabledTime = (
   const getHoursFromDate = dayjs(date).format("HH:mm")
 
   return (
-    dayjs(getHoursFromDate, "HH:mm") >
+    dayjs(getHoursFromDate, "HH:mm") >=
       dayjs(findWorkingDay.startTime, "HH:mm") &&
-    dayjs(getHoursFromDate, "HH:mm") <
+    dayjs(getHoursFromDate, "HH:mm") <=
       dayjs(findWorkingDay.stopTime, "HH:mm") &&
     !getHoursFromAppointments.some((el) => {
       return (
@@ -66,4 +70,50 @@ export const enabledTime = (
       )
     })
   )
+}
+
+export const getCurrentMonthAppointments = (
+  appointmentsArr: IAppointment[],
+  status: IAppointmentStatus,
+) => {
+  const currentMonth = dayjs().format("MM")
+  const currentYear = dayjs().format("YYYY")
+  return appointmentsArr.filter((appointment) => {
+    return (
+      appointment.appointmentStatus === status &&
+      dayjs(appointment.appointmentDate).format("MM") === currentMonth &&
+      dayjs(appointment.appointmentDate).format("YYYY") === currentYear
+    )
+  })
+}
+export const getUpcomingAppointments = (appointmentsArr: IAppointment[]) => {
+  return appointmentsArr.filter((appointment) => {
+    return appointment.appointmentStatus === "active"
+  })
+}
+export const getAppointmentsByMonth = (
+  appointmentsArr: IAppointment[],
+  monthInMMformat: string,
+  status?: IAppointmentStatus,
+) => {
+  const currentYear = dayjs().format("YYYY")
+  return appointmentsArr.filter((appointment) => {
+    if (status) {
+      return (
+        dayjs(appointment.appointmentDate).format("MM") === monthInMMformat &&
+        appointment.appointmentStatus === status &&
+        dayjs(appointment.appointmentDate).format("YYYY") === currentYear
+      )
+    }
+    return (
+      dayjs(appointment.appointmentDate).format("MM") === monthInMMformat &&
+      dayjs(appointment.appointmentDate).format("YYYY") === currentYear
+    )
+  })
+}
+export const calculateAge = (birthDate: string) => {
+  const currentDate = dayjs().format("YYYY-MM-DD")
+  const birth = dayjs(birthDate).format("YYYY-MM-DD")
+  const calculatedAge = dayjs(birth).diff(currentDate, "years")
+  return calculatedAge.toString().split("-")[1]
 }

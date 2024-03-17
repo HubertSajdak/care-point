@@ -11,6 +11,15 @@
   "searchDoctor": "search doctor",
   "makeAppointment": "make appointment",
   "myAppointments": "my appointments",
+  "upcomingAppointments": "upcoming appointments",
+  "noUpcomingAppointments": "no upcoming appointments",
+  "welcome": "welcome",
+  "yourCurrentMonthUpdates": "Your updated for this month",
+  "yearlyAppointmentsChart": "yearly appointments chart",
+  "appointmentsNumber": "appointments number",
+  "doctorProfile": "doctor's profile",
+  "patientProfile": "patient's profile",
+  "doctorClinicAffiliations": "doctor clinic affiliations",
   "logoutMsg": {
     "sessionExpired": "session expired",
     "logout": "logging out",
@@ -25,6 +34,20 @@
     "friday": "friday",
     "saturday": "saturday",
     "sunday": "sunday"
+  },
+  "months": {
+    "january": "january",
+    "february": "february",
+    "march": "march",
+    "april": "april",
+    "may": "may",
+    "june": "june",
+    "july": "july",
+    "august": "august",
+    "september": "september",
+    "october": "october",
+    "november": "november",
+    "december": "december"
   },
   "consultationTimeOptions": {
     "15mins": "15 minutes",
@@ -59,5 +82,10 @@
   "errors": {
     "fetchDataError": "There was an error with fetching the data",
     "noClinicAffiliations": "The selected doctor is not assigned to any clinic"
+  },
+  "appointmentText": {
+    "completed": "active appointments",
+    "active": "incoming appointments",
+    "canceled": "canceled appointments"
   }
 }

@@ -11,6 +11,15 @@
   "searchDoctor": "znajdź lekarza",
   "makeAppointment": "umów wizytę",
   "myAppointments": "moje wizyty",
+  "welcome": "witaj",
+  "yourCurrentMonthUpdates": "Twoje aktualizacje w bieżącym miesiącu",
+  "upcomingAppointments": "nadchodzące wizyty",
+  "noUpcomingAppointments": "brak nadchodzących wizyt",
+  "yearlyAppointmentsChart": "całoroczny wykres wizyt",
+  "appointmentsNumber": "liczba wizyt",
+  "doctorProfile": "profil lekarza",
+  "patientProfile": "profil pacjenta",
+  "doctorClinicAffiliations": "miejsca pracy lekarza",
   "logoutMsg": {
     "sessionExpired": "sesja wygasła",
     "logout": "wylogowano",
@@ -25,6 +34,20 @@
     "friday": "piątek",
     "saturday": "sobota",
     "sunday": "niedziela"
+  },
+  "months": {
+    "january": "styczeń",
+    "february": "luty",
+    "march": "marzec",
+    "april": "kwiecień",
+    "may": "maj",
+    "june": "czerwiec",
+    "july": "lipiec",
+    "august": "sierpień",
+    "september": "wrzesień",
+    "october": "październik",
+    "november": "listopad",
+    "december": "grudzień"
   },
   "consultationTimeOptions": {
     "15mins": "15 minut",
@@ -59,5 +82,10 @@
   "errors": {
     "fetchDataError": "Wystąpił problem z pobraniem danych",
     "noClinicAffiliations": "Wybrany lekarz nie jest przypisany do żadnej kliniki"
+  },
+  "appointmentText": {
+    "completed": "zakończone wizyty",
+    "active": "nadchodzące wizyty",
+    "canceled": "odwołane wizyty"
   }
 }

@@ -10,9 +10,9 @@ import {
   setRefreshTokenToLocalStorage,
 } from "@/shared"
 import {
-  ReqLoginCredentials,
   ReqeustRegisterDoctorCredentials,
   ReqeustRegisterPatientCredentials,
+  ReqLoginCredentials,
 } from "@/types/api-types"
 import { Either } from "@/types/globals"
 
@@ -30,6 +30,7 @@ type RegisterUserValues = Either<
   ReqeustRegisterDoctorCredentials,
   ReqeustRegisterPatientCredentials
 >
+
 export interface UpdateUserValues
   extends Omit<RegisterUserValues, "password" | "role"> {}
 
@@ -40,12 +41,25 @@ export const registerUser = createAsyncThunk(
       values.role === "doctor"
         ? Endpoints.REGISTER_DOCTOR
         : Endpoints.REGISTER_PATIENT
-    const { address, email, name, password, phoneNumber, surname } = values
+    const {
+      address,
+      birthDate,
+      email,
+      height,
+      name,
+      password,
+      phoneNumber,
+      surname,
+      weight,
+    } = values
     const payload = {
       name,
       surname,
       email,
       password,
+      birthDate,
+      weight,
+      height,
       ...(phoneNumber ? { phoneNumber } : {}),
       ...(Object.keys(address ? address : {}).length ? { address } : {}),
     }
@@ -89,11 +103,23 @@ export const getUserData = createAsyncThunk(
 export const updateUserInfo = createAsyncThunk(
   "auth/updateUserInfo",
   async (values: UpdateUserValues, thunkAPI) => {
-    const { address, email, name, phoneNumber, surname } = values
+    const {
+      address,
+      birthDate,
+      email,
+      height,
+      name,
+      phoneNumber,
+      surname,
+      weight,
+    } = values
     const payload = {
       name,
       surname,
       email,
+      birthDate,
+      height,
+      weight,
       ...(phoneNumber ? { phoneNumber } : {}),
       ...(Object.keys(address ? address : {}).length ? { address } : {}),
     }

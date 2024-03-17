@@ -2,12 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { toast } from "react-toastify"
 
 import { RootState } from "@/app/store"
+import {
+  deleteAppointment,
+  getUserAppointments,
+  makeAppointment,
+  MakeAppointmentValues,
+} from "@/redux"
 import { getSingleDoctorAppointments } from "@/redux/appointments/api/getSingleDoctorAppointments"
 import { errorHandler } from "@/shared"
-
-import { deleteAppointment } from "./api/deleteAppointment"
-import { getUserAppointments } from "./api/getUserAppointments"
-import { makeAppointment, MakeAppointmentValues } from "./api/makeAppointment"
 
 export const createAppointment = createAsyncThunk(
   "appointments/createAppointment",
@@ -37,22 +39,8 @@ export const getCurrentUserAppointments = createAsyncThunk(
   "appointments/getUserAppointments",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState() as RootState
-    const {
-      appointmentFilter,
-      currentPage,
-      pageSize,
-      search,
-      sortBy,
-      sortDirection,
-    } = state.appointments
-    const params = {
-      sortBy,
-      sortDirection,
-      pageSize,
-      currentPage,
-      appointmentFilter,
-      ...(search && { search }),
-    }
+    const { queryParams } = state.appointments
+    const params = { ...queryParams }
     try {
       const res = await getUserAppointments(params)
       return res.data

@@ -14,7 +14,16 @@ dayjs.updateLocale("en", {
 const StaticDateTimePicker = (props: MuiStaticDateTimePickerProps<Dayjs>) => {
   return (
     <PaddingPaper sx={{ maxWidth: 350 }}>
-      <MuiStaticDateTimePicker ampm={false} {...props} />
+      <MuiStaticDateTimePicker
+        ampm={false}
+        {...props}
+        sx={{
+          "& .MuiClockNumber-root": {
+            fontWeight: "bold",
+            fontSize: 16,
+          },
+        }}
+      />
     </PaddingPaper>
   )
 }

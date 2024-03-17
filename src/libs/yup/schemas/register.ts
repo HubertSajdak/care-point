@@ -1,3 +1,5 @@
+import dayjs from "dayjs"
+
 import yup from "../config"
 
 const registerDoctorSchema = yup.object().shape({
@@ -20,6 +22,12 @@ const registerPatientSchema = yup.object({
     city: yup.string().required(),
     postalCode: yup.string().postalCode(),
   }),
+  height: yup.number().isHeight(),
+  weight: yup.number().isWeight(),
+  birthDate: yup
+    .date()
+    .min("1900-01-01", "form:date.invalid")
+    .max(dayjs().format("YYYY-MM-DD"), "form:date.invalid"),
 
   termsAndConditions: yup.boolean().isTrue("form:common.required"),
 })

@@ -9,7 +9,6 @@ import LocalHospitalIcon from "@mui/icons-material/LocalHospital"
 import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork"
 import MedicalInformationIcon from "@mui/icons-material/MedicalInformation"
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices"
-import MeetingRoomIcon from "@mui/icons-material/MeetingRoom"
 import PersonIcon from "@mui/icons-material/Person"
 import PlayArrowIcon from "@mui/icons-material/PlayArrow"
 import SettingsIcon from "@mui/icons-material/Settings"
@@ -24,7 +23,6 @@ const {
   ALL_CLINICS,
   ALL_DOCTORS,
   ALL_PATIENTS,
-  CLINIC_AFFILIATION,
   DOCTORS_SELECTION,
   MY_APPOINTMENTS,
   MY_CLINICS,
@@ -66,13 +64,6 @@ export const doctorSidebarLinks: SidebarLinksProps[] = [
         icon: <MedicalServicesIcon />,
       },
     ],
-  },
-  {
-    id: 5,
-    variant: "basic",
-    path: CLINIC_AFFILIATION,
-    text: "sidebar:clinicAffiliation",
-    icon: <MeetingRoomIcon />,
   },
   {
     id: 6,
