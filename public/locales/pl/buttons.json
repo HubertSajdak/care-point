@@ -14,5 +14,7 @@
   "next": "dalej",
   "select": "wybierz",
   "edit": "edytuj",
-  "seeMore": "zobacz więcej"
+  "seeMore": "zobacz więcej",
+  "patientDemo": "pacjent demo",
+  "doctorDemo": "lekarz demo"
 }

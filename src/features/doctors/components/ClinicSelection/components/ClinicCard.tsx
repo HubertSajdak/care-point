@@ -11,6 +11,7 @@ import {
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 
+import img from "@/assets/images/no-clinic.png"
 import { BASE_URL } from "@/constants"
 import { translateWeekDays } from "@/shared"
 import { IAddress, IWorkingHours } from "@/types/api-types"
@@ -25,7 +26,7 @@ export interface ClinicCardProps {
   onClick: (
     id: string,
     address: IAddress,
-    consulationFee: number,
+    consultationFee: number,
     clinicId: string,
   ) => void
   photo?: string
@@ -54,7 +55,7 @@ const ClinicCard = ({
         alt="clinic photo"
         component="img"
         height="194"
-        image={photo ? `${BASE_URL}/${photo}` : ""}
+        image={photo ? `${BASE_URL}/${photo}` : img}
       />
       <CardContent>
         <Typography

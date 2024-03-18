@@ -8,5 +8,7 @@
   "terms": "warunki",
   "conditions": "i zasady",
   "asPatient": "jako pacjent",
-  "asDoctor": "jako lekarz"
+  "asDoctor": "jako lekarz",
+  "deleteAccountText": "Wszystkie dane związane z tym kontem zostaną trwale usunięte",
+  "deleteAccountTitle": "Czy na pewno chcesz usunąć swoje konto?"
 }

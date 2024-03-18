@@ -87,5 +87,13 @@
     "completed": "active appointments",
     "active": "incoming appointments",
     "canceled": "canceled appointments"
+  },
+  "tooltip": {
+    "openSettings": "open settings",
+    "makeAppointment": "make appointment",
+    "doctorProfile": "doctor profile",
+    "refreshData": "refresh data",
+    "cancelAppointment": "cancel appointment",
+    "patientProfile": "patient profile"
   }
 }

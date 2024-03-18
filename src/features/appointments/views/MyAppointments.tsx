@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next"
 import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
+import { UserRoles } from "@/constants"
 import {
   cancelAppointment,
   getCurrentUserAppointments,
@@ -37,7 +38,7 @@ const MyAppointments = () => {
     status,
     totalItems,
   } = useAppSelector((state) => state.appointments)
-
+  const user = useAppSelector((state) => state.auth.user)
   const handleChangeSort = (
     sortingProperty: string,
     sortingDirection: ISortDirection,
@@ -132,8 +133,16 @@ const MyAppointments = () => {
         columns={[
           {
             key: "name",
-            label: t("table:heading.doctor"),
-            render: (row) => row.doctorInfo.name + " " + row.doctorInfo.surname,
+            label:
+              user?.role === UserRoles.PATIENT
+                ? t("table:heading.doctor")
+                : t("table:heading.patient"),
+            render: (row) =>
+              user?.role === UserRoles.PATIENT && row.doctorInfo
+                ? row.doctorInfo.name + " " + row.doctorInfo.surname
+                : user?.role === UserRoles.DOCTOR && row.patientInfo
+                ? row.patientInfo.name + " " + row.patientInfo.surname
+                : "",
             isImage: false,
             isSortable: true,
             highlight: true,

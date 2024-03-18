@@ -54,11 +54,25 @@ export const doctorSidebarLinks: SidebarLinksProps[] = [
   {
     id: 3,
     variant: "nested",
+    text: "sidebar:appointment",
+    icon: <BookmarkIcon />,
+    children: [
+      {
+        id: 4,
+        text: "sidebar:myAppointments",
+        path: MY_APPOINTMENTS,
+        icon: <BookmarksIcon />,
+      },
+    ],
+  },
+  {
+    id: 5,
+    variant: "nested",
     text: "sidebar:specializations",
     icon: <MedicalInformationIcon />,
     children: [
       {
-        id: 4,
+        id: 6,
         text: "sidebar:mySpecializations",
         path: MY_SPECIALIZATIONS,
         icon: <MedicalServicesIcon />,
@@ -66,25 +80,25 @@ export const doctorSidebarLinks: SidebarLinksProps[] = [
     ],
   },
   {
-    id: 6,
+    id: 7,
     variant: "nested",
     text: "sidebar:clinics",
     icon: <LocalHospitalIcon />,
     children: [
       {
-        id: 7,
+        id: 8,
         text: "sidebar:addClinic",
         path: ADD_CLINIC,
         icon: <DomainAddIcon />,
       },
       {
-        id: 8,
+        id: 9,
         text: "sidebar:allClinics",
         path: ALL_CLINICS,
         icon: <CorporateFareIcon />,
       },
       {
-        id: 9,
+        id: 10,
         text: "sidebar:myClinics",
         path: MY_CLINICS,
         icon: <MapsHomeWorkIcon />,
@@ -92,13 +106,13 @@ export const doctorSidebarLinks: SidebarLinksProps[] = [
     ],
   },
   {
-    id: 10,
+    id: 11,
     variant: "nested",
     text: "sidebar:settings",
     icon: <SettingsIcon />,
     children: [
       {
-        id: 10,
+        id: 12,
         text: "sidebar:accountManagement",
         path: ACCOUNT_MANAGEMENT,
         icon: <PersonIcon />,

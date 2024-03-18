@@ -36,7 +36,8 @@ const Breadcrumbs = ({ ...otherProps }: BreadcrumbsProps) => {
       }
       if (
         arr.includes("addClinicAffiliation") ||
-        (arr.includes("editClinicAffiliation") && idx > 1)
+        arr.includes("editClinicAffiliation") ||
+        (arr.includes("allClinics") && idx > 1)
       ) {
         if (!clinicName) {
           return <Skeleton key={crumb} variant="text" width={150} />

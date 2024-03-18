@@ -21,7 +21,7 @@ const DoctorSelection = () => {
   const theme = useTheme()
   const dispatch = useAppDispatch()
   const {
-    appointmentsQueryParams: { currentPage, search },
+    appointmentsQueryParams: { currentPage, pageSize, search },
     data,
     status,
     totalItems,
@@ -97,7 +97,7 @@ const DoctorSelection = () => {
       >
         <Pagination
           color="primary"
-          count={Math.ceil(totalItems / 10)}
+          count={Math.ceil(totalItems / pageSize)}
           page={currentPage}
           onChange={(_, value) => {
             handleChangePage(value)

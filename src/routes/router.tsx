@@ -11,6 +11,7 @@ import {
   EditClinic,
   EditClinicAffiliation,
   MyClinics,
+  SingleClinic,
 } from "@/features/clinics"
 import {
   AllDoctors,
@@ -84,6 +85,8 @@ export const router = createBrowserRouter([
       },
       { path: START, element: <Start /> },
       { path: ACCOUNT_MANAGEMENT, element: <AccountManagement /> },
+      { path: MY_APPOINTMENTS, element: <MyAppointments /> },
+      { path: `${ALL_CLINICS}/:clinicId`, element: <SingleClinic /> },
     ],
   },
   {
@@ -132,7 +135,6 @@ export const router = createBrowserRouter([
       { path: ALL_DOCTORS, element: <AllDoctors /> },
       { path: DOCTORS_SELECTION, element: <DoctorSelection /> },
       { path: `${MAKE_APPOINTMENT}/:doctorId`, element: <MakeAppointment /> },
-      { path: MY_APPOINTMENTS, element: <MyAppointments /> },
       { path: `${ALL_DOCTORS}/:doctorId`, element: <SingleDoctor /> },
     ],
   },

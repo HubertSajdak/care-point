@@ -97,7 +97,10 @@ const AllClinics = () => {
             label: t("table:heading.actions"),
             render: (row) => (
               <>
-                <IconButton>
+                <IconButton
+                  component={Link}
+                  to={`${RouteNames.ALL_CLINICS}/${row._id}`}
+                >
                   <VisibilityIcon color="primary" />
                 </IconButton>
                 <IconButton
