@@ -4,6 +4,7 @@
     "doctors": "doctors"
   },
   "heading": {
+    "patient": "patient",
     "photo": "photo",
     "name": "name",
     "surname": "surname",

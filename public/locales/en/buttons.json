@@ -14,5 +14,7 @@
   "next": "next",
   "select": "select",
   "edit": "edit",
-  "seeMore": "see more"
+  "seeMore": "see more",
+  "patientDemo": "patient demo",
+  "doctorDemo": "doctor demo"
 }

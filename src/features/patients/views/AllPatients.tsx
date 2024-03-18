@@ -1,5 +1,5 @@
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
-import { Box, IconButton, Typography } from "@mui/material"
+import { Box, IconButton, Tooltip, Typography } from "@mui/material"
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
@@ -123,12 +123,14 @@ const AllPatients = () => {
             label: t("table:heading.actions"),
             render: (row) => (
               <>
-                <IconButton
-                  component={Link}
-                  to={`${RouteNames.ALL_PATIENTS}/${row._id}`}
-                >
-                  <AssignmentIndIcon color="primary" />
-                </IconButton>
+                <Tooltip title={t("common:tooltip.patientProfile")}>
+                  <IconButton
+                    component={Link}
+                    to={`${RouteNames.ALL_PATIENTS}/${row._id}`}
+                  >
+                    <AssignmentIndIcon color="primary" />
+                  </IconButton>
+                </Tooltip>
               </>
             ),
             isImage: false,

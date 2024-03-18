@@ -87,5 +87,13 @@
     "completed": "zakończone wizyty",
     "active": "nadchodzące wizyty",
     "canceled": "odwołane wizyty"
+  },
+  "tooltip": {
+    "openSettings": "otwórz ustawienia",
+    "makeAppointment": "umów wizytę",
+    "doctorProfile": "profil lekarza",
+    "refreshData": "odśwież dane",
+    "cancelAppointment": "odwołaj wizytę",
+    "patientProfile": "profil pacjenta"
   }
 }

@@ -8,5 +8,7 @@
   "terms": "terms",
   "conditions": "and conditions",
   "asPatient": "as patient",
-  "asDoctor": "as doctor"
+  "asDoctor": "as doctor",
+  "deleteAccountText": "All data related with this account will be permanently removed",
+  "deleteAccountTitle": "Are you sure you want to delete your account?"
 }
