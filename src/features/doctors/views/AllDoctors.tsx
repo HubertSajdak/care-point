@@ -1,6 +1,6 @@
 import AssignmentIcon from "@mui/icons-material/Assignment"
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
-import { Box, IconButton, Typography } from "@mui/material"
+import { Box, IconButton, Tooltip, Typography } from "@mui/material"
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
@@ -92,18 +92,22 @@ const AllDoctors = () => {
             label: t("table:heading.actions"),
             render: (row) => (
               <Box display="flex">
-                <IconButton
-                  component={Link}
-                  to={`${RouteNames.MAKE_APPOINTMENT}/${row._id}`}
-                >
-                  <AssignmentIcon color="primary" />
-                </IconButton>
-                <IconButton
-                  component={Link}
-                  to={`${RouteNames.ALL_DOCTORS}/${row._id}`}
-                >
-                  <AssignmentIndIcon color="primary" />
-                </IconButton>
+                <Tooltip title={t("common:tooltip.makeAppointment")}>
+                  <IconButton
+                    component={Link}
+                    to={`${RouteNames.MAKE_APPOINTMENT}/${row._id}`}
+                  >
+                    <AssignmentIcon color="primary" />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title={t("common:tooltip.doctorProfile")}>
+                  <IconButton
+                    component={Link}
+                    to={`${RouteNames.ALL_DOCTORS}/${row._id}`}
+                  >
+                    <AssignmentIndIcon color="primary" />
+                  </IconButton>
+                </Tooltip>
               </Box>
             ),
             isImage: false,

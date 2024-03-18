@@ -18,6 +18,7 @@ import { Either } from "@/types/globals"
 
 import { changePassword } from "../api/changePassword"
 import { deletePhoto } from "../api/deletePhoto"
+import { deleteUser } from "../api/deleteUser"
 import { getUser } from "../api/getUser"
 import { login } from "../api/login"
 import { register } from "../api/register"
@@ -166,6 +167,17 @@ export const deleteUserPhoto = createAsyncThunk(
     try {
       const res = await deletePhoto()
       thunkAPI.dispatch(getUserData())
+      toast.success(res.data.message)
+    } catch (error) {
+      errorHandler({ error, thunkAPI })
+    }
+  },
+)
+export const deleteAccount = createAsyncThunk(
+  "auth/deleteAccount",
+  async (_, thunkAPI) => {
+    try {
+      const res = await deleteUser()
       toast.success(res.data.message)
     } catch (error) {
       errorHandler({ error, thunkAPI })

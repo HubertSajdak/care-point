@@ -23,5 +23,7 @@
   "selectedClinic": "wybrana klinika",
   "editWorkingHours": "edytuj swoje godziny pracy",
   "editClinicAffiliationTitle": "edytuj przypisanie do kliniki jako miejsca pracy",
-  "editClinicAffiliationSubtitle": "przypisz klinikę jako miejsce pracy, wybierz czas trwania wizyty, opłatę za wizytę i dodaj swoje godziny pracy"
+  "editClinicAffiliationSubtitle": "przypisz klinikę jako miejsce pracy, wybierz czas trwania wizyty, opłatę za wizytę i dodaj swoje godziny pracy",
+  "clinicProfile": "profil kliniki",
+  "clinicWorkingHours": "czas pracy kliniki"
 }

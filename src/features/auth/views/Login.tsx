@@ -1,13 +1,31 @@
-import { Box, Divider, Typography, styled } from "@mui/material"
+import { Box, Divider, Grid, styled, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
+import { useAppDispatch } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import { Link } from "@/shared"
+import {
+  DEMO_EMAIL_DOCTOR,
+  DEMO_EMAIL_PATIENT,
+  DEMO_PASSWORD,
+} from "@/constants/demoCredentials"
+import { loginUser } from "@/redux"
+import { Button, Link } from "@/shared"
 
 import LoginForm from "../components/LoginForm"
 
 const Login = () => {
   const { t } = useTranslation()
+  const dispatch = useAppDispatch()
+  const loginPatientDemo = async () => {
+    await dispatch(
+      loginUser({ email: DEMO_EMAIL_PATIENT, password: DEMO_PASSWORD }),
+    )
+  }
+  const loginDoctorDemo = async () => {
+    await dispatch(
+      loginUser({ email: DEMO_EMAIL_DOCTOR, password: DEMO_PASSWORD }),
+    )
+  }
   return (
     <StyledBox>
       <Typography component="h2" mb={2} textAlign="center" variant="h4">
@@ -24,6 +42,28 @@ const Login = () => {
         {t("authPages:enterCredentials")}
       </Typography>
       <LoginForm />
+      <Grid mt={2} rowSpacing={2} container>
+        <Grid xs={12} item>
+          <Button
+            color="secondary"
+            variant="contained"
+            fullWidth
+            onAsyncClick={loginPatientDemo}
+          >
+            {t("buttons:patientDemo")}
+          </Button>
+        </Grid>
+        <Grid xs={12} item>
+          <Button
+            color="secondary"
+            variant="contained"
+            fullWidth
+            onAsyncClick={loginDoctorDemo}
+          >
+            {t("buttons:doctorDemo")}
+          </Button>
+        </Grid>
+      </Grid>
       <Divider sx={{ margin: "2rem 0rem 1.5rem" }} />
       <Typography component="p" textAlign="center" variant="body1">
         {t("authPages:dontHaveAcc")}{" "}

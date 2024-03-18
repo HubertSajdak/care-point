@@ -6,16 +6,19 @@ import {
   InputAdornment,
   OutlinedInput,
   SvgIcon,
+  Tooltip,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
 import styled from "styled-components"
 
 import { capitalizeFirstChar } from "@/shared/utils/functions"
+
 interface UserSearchProps {
   additionalOptions?: React.ReactNode
   onChangeSearch: (search: string) => void
   onRefreshContent: (() => void) | undefined
 }
+
 const Search = ({
   additionalOptions,
   onChangeSearch,
@@ -42,19 +45,21 @@ const Search = ({
         onChange={(e) => onChangeSearch(e.target.value)}
       />
       {additionalOptions && additionalOptions}
-      <IconButton
-        color="primary"
-        sx={{
-          borderRadius: "50%",
-          width: "50px",
-          height: "50px",
-          display: "grid",
-          placeItems: "center",
-        }}
-        onClick={onRefreshContent}
-      >
-        <RefreshIcon />
-      </IconButton>
+      <Tooltip title={t("common:tooltip.refreshData")}>
+        <IconButton
+          color="primary"
+          sx={{
+            borderRadius: "50%",
+            width: "50px",
+            height: "50px",
+            display: "grid",
+            placeItems: "center",
+          }}
+          onClick={onRefreshContent}
+        >
+          <RefreshIcon />
+        </IconButton>
+      </Tooltip>
     </StyledCard>
   )
 }

@@ -29,7 +29,7 @@ const DoctorClinicsCard = () => {
           {doctorClinics && doctorClinics.length > 0 ? (
             doctorClinics.map((el, idx, arr) => {
               return (
-                <>
+                <div key={el._id}>
                   <ListItem
                     key={el._id}
                     sx={{
@@ -77,7 +77,7 @@ const DoctorClinicsCard = () => {
                   {idx + 1 !== arr.length && (
                     <Divider orientation="horizontal" sx={{ mb: 2 }} />
                   )}
-                </>
+                </div>
               )
             })
           ) : (

@@ -4,6 +4,7 @@
     "doctors": "lekarze"
   },
   "heading": {
+    "patient": "pacjent",
     "photo": "zdjęcie",
     "name": "imię",
     "surname": "nazwisko",

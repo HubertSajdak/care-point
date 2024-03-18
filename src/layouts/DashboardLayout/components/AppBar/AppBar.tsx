@@ -80,7 +80,7 @@ const AppBar = ({
           ) : (
             <Typography sx={{ fontWeight: "bold" }}>{userName}</Typography>
           )}
-          <Tooltip title="Open settings">
+          <Tooltip title={t("common:tooltip.openSettings")}>
             <IconButton
               data-testid="user-menu"
               sx={{

@@ -12,6 +12,7 @@
   "basicInfo": "basic info",
   "editBasicInfo": "edit basic info",
   "consultationFee": "consultation fee",
+  "clinicWorkingHours": "clinic working time",
   "consultationTime": "consultation time",
   "addClinicSubtitle": "add a new clinic so that you can then assign it as your workplace",
   "addClinicAffiliationTitle": "assign clinic as workplace",
@@ -23,5 +24,6 @@
   "editWorkingHours": "edit your working hours",
   "selectedClinic": "selected clinic",
   "editClinicAffiliationTitle": "edit assignment of clinic as workplace",
-  "editClinicAffiliationSubtitle": "assign the clinic as your place of work, select the duration of the visit, the fee for the visit and add your working hours"
+  "editClinicAffiliationSubtitle": "assign the clinic as your place of work, select the duration of the visit, the fee for the visit and add your working hours",
+  "clinicProfile": "clinic profile"
 }
