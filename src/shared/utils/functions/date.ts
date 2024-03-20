@@ -29,6 +29,40 @@ export const enabledDays = (date: Dayjs, workingTime: IWorkingHours[]) => {
   }
   return true
 }
+export const compareTime = (
+  comparedTime: string,
+  limitTime: string,
+  comparison: "isAfter" | "isBefore" | "isSameOrBefore",
+) => {
+  if (comparison === "isAfter") {
+    return dayjs(comparedTime, "HH:mm").get("hour") ===
+      dayjs(limitTime, "HH:mm").get("hour")
+      ? dayjs(comparedTime, "HH:mm").get("minute") >=
+          dayjs(limitTime, "HH:mm").get("minute")
+      : dayjs(comparedTime, "HH:mm").get("hour") >=
+          dayjs(limitTime, "HH:mm").get("hour")
+  } else if (comparison === "isBefore") {
+    return dayjs(comparedTime, "HH:mm").get("hour") ===
+      dayjs(limitTime, "HH:mm").get("hour")
+      ? dayjs(comparedTime, "HH:mm").get("minute") <
+          dayjs(limitTime, "HH:mm").get("minute")
+      : dayjs(comparedTime, "HH:mm").get("hour") <
+          dayjs(limitTime, "HH:mm").get("hour")
+  } else if (comparison === "isSameOrBefore") {
+    return dayjs(limitTime, "HH:mm").get("hour") ===
+      dayjs(comparedTime, "HH:mm").get("hour")
+      ? dayjs(comparedTime, "HH:mm").get("minute") <=
+          dayjs(limitTime, "HH:mm").get("minute")
+      : dayjs(comparedTime, "HH:mm").get("hour") <=
+          dayjs(limitTime, "HH:mm").get("hour")
+  }
+  // return dayjs(getHoursFromDate, "HH:mm").get("hour") ===
+  //   dayjs(currentTime, "HH:mm").get("hour")
+  //   ? dayjs(currentTime, "HH:mm").get("minute") <=
+  //       dayjs(getHoursFromDate, "HH:mm").get("minute")
+  //   : dayjs(currentTime, "HH:mm").get("hour") <=
+  //       dayjs(getHoursFromDate, "HH:mm").get("hour")
+}
 
 export const enabledTime = (
   date: Dayjs,
@@ -55,12 +89,19 @@ export const enabledTime = (
     return false
   }
   const getHoursFromDate = dayjs(date).format("HH:mm")
-
+  const currentTime = dayjs().format("HH:mm")
+  if (dayjs(date).format("YYYY-MM-DD") === dayjs().format("YYYY-MM-DD")) {
+    // return dayjs(getHoursFromDate, "HH:mm").get("hour") ===
+    //   dayjs(currentTime, "HH:mm").get("hour")
+    //   ? dayjs(currentTime, "HH:mm").get("minute") <=
+    //       dayjs(getHoursFromDate, "HH:mm").get("minute")
+    //   : dayjs(currentTime, "HH:mm").get("hour") <=
+    //       dayjs(getHoursFromDate, "HH:mm").get("hour")
+    return compareTime(currentTime, getHoursFromDate, "isSameOrBefore")
+  }
   return (
-    dayjs(getHoursFromDate, "HH:mm") >=
-      dayjs(findWorkingDay.startTime, "HH:mm") &&
-    dayjs(getHoursFromDate, "HH:mm") <=
-      dayjs(findWorkingDay.stopTime, "HH:mm") &&
+    compareTime(getHoursFromDate, findWorkingDay.startTime, "isAfter") &&
+    compareTime(getHoursFromDate, findWorkingDay.stopTime, "isBefore") &&
     !getHoursFromAppointments.some((el) => {
       return (
         dayjs(el).format("YYYY-MM-DD HH:mm").split(" ")[1] ===
@@ -117,3 +158,107 @@ export const calculateAge = (birthDate: string) => {
   const calculatedAge = dayjs(birth).diff(currentDate, "years")
   return calculatedAge.toString().split("-")[1]
 }
+
+// export const calculateNextAvailableDates = (
+//   doctorClinicsAffiliations: IClinicAffiliation[],
+//   doctorAppointments: IAppointment[],
+// ) => {
+//   const workingTimeArr = doctorClinicsAffiliations?.map((el) => {
+//     return {
+//       clinicName: el.clinicName,
+//       consultationTime: el.timePerPatient,
+//       workingTime: el.workingTime,
+//     }
+//   })
+//   const availableDates = workingTimeArr
+//     .map((workingTime) => {
+//       return workingTime.workingTime
+//         .map((el) => {
+//           if (el.startTime && el.stopTime) {
+//             const generatedDates: {
+//               availableHours: string[]
+//               clinicName: string
+//               date: string
+//               startTime: string
+//               stopTime: string
+//             }[] = []
+//             for (let i = 0; i < 30; i++) {
+//               const currentDate = dayjs().locale("en-GB")
+//               const currentDateFormatted = currentDate
+//                 .add(i, "day")
+//                 .format("YYYY-MM-DD,dddd")
+//                 .toLowerCase()
+//               if (
+//                 el.weekDay.toString() ===
+//                 currentDateFormatted.split(",")[1].toString()
+//               )
+//                 generatedDates.push({
+//                   date: currentDateFormatted,
+//                   availableHours: [],
+//                   startTime: el.startTime,
+//                   stopTime: el.stopTime,
+//                   clinicName: workingTime.clinicName,
+//                 })
+//             }
+//             return generatedDates
+//           }
+//         })
+//         .map((workingDates) => {
+//           return workingDates?.map((workingDate) => {
+//             const workingTimeDiff = dayjs(
+//               `2024-03-19 ${workingDate?.startTime}`,
+//             ).diff(dayjs(`2024-03-19 ${workingDate?.stopTime}`), "minute")
+//             const minutesStep = Math.abs(
+//               workingTimeDiff / workingTime.consultationTime,
+//             )
+//             const availableHours = []
+//             for (let n = 0; n < minutesStep; n++) {
+//               const workDayStart = dayjs(`2024-03-19,${workingDate?.startTime}`)
+//               const calculatedHour = workDayStart
+//                 .add(n * workingTime.consultationTime, "minute")
+//                 .format("HH:mm")
+//
+//               availableHours.push(calculatedHour)
+//             }
+//             return {
+//               date: workingDate?.date,
+//               availableHours,
+//               clinicName: workingDate?.clinicName,
+//             }
+//           })
+//         })
+//         .filter((el) => el !== undefined)
+//     })
+//     .reduce((acc, cur) => acc?.concat(cur), [])
+//     .reduce((acc, cur) => acc?.concat(cur), [])
+//     ?.map((el) => {
+//       return el.availableHours.map((hour) => {
+//         const currentDay = dayjs().format("YYYY-MM-DD")
+//         const currentTime = dayjs().format("HH:mm")
+//         const relatedAppointment = doctorAppointments.find(
+//           (appointment) =>
+//             appointment.appointmentDate.split(" ")[0] === el.date.split(",")[0],
+//         )
+//         if (
+//           relatedAppointment?.appointmentDate.split(" ")[1] === hour ||
+//           dayjs(`${currentDay} ${currentTime}`) >=
+//             dayjs(`${currentDay} ${hour}`)
+//         )
+//           return
+//
+//         return {
+//           date: el.date.split(",")[0],
+//           time: hour,
+//           clinicName: el.clinicName,
+//         }
+//       })
+//     })
+//     .reduce((acc, cur) => (acc = acc?.concat(cur)), [])
+//     .filter((el) => el !== undefined)
+//     .sort((a, b) => {
+//       const dateA = new Date(`${a!.date} ${a!.time}`)
+//       const dateB = new Date(`${b!.date} ${b!.time}`)
+//       return dateA.getTime() - dateB.getTime()
+//     })
+//   return availableDates
+// }

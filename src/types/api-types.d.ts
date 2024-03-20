@@ -123,6 +123,7 @@ export interface IPatientUser {
 
 export interface IDoctorUser {
   ClinicAffiliation: IClinicAffiliation[]
+  DoctorAppointments: IAppointment[]
   DoctorSpecialization: IDoctorSpecialization[]
   _id: string
   email: string

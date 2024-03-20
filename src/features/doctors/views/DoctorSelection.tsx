@@ -58,6 +58,7 @@ const DoctorSelection = () => {
             ({
               _id,
               ClinicAffiliation,
+              DoctorAppointments,
               DoctorSpecialization,
               name,
               photo,
@@ -65,9 +66,10 @@ const DoctorSelection = () => {
               surname,
             }) => {
               return (
-                <Grid key={_id} lg={6} sm={12} xs={12} item>
+                <Grid key={_id} lg={12} sm={12} xs={12} item>
                   <DoctorCard
                     clinicAffiliations={ClinicAffiliation}
+                    doctorAppointmentsArr={DoctorAppointments}
                     doctorId={_id}
                     name={`${name} ${surname}`}
                     photo={photo}

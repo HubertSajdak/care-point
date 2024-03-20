@@ -14,7 +14,6 @@ import AddDoctorSpecializationForm from "../components/AddDoctorSpecializationFo
 const MySpecializations = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-
   useEffect(() => {
     dispatch(getAllSpecializations())
     dispatch(getDoctorSpecializations())

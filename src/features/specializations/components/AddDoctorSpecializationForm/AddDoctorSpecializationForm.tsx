@@ -29,6 +29,8 @@ const AddDoctorSpecializationForm = () => {
   const allSpecializations = useAppSelector(
     (state) => state.specializations.allSpecializations,
   )
+  const status = useAppSelector((state) => state.specializations.status)
+
   const currentUserSpecializations = useAppSelector(
     (state) => state.specializations.currentUserSpecializations,
   )
