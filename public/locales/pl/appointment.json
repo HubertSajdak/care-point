@@ -2,6 +2,7 @@
   "findDoctor": "wybierz spośród dostępnych lekarzy i umów się na wizytę",
   "makeAppointmentDescription": "wybierz jedno z miejsc, w których pracuje lekarz. sprawdź dostępne godziny pracy i umów się na wizytę",
   "myAppointmentsDescription": "poniżej znajdziesz twoje nadchodzące i zakończone wizyty",
+  "availableAppointmentDates": "Najbliższe wolne terminy",
   "doctorCard": {
     "noStatement": "brak opisu",
     "specializations": "specjalizacje",
