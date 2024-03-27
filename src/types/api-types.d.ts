@@ -187,8 +187,10 @@ export interface IAppointment {
   consultationFee: number
   doctorId: string
   doctorInfo: Pick<IDoctorUser, "name" | "surname" | "photo" | "_id">
+  estimatedEndDate: string
   patientId: string
   patientInfo: Pick<IPatientUser, "name" | "surname" | "photo" | "_id">
+  timePerPatient: number
 }
 
 export interface ISpecializations {

@@ -34,7 +34,7 @@ interface DoctorCardProps {
 
 const DoctorCard = ({
   clinicAffiliations,
-  doctorAppointmentsArr,
+  // doctorAppointmentsArr,
   doctorId,
   name,
   photo,
@@ -95,7 +95,7 @@ const DoctorCard = ({
             </Box>
           </Box>
         </Grid>
-        <Grid gap={2} xs={6} item>
+        <Grid gap={2} md={6} xs={12} item>
           <Box display="flex" flexDirection="column" gap={2.5}>
             <Typography fontWeight="bold">
               {t("appointment:doctorCard.specializations")}:
@@ -169,43 +169,11 @@ const DoctorCard = ({
             </Stack>
           </Box>
         </Grid>
-        <Grid gap={2} xs={6} item>
+        <Grid gap={2} md={6} xs={12} item>
           <Typography fontWeight="bold" mb={2}>
-            Najbliższe wolne terminy:
+            {t("appointment:availableAppointmentDates")}:
           </Typography>
-          {/*<Box display="flex" flexDirection="row" flexWrap="wrap" gap={2.5}>*/}
-          {/*  {clinicAffiliations.length > 0 &&*/}
-          {/*  doctorAppointmentsArr.length > 0 ? (*/}
-          {/*    calculateNextAvailableDates(*/}
-          {/*      clinicAffiliations || [],*/}
-          {/*      doctorAppointmentsArr || [],*/}
-          {/*    )*/}
-          {/*      ?.slice(0, 5)*/}
-          {/*      ?.map((el) => {*/}
-          {/*        return (*/}
-          {/*          <Tooltip*/}
-          {/*            key={el?.date + el?.time + el?.clinicName}*/}
-          {/*            title={el?.clinicName}*/}
-          {/*          >*/}
-          {/*            <Chip*/}
-          {/*              color="primary"*/}
-          {/*              label={*/}
-          {/*                el?.time +*/}
-          {/*                " | " +*/}
-          {/*                el?.date.split("-").reverse().join("-")*/}
-          {/*              }*/}
-          {/*              sx={{ fontWeight: "bold" }}*/}
-          {/*              variant="filled"*/}
-          {/*            />*/}
-          {/*          </Tooltip>*/}
-          {/*        )*/}
-          {/*      })*/}
-          {/*  ) : (*/}
-          {/*    <Typography>*/}
-          {/*      Brak wolnych terminów w najbliższym czasie*/}
-          {/*    </Typography>*/}
-          {/*  )}*/}
-          {/*</Box>*/}
+          <Chip color="warning" label={"Work in progress"} />
         </Grid>
         <Grid gap={2} xs={12} item>
           <Box marginTop={"auto"}>

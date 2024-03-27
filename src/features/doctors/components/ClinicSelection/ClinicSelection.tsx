@@ -3,6 +3,7 @@ import { Grid } from "@mui/material"
 import { IAddress, IClinicAffiliation } from "@/types/api-types"
 
 import ClinicCard from "./components/ClinicCard"
+
 export interface ClinicSelectionProps {
   clinicAffiliations: IClinicAffiliation[]
   onClick: (
@@ -10,9 +11,11 @@ export interface ClinicSelectionProps {
     address: IAddress,
     consultationFee: number,
     clinicId: string,
+    timePerPatient: number,
   ) => void
   selectedClinicId: string
 }
+
 const ClinicSelection = ({
   clinicAffiliations,
   onClick,
@@ -31,6 +34,7 @@ const ClinicSelection = ({
               consultationFee={el.consultationFee}
               id={el._id}
               photo={el.clinicInfo.photo}
+              timePerPatient={el.timePerPatient}
               workingTime={el.workingTime}
               onClick={onClick}
             />
