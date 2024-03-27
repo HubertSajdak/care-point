@@ -13,6 +13,7 @@ const makeAppointmentSchema = yup.object().shape({
     city: yup.string().required(),
     postalCode: yup.string().postalCode(),
   }),
+  timePerPatient: yup.number().required(),
 })
 
 export type MakeAppointmentFormValues = yup.InferType<

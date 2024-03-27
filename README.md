@@ -1,27 +1,74 @@
-# vite-template-redux
+# Care Point
 
-Uses [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), and [React Testing Library](https://github.com/testing-library/react-testing-library) to create a modern [React](https://react.dev/) app compatible with [Create React App](https://create-react-app.dev/)
+Dashboard application for tracking and managing appointments
 
-```sh
-npx degit reduxjs/redux-templates/packages/vite-template-redux my-app
-```
+Care Point allows users to quickly make an appointment with a doctor and track their upcoming visits.
 
-## Goals
+Doctors are allowed to add new clinics to the database and assign them as their workplaces by providing informations
+like: consultation fee, consultation time, working hours
 
-- Easy migration from Create React App or Vite
-- As beginner friendly as Create React App
-- Optimized performance compared to Create React App
-- Customizable without ejecting
+Patients can find their most suitable doctor and make an appointment in one of the doctor's workplaces
 
-## Scripts
+## Motivation
 
-- `dev`/`start` - start dev server and open browser
-- `build` - build for production
-- `preview` - locally preview production build
-- `test` - launch test runner
+My motivation to do this project was to demonstrate my fullstack skills by creating various complex components, managing
+private routes, authorization and authentication, dealing with date objects, handling forms, creating feature based
+architecture, creating REST API with JWT/role protected endpoints, communication with MongoDB database, file uploads and
+more...
 
-## Inspiration
+## Tech Stack
 
-- [Create React App](https://github.com/facebook/create-react-app/tree/main/packages/cra-template)
-- [Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react)
-- [Vitest](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib)
+**Client:** React, TypeScript, Redux, React-Router, Styled-Components, Axios, Formik, Yup, i18n, Dayjs, React-Toastify,
+Husky,
+
+**Server:** Node, Express, TypeScript, moment.js, Bcryptjs, joi, JWT, Morgan, Validator
+
+## Features
+
+### Common features
+
+- Patient / Doctor registration and login
+- Handling private routes, authorization and authentication via JWT
+- Account management (updating user info, photo, password, account deletion)
+- Dashboard with information about appointments
+- Two languages (English, Polish) thanks to I18n library
+- Pre-commit hooks via Husky
+- Patient / Doctor demo accounts
+
+### Patient features
+
+- Ability to search for doctors in the table
+- Doctor's profile view
+- Making and canceling appointments
+- Information about upcoming and completed appointments
+
+### Doctor features
+
+- Ability to search for patients in the table
+- Patient's profile view
+- Information about upcoming and completed appointments
+- Cancelng appointments
+- Adding clinics to the database
+- Assign clinic as a workplace (including consultation time, consultation fee, creating doctor's working time for
+  certain clinics)
+- Adding doctor's specializations
+- Ability to search for clinics in the table
+- Single clinic view
+- Doctor's clinics assignments view
+
+## Demo
+
+* Live: https://care-point.vercel.app/
+* Backend: https://github.com/HubertSajdak/quick-care-backend
+
+## Screenshots
+
+![App Screenshot](https://i.postimg.cc/gJHr0Ln1/image.png)
+
+![App Screenshot](https://i.postimg.cc/gkpgxCrh/doctors-care-point.png)
+
+![App Screenshot](https://i.postimg.cc/1txjJfRC/image.png)
+
+![App Screenshot](https://i.postimg.cc/tTHBFwD8/image.png)
+
+![App Screenshot](https://i.postimg.cc/QtsqF5d3/image.png)

@@ -28,8 +28,10 @@ export interface ClinicCardProps {
     address: IAddress,
     consultationFee: number,
     clinicId: string,
+    timePerPatient: number,
   ) => void
   photo?: string
+  timePerPatient: number
   workingTime: IWorkingHours[]
 }
 
@@ -42,6 +44,7 @@ const ClinicCard = ({
   id,
   onClick,
   photo,
+  timePerPatient,
   workingTime,
 }: ClinicCardProps) => {
   const { t } = useTranslation()
@@ -98,7 +101,9 @@ const ClinicCard = ({
         disabled={$isSelected}
         variant="contained"
         fullWidth
-        onClick={() => onClick(id, address, consultationFee, clinicId)}
+        onClick={() =>
+          onClick(id, address, consultationFee, clinicId, timePerPatient)
+        }
       >
         {t("buttons:select")}
       </Button>

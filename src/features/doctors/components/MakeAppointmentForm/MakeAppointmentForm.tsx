@@ -1,7 +1,8 @@
 import { Box, CircularProgress } from "@mui/material"
-import dayjs from "dayjs"
+import { DateOrTimeView } from "@mui/x-date-pickers"
+import dayjs, { Dayjs } from "dayjs"
 import { FormikProvider, useFormik } from "formik"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 
@@ -36,15 +37,18 @@ const MakeAppointmentForm = () => {
   const { t } = useTranslation()
   const user = useAppSelector((state) => state.auth.user)
   const [activeStep, setActiveStep] = useState(0)
+  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null)
+  const [currentView, setCurrentView] = useState<DateOrTimeView>("month")
   const [selectedClinic, setSelectedClinic] = useState<
     IClinicAffiliation | undefined
   >(undefined)
-
+  const [isActionSubmitDisabled, setIsActionSubmitDisabled] = useState(true)
   const handleClinicSelection = (
     id: string,
     address: IAddress,
     consultationFee: number,
     clinicId: string,
+    timePerPatient: number,
   ) => {
     makeAppointmentFormik.setFieldValue("clinicAffiliationId", id)
     if (selectedDoctor && selectedDoctor.ClinicAffiliation.length > 0) {
@@ -56,6 +60,7 @@ const MakeAppointmentForm = () => {
     makeAppointmentFormik.setFieldValue("appointmentAddress", address)
     makeAppointmentFormik.setFieldValue("consultationFee", consultationFee)
     makeAppointmentFormik.setFieldValue("clinicId", clinicId)
+    makeAppointmentFormik.setFieldValue("timePerPatient", timePerPatient)
   }
 
   const makeAppointmentFormik = useFormik<MakeAppointmentValues>({
@@ -72,6 +77,7 @@ const MakeAppointmentForm = () => {
       },
       appointmentStatus: "active",
       consultationFee: 0,
+      timePerPatient: 0,
     },
     enableReinitialize: true,
     validationSchema: makeAppointmentSchema,
@@ -81,6 +87,13 @@ const MakeAppointmentForm = () => {
     },
   })
 
+  useEffect(() => {
+    if (selectedDate && selectedDate >= dayjs() && currentView === "minutes") {
+      setIsActionSubmitDisabled(false)
+    } else {
+      setIsActionSubmitDisabled(true)
+    }
+  }, [currentView, selectedDate])
   if (status === "loading") {
     return (
       <Box display="flex" justifyContent="center" width="100%">
@@ -122,29 +135,44 @@ const MakeAppointmentForm = () => {
           >
             <StaticDateTimePicker
               ampm={false}
-              defaultValue={dayjs(makeAppointmentFormik.values.appointmentDate)}
               displayStaticWrapperAs="mobile"
-              minutesStep={selectedClinic?.timePerPatient}
+              minutesStep={5}
               shouldDisableDate={(date) =>
                 enabledDays(date, selectedClinic!.workingTime)
               }
-              shouldDisableTime={(date) => {
+              shouldDisableTime={(date, view) => {
                 return !enabledTime(
                   date,
                   selectedClinic!.workingTime,
                   selectedDoctorAppointments?.data || [],
+                  view,
+                  selectedClinic?.timePerPatient || 0,
                 )
               }}
               slotProps={{
                 actionBar: {
-                  actions: ["clear", "accept"],
+                  actions: !isActionSubmitDisabled
+                    ? ["clear", "accept"]
+                    : ["clear"],
                 },
               }}
+              value={selectedDate}
+              view={currentView}
               disablePast
               onAccept={(newValue) => {
                 return makeAppointmentFormik.setFieldValue(
                   "appointmentDate",
                   `${dayjs(newValue).format("YYYY-MM-DD HH:mm")}`,
+                )
+              }}
+              onChange={(value) => {
+                setSelectedDate(value)
+              }}
+              onViewChange={(view) => {
+                setCurrentView(view)
+                return makeAppointmentFormik.setFieldValue(
+                  "appointmentDate",
+                  "",
                 )
               }}
             />

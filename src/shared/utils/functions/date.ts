@@ -1,3 +1,4 @@
+import { TimeView } from "@mui/x-date-pickers"
 import dayjs, { Dayjs } from "dayjs"
 
 import {
@@ -29,11 +30,34 @@ export const enabledDays = (date: Dayjs, workingTime: IWorkingHours[]) => {
   }
   return true
 }
+export const compareTime = (
+  comparedTime: string,
+  limitTime: string,
+  comparison: "isAfter" | "isBefore",
+) => {
+  if (comparison === "isAfter") {
+    return dayjs(comparedTime, "HH:mm").get("hour") ===
+      dayjs(limitTime, "HH:mm").get("hour")
+      ? dayjs(comparedTime, "HH:mm").get("minute") >=
+          dayjs(limitTime, "HH:mm").get("minute")
+      : dayjs(comparedTime, "HH:mm").get("hour") >=
+          dayjs(limitTime, "HH:mm").get("hour")
+  } else if (comparison === "isBefore") {
+    return dayjs(comparedTime, "HH:mm").get("hour") ===
+      dayjs(limitTime, "HH:mm").get("hour")
+      ? dayjs(comparedTime, "HH:mm").get("minute") <
+          dayjs(limitTime, "HH:mm").get("minute")
+      : dayjs(comparedTime, "HH:mm").get("hour") <
+          dayjs(limitTime, "HH:mm").get("hour")
+  }
+}
 
 export const enabledTime = (
   date: Dayjs,
   workingTime: IWorkingHours[],
   appointments: IAppointment[],
+  view: TimeView,
+  consultationTime: number,
 ) => {
   const formattedSelectedDate = date.format("YYYY-MM-DD HH:mm")
   const findAppointmentDate = appointments?.filter(
@@ -42,7 +66,10 @@ export const enabledTime = (
       formattedSelectedDate.split(" ")[0],
   )
   const getHoursFromAppointments = findAppointmentDate.map((appointment) => {
-    return appointment.appointmentDate
+    return {
+      appointmentStart: appointment.appointmentDate,
+      appointmentStop: appointment.estimatedEndDate,
+    }
   })
   const findWorkingDay = workingTime.find(
     (el) => el.weekDay === dayjs(date).format("dddd").toLowerCase(),
@@ -55,21 +82,45 @@ export const enabledTime = (
     return false
   }
   const getHoursFromDate = dayjs(date).format("HH:mm")
-
-  return (
-    dayjs(getHoursFromDate, "HH:mm") >=
-      dayjs(findWorkingDay.startTime, "HH:mm") &&
-    dayjs(getHoursFromDate, "HH:mm") <=
-      dayjs(findWorkingDay.stopTime, "HH:mm") &&
-    !getHoursFromAppointments.some((el) => {
+  let isEnabled =
+    compareTime(getHoursFromDate, findWorkingDay.startTime, "isAfter") &&
+    compareTime(getHoursFromDate, findWorkingDay.stopTime, "isBefore")
+  if (isEnabled && view === "minutes") {
+    isEnabled = !getHoursFromAppointments.some((el) => {
       return (
-        dayjs(el).format("YYYY-MM-DD HH:mm").split(" ")[1] ===
-        dayjs(getHoursFromDate, "HH:mm")
-          .format("YYYY-MM-DD HH:mm")
-          .split(" ")[1]
+        (dayjs(getHoursFromDate, "HH:mm").format("HH:mm") >=
+          dayjs(el.appointmentStart, "YYYY-MM-DD HH:mm").format("HH:mm") &&
+          dayjs(getHoursFromDate, "HH:mm").format("HH:mm") <
+            dayjs(el.appointmentStop, "YYYY-MM-DD HH:mm").format("HH:mm")) ||
+        (dayjs(getHoursFromDate, "HH:mm").format("HH:mm") >
+          dayjs(el.appointmentStart, "YYYY-MM-DD HH:mm")
+            .subtract(consultationTime, "minute")
+            .format("HH:mm") &&
+          dayjs(getHoursFromDate, "HH:mm").format("HH:mm") <=
+            dayjs(el.appointmentStart, "YYYY-MM-DD HH:mm").format("HH:mm")) ||
+        (dayjs(getHoursFromDate, "HH:mm").format("HH:mm") <=
+          dayjs(findWorkingDay.stopTime, "HH:mm").format("HH:mm") &&
+          dayjs(getHoursFromDate, "HH:mm").format("HH:mm") >
+            dayjs(findWorkingDay.stopTime, "HH:mm")
+              .subtract(consultationTime, "minute")
+              .format("HH:mm"))
       )
     })
-  )
+  }
+  if (isEnabled && view === "hours") {
+    // const findCurrentHourRelatedAppointments = appointments.filter(
+    //   (el) =>
+    //     dayjs(el.appointmentDate, "YYYY-MM-DD HH:mm").format(
+    //       "YYYY-MM-DD HH",
+    //     ) === date.format("YYYY-MM-DD HH") ||
+    //     dayjs(el.estimatedEndDate, "YYYY-MM-DD HH:mm").format(
+    //       "YYYY-MM-DD HH",
+    //     ) === date.format("YYYY-MM-DD HH"),
+    // )
+    const isHourDisabled = false
+    isEnabled = !isHourDisabled
+  }
+  return isEnabled
 }
 
 export const getCurrentMonthAppointments = (

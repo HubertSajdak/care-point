@@ -39,7 +39,6 @@ const AddClinicAffiliationForm = () => {
   const navigate = useNavigate()
   const [activeStep, setActiveStep] = useState(0)
   const params = useParams()
-
   const user = useAppSelector((state) => state.auth.user)
   const singleClinic = useAppSelector((state) => state.clinics.singleClinic)
   const status = useAppSelector((state) => state.clinics.status)
