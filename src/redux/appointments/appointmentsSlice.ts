@@ -10,7 +10,7 @@ import {
 
 type IAppointmentFilters = "all" | IAppointmentStatus
 
-interface IApointmentQueryParams extends IQueryParams {
+interface IAppointmentQueryParams extends IQueryParams {
   appointmentFilter: IAppointmentFilters | null
 }
 
@@ -19,7 +19,7 @@ interface InitialStateValues {
     data: IAppointment[]
     totalItems: number
   } | null
-  queryParams: IApointmentQueryParams
+  queryParams: IAppointmentQueryParams
   status: ReqStatus
   totalItems: number
   userAppointmentsData: IAppointment[] | null
@@ -46,7 +46,7 @@ const appointmentsSlice = createSlice({
   reducers: {
     setQueryParams: (
       state,
-      { payload }: PayloadAction<Partial<IApointmentQueryParams>>,
+      { payload }: PayloadAction<Partial<IAppointmentQueryParams>>,
     ) => ({
       ...state,
       queryParams: {

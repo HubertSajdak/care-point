@@ -1,4 +1,5 @@
-import FavoriteIcon from "@mui/icons-material/Favorite"
+import HowToRegIcon from "@mui/icons-material/HowToReg"
+import PersonAddIcon from "@mui/icons-material/PersonAdd"
 import { Grid, Paper, Typography } from "@mui/material"
 import dayjs from "dayjs"
 import { t } from "i18next"
@@ -39,7 +40,7 @@ const SingleDoctor = () => {
         currentMonth,
         "completed",
       ).length,
-      icon: <FavoriteIcon color="info" />,
+      icon: <HowToRegIcon color="info" />,
       iconBorderColor: theme.palette.info.main,
       titleColor: theme.palette.info.main,
     },
@@ -51,7 +52,7 @@ const SingleDoctor = () => {
         currentMonth,
         "active",
       ).length,
-      icon: <FavoriteIcon color="primary" />,
+      icon: <PersonAddIcon color="primary" />,
       iconBorderColor: theme.palette.primary.main,
       titleColor: theme.palette.primary.main,
     },
