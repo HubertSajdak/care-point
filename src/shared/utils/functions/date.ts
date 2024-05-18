@@ -33,9 +33,9 @@ export const enabledDays = (date: Dayjs, workingTime: IWorkingHours[]) => {
 export const compareTime = (
   comparedTime: string,
   limitTime: string,
-  comparison: "isAfter" | "isBefore",
+  comparison: "isAfter" | "isBefore" | "isAfterOrEqual" | "isBeforeOrEqual",
 ) => {
-  if (comparison === "isAfter") {
+  if (comparison === "isAfterOrEqual") {
     return dayjs(comparedTime, "HH:mm").get("hour") ===
       dayjs(limitTime, "HH:mm").get("hour")
       ? dayjs(comparedTime, "HH:mm").get("minute") >=
@@ -48,6 +48,20 @@ export const compareTime = (
       ? dayjs(comparedTime, "HH:mm").get("minute") <
           dayjs(limitTime, "HH:mm").get("minute")
       : dayjs(comparedTime, "HH:mm").get("hour") <
+          dayjs(limitTime, "HH:mm").get("hour")
+  } else if (comparison === "isBeforeOrEqual") {
+    return dayjs(comparedTime, "HH:mm").get("hour") ===
+      dayjs(limitTime, "HH:mm").get("hour")
+      ? dayjs(comparedTime, "HH:mm").get("minute") <=
+          dayjs(limitTime, "HH:mm").get("minute")
+      : dayjs(comparedTime, "HH:mm").get("hour") <=
+          dayjs(limitTime, "HH:mm").get("hour")
+  } else if (comparison === "isAfter") {
+    return dayjs(comparedTime, "HH:mm").get("hour") ===
+      dayjs(limitTime, "HH:mm").get("hour")
+      ? dayjs(comparedTime, "HH:mm").get("minute") >
+          dayjs(limitTime, "HH:mm").get("minute")
+      : dayjs(comparedTime, "HH:mm").get("hour") >
           dayjs(limitTime, "HH:mm").get("hour")
   }
 }
@@ -83,27 +97,45 @@ export const enabledTime = (
   }
   const getHoursFromDate = dayjs(date).format("HH:mm")
   let isEnabled =
-    compareTime(getHoursFromDate, findWorkingDay.startTime, "isAfter") &&
+    compareTime(getHoursFromDate, findWorkingDay.startTime, "isAfterOrEqual") &&
     compareTime(getHoursFromDate, findWorkingDay.stopTime, "isBefore")
   if (isEnabled && view === "minutes") {
     isEnabled = !getHoursFromAppointments.some((el) => {
       return (
-        (dayjs(getHoursFromDate, "HH:mm").format("HH:mm") >=
-          dayjs(el.appointmentStart, "YYYY-MM-DD HH:mm").format("HH:mm") &&
-          dayjs(getHoursFromDate, "HH:mm").format("HH:mm") <
-            dayjs(el.appointmentStop, "YYYY-MM-DD HH:mm").format("HH:mm")) ||
-        (dayjs(getHoursFromDate, "HH:mm").format("HH:mm") >
+        (compareTime(
+          dayjs(getHoursFromDate, "HH:mm").format("HH:mm"),
+          dayjs(el.appointmentStart, "YYYY-MM-DD HH:mm").format("HH:mm"),
+          "isAfterOrEqual",
+        ) &&
+          compareTime(
+            dayjs(getHoursFromDate, "HH:mm").format("HH:mm"),
+            dayjs(el.appointmentStop, "YYYY-MM-DD HH:mm").format("HH:mm"),
+            "isBefore",
+          )) ||
+        (compareTime(
+          dayjs(getHoursFromDate, "HH:mm").format("HH:mm"),
           dayjs(el.appointmentStart, "YYYY-MM-DD HH:mm")
             .subtract(consultationTime, "minute")
-            .format("HH:mm") &&
-          dayjs(getHoursFromDate, "HH:mm").format("HH:mm") <=
-            dayjs(el.appointmentStart, "YYYY-MM-DD HH:mm").format("HH:mm")) ||
-        (dayjs(getHoursFromDate, "HH:mm").format("HH:mm") <=
-          dayjs(findWorkingDay.stopTime, "HH:mm").format("HH:mm") &&
-          dayjs(getHoursFromDate, "HH:mm").format("HH:mm") >
+            .format("HH:mm"),
+          "isAfter",
+        ) &&
+          compareTime(
+            dayjs(getHoursFromDate, "HH:mm").format("HH:mm"),
+            dayjs(el.appointmentStart, "YYYY-MM-DD HH:mm").format("HH:mm"),
+            "isBeforeOrEqual",
+          )) ||
+        (compareTime(
+          dayjs(getHoursFromDate, "HH:mm").format("HH:mm"),
+          dayjs(findWorkingDay.startTime, "HH:mm").format("HH:mm"),
+          "isBeforeOrEqual",
+        ) &&
+          compareTime(
+            dayjs(getHoursFromDate, "HH:mm").format("HH:mm"),
             dayjs(findWorkingDay.stopTime, "HH:mm")
               .subtract(consultationTime, "minute")
-              .format("HH:mm"))
+              .format("HH:mm"),
+            "isAfter",
+          ))
       )
     })
   }
