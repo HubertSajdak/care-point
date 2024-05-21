@@ -10,6 +10,8 @@ import {
 import DashboardLayout from "@/layouts/DashboardLayout/DashboardLayout"
 import { getUserData } from "@/redux"
 
+// what's the difference between DashboardLayout and DashboardLayoutWrapper? do we need this one?
+
 const DashboardLayoutWrapper = () => {
   const dispatch = useAppDispatch()
   const status = useAppSelector((state) => state.auth.status)

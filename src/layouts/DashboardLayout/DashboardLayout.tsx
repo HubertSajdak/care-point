@@ -16,6 +16,8 @@ export interface DashboardLayoutProps {
   userName: string
 }
 
+// what's difference between BasePageLayout vs Dasboardlayout, what BasePage means?
+
 const DashboardLayout = ({
   isUserDataLoading,
   sidebarLinks,
@@ -23,7 +25,7 @@ const DashboardLayout = ({
   userName,
 }: DashboardLayoutProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const drawerWidth = 250
+  const drawerWidth = 250 // you are mixing css with styling passed as values
   const handleOpenSidebar = () => {
     setIsSidebarOpen((prev) => !prev)
   }

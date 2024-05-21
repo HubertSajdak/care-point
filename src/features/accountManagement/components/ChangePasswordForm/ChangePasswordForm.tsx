@@ -34,8 +34,8 @@ const ChangePasswordForm = () => {
           <Grid xs={12} item md>
             <TextFieldFormik
               id="password"
-              label={t("form:common.password")}
-              name="password"
+              label={t("form:common.pasword")}
+              name="password" // not validation for types, I can change password for password2 and I won't get any error
               type="password"
             />
           </Grid>

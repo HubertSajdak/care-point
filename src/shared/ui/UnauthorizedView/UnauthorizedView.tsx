@@ -12,7 +12,7 @@ const UnauthorizedView = () => {
   return (
     <Box>
       <Typography color="error" component="h1" variant="h2">
-        {capitalizeFirstChar(t("common:unauthorized"))}
+        {capitalizeFirstChar(t("comm,on:unauthorized"))}
       </Typography>
       <Typography mt={4} sx={{ fontSize: 16 }} textAlign="center" variant="h5">
         <Link to="..">{capitalizeFirstChar(t("buttons:return"))}</Link>{" "}

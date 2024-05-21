@@ -22,6 +22,7 @@ const DoctorClinicsCard = () => {
   )
   const { t } = useTranslation()
   const theme = useTheme()
+
   return (
     <Card>
       <CardContent>
@@ -29,55 +30,8 @@ const DoctorClinicsCard = () => {
           {doctorClinics && doctorClinics.length > 0 ? (
             doctorClinics.map((el, idx, arr) => {
               return (
-                <div key={el._id}>
-                  <ListItem
-                    key={el._id}
-                    sx={{
-                      display: "flex",
-                      flexDirection: { xs: "column", lg: "row" },
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <ListItemAvatar>
-                      <Avatar
-                        src={
-                          el.clinicInfo.photo
-                            ? `${BASE_URL}/` + el.clinicInfo.photo
-                            : ""
-                        }
-                        sx={{
-                          width: { xs: "100px", md: "50px" },
-                          height: { xs: "100px", md: "50px" },
-                          border: `2px solid ${theme.palette.primary.main}`,
-                        }}
-                      />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={el.clinicName}
-                      secondary={`${el.clinicInfo.address.street}, ${el.clinicInfo.address.city}, ${el.clinicInfo.address.postalCode}`}
-                      sx={{ width: "100%" }}
-                    />
-                    <ListItemText
-                      primary={t("table:heading.phoneNumber")}
-                      secondary={el.clinicInfo.phoneNumber}
-                      sx={{ width: "100%" }}
-                    />
-                    <ListItemText
-                      primary={t("clinic:consultationFee")}
-                      secondary={el.consultationFee}
-                      sx={{ width: "100%" }}
-                    />
-                    <ListItemText
-                      primary={t("clinic:consultationTime")}
-                      secondary={`${el.timePerPatient} min`}
-                      sx={{ width: "100%", mb: 2 }}
-                    />
-                  </ListItem>
-                  {idx + 1 !== arr.length && (
-                    <Divider orientation="horizontal" sx={{ mb: 2 }} />
-                  )}
-                </div>
+                // too many indent, it's hard to read, move to component
+                <div key={el._id}></div>
               )
             })
           ) : (

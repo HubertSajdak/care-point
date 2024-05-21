@@ -14,7 +14,7 @@ import { SidebarLinksProps } from "../../types"
 const SidebarListItem = ({
   children,
   icon,
-  id,
+  id, //unused param
   path,
   text,
   variant,
@@ -26,6 +26,7 @@ const SidebarListItem = ({
     setOpen(!open)
   }
   const defaultOpen = () => {
+    // what defaultOpen means? can't it be just open?
     const findDropdownItem = children?.find(
       (link) => link.path === location.pathname,
     )
@@ -50,6 +51,7 @@ const SidebarListItem = ({
           <List component="div" disablePadding>
             {children?.map((child) => {
               return (
+                // you can skip return here
                 <StyledNestedListItemButton
                   key={child.id}
                   sx={{ pl: 4 }}
@@ -66,6 +68,7 @@ const SidebarListItem = ({
       </>
     )
   } else {
+    // you can skip else, code will be more readable
     return (
       <StyledListItemButton
         selected={location.pathname === path}

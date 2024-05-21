@@ -14,6 +14,7 @@ import styled, { useTheme } from "styled-components"
 import { Button, PaddingPaper } from "@/shared"
 interface StepperProps {
   activeStep: number
+  children: (step: number) => ReactNode
   handleBack: () => void
   handleNext: () => void
   isNextButtonDisabled: boolean
@@ -26,11 +27,11 @@ interface StepperProps {
 }
 const Stepper = ({
   activeStep,
+  childenr,
   handleBack,
   handleNext,
   isNextButtonDisabled = false,
   isSubmitting,
-  steps,
 }: StepperProps) => {
   const { t } = useTranslation()
   const theme = useTheme()

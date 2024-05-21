@@ -59,6 +59,7 @@ const AllClinics = () => {
       <Table
         columns={[
           {
+            // move to configuration variable
             label: t("table:heading.photo"),
             key: "photo",
             render: (row) => row.photo,

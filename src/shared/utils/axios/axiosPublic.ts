@@ -10,4 +10,6 @@ axiosPublicInstance.interceptors.request.use((req) => {
   req.headers["Accept-Language"] = i18next.language
   return req
 })
+
+// this should be handled inside library
 export default axiosPublicInstance

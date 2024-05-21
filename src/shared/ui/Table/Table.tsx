@@ -27,6 +27,7 @@ export type ColumnsValues<T> = {
   highlight: boolean
   isImage?: boolean
   isSortable?: boolean
+  // thy those comments? they aren't adding anything
   /**
    * "key" prop makes sorting options possible and provides unique value.
    */

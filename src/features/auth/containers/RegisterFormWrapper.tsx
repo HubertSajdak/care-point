@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next"
 import { RouteNames } from "@/constants"
 import { Link } from "@/shared"
 
+// this is container. What container means? in container - component/smart - dumb components pattern component/dumb component is component without state. smart component/container has state. here is no state, and components has state
+
 const RegisterFormWrapper = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation()
 

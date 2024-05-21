@@ -23,7 +23,7 @@ export const addClinicAffiliation = (data: RequestAddClinicAffiliationData) => {
   return axiosPrivateInstance.post<SuccessReqMsg>(
     Endpoints.GET_CLINIC_AFFILIATIONS,
     {
-      ...data,
+      ...data, // no data validation. you have yup schemas, why you aren't using them here?
     },
   )
 }

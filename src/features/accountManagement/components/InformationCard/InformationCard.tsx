@@ -19,7 +19,7 @@ const InformationCard = () => {
         sx={{
           position: "relative",
           pt: 0,
-          "&:last-child": { pb: 2, px: 1.5 },
+          "&:last-child": { pb: 2, px: 1.5 }, //mixed styles sx vs css classnames
           height: `calc(100% - 86px)`,
         }}
       >

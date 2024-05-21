@@ -52,7 +52,7 @@ const ChangeAvatarForm = () => {
             <Box display="flex" flexDirection="column" gap={2} my={2}>
               <Button
                 disabled={
-                  Boolean(errors.file) || changeAvatarFormik.isSubmitting
+                  Boolean(errors.file) || changeAvatarFormik.isSubmitting // can be simplified !!errors.file
                 }
                 startIcon={<CloudUploadIcon />}
                 type="submit"
@@ -71,18 +71,19 @@ const ChangeAvatarForm = () => {
               </Button>
             </Box>
           ) : null}
-          {user?.photo && !changeAvatarFormik.values.file ? (
-            <Box display="flex" flexDirection="column" gap={2} my={2}>
-              <Button
-                color="warning"
-                startIcon={<DeleteIcon />}
-                variant="outlined"
-                onClick={handleDeletePhoto}
-              >
-                {t("buttons:deletePhoto")}
-              </Button>
-            </Box>
-          ) : null}
+          {user?.photo &&
+            !changeAvatarFormik.values.file && ( // can be simplified user?.photo && !changeAvatarFormik.values.file && ...
+              <Box display="flex" flexDirection="column" gap={2} my={2}>
+                <Button
+                  color="warning"
+                  startIcon={<DeleteIcon />}
+                  variant="outlined"
+                  onClick={handleDeletePhoto}
+                >
+                  {t("buttons:deletePhoto")}
+                </Button>
+              </Box>
+            )}
         </Box>
       </form>
     </FormikProvider>

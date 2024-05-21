@@ -16,7 +16,7 @@ const AccountManagement = () => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation(["common"])
   const handleRemoveAccount = () => {
-    dispatch(deleteAccount())
+    dispatch(deleteAccount()) // dispatch used directly, I would hide this after additional layer/function/class, eg: deleteAccount(). You shouldn't know that inside redux is used, someday you may change it for something different
     navigate(RouteNames.LOGIN)
   }
   return (

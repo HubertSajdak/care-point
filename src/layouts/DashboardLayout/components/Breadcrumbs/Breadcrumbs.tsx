@@ -12,7 +12,7 @@ export interface BreadcrumbsProps extends BreadcrumbsOwnProps {}
 const Breadcrumbs = ({ ...otherProps }: BreadcrumbsProps) => {
   const location = useLocation()
   const theme = useTheme()
-  const { t } = useTranslation(["sidebar"])
+  const { t } = useTranslation(["sidebar"]) // why sidebar ns?
   const doctorName = useAppSelector((state) => state.doctors.selectedDoctorData)
   const clinicName = useAppSelector(
     (state) => state.clinics.singleClinic?.clinicName,
@@ -37,7 +37,7 @@ const Breadcrumbs = ({ ...otherProps }: BreadcrumbsProps) => {
       if (
         arr.includes("addClinicAffiliation") ||
         arr.includes("editClinicAffiliation") ||
-        (arr.includes("allClinics") && idx > 1)
+        (arr.includes("allClinics") && idx > 1) // what this if do?
       ) {
         if (!clinicName) {
           return <Skeleton key={crumb} variant="text" width={150} />
@@ -50,7 +50,7 @@ const Breadcrumbs = ({ ...otherProps }: BreadcrumbsProps) => {
       }
       if (
         crumb === "addClinicAffiliation" ||
-        crumb === "editClinicAffiliation"
+        crumb === "editClinicAffiliation" //same here, what this if do?
       ) {
         return (
           <Link

@@ -208,7 +208,7 @@ const EditClinicAffiliationForm = () => {
                 <Grid maxWidth={800} rowSpacing={2} container>
                   {workingDayConfig.map((el) => {
                     return (
-                      <WorkingDayRow
+                      <WorkingDayRow // too much is going on here, this code isn't readable
                         disableStartTime={
                           !singleClinic?.workingTime[el.id].startTime ||
                           !singleClinic?.workingTime[el.id].stopTime

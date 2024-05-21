@@ -1,3 +1,16 @@
+- yarn lock and package-lock files. npm can't install due to problem with dependencies
+- you are using features, but still have some typed directories (constants, redux, libs/yup)
+- I wouldn't use formik - it has more errors that lines of code
+- missing useCallbacks
+- too big forms (and sometimes components) - split them into logic and presentation
+- unused code not removed
+- css styles mixed with js (sx and styling using css)
+- there are a lot of indent (few lvls sometime)
+- I would hide usage of redux via abstraction (function/class)
+- configuration inside copmonents (eg column configuration)
+
+
+
 # Care Point
 
 Dashboard application for tracking and managing appointments

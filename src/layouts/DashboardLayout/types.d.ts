@@ -1,14 +1,16 @@
 export interface ChildrenListItemProps {
-  id: number
   icon: JSX.Element
-  text: string
+  id: number
   path: string
+  text: string
 }
 export interface SidebarLinksProps {
-  id: number
+  children?: ChildrenListItemProps[] | undefined
   icon: JSX.Element
+  id: number
+  path?: string | undefined
   text: string
   variant: "basic" | "nested"
-  path?: string | undefined
-  children?: ChildrenListItemProps[] | undefined
 }
+
+// why this file exists? can't we have styles inside tsx file? why file with .d.ts extension?

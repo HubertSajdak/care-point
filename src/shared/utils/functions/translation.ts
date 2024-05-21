@@ -14,7 +14,7 @@ export const translateWeekDays = (day: IWeekDays) => {
     return "common:weekDays.thursday"
   }
   if (day === "friday") {
-    return "common:weekDays.friday"
+    return "common:weekDays.friday" // what about types?
   }
   if (day === "saturday") {
     return "common:weekDays.saturday"
@@ -26,7 +26,7 @@ export const translateWeekDays = (day: IWeekDays) => {
 
 export const translateMonths = (month: IMonths) => {
   if (month === "january") {
-    return "common:months.january"
+    return "common:months.january" // what about types?
   }
   if (month === "february") {
     return "common:months.february"

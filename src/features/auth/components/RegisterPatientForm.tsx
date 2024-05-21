@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next"
 import { useTheme } from "styled-components"
 
 import { useAppDispatch } from "@/app/hooks"
-import pdf from "@/documents/Terms.pdf"
+import pdf from "@/documents/Terms.pdf" // pdf won't be in the bundle?
 import { registerPatientSchema } from "@/libs"
 import { registerUser } from "@/redux"
 import {
@@ -23,11 +23,9 @@ interface RegisterPatientValues extends ReqeustRegisterPatientCredentials {
   termsAndConditions: boolean
 }
 
-const RegisterPatientForm = () => {
-  const theme = useTheme()
-  const dispatch = useAppDispatch()
+const Label = () => {
   const { t } = useTranslation()
-  const label = (
+  return (
     <Typography>
       {t("authPages:iAgreeOn")}{" "}
       <a
@@ -41,52 +39,19 @@ const RegisterPatientForm = () => {
       {t("authPages:conditions")}
     </Typography>
   )
+}
+
+// big file I would split it into two components/component + hook
+
+const RegisterPatientForm = () => {
+  const theme = useTheme()
+  const dispatch = useAppDispatch()
+  const { t } = useTranslation()
+
   const registerPatientFormik = useFormik<RegisterPatientValues>({
-    initialValues: {
-      name: "",
-      surname: "",
-      phoneNumber: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      role: "patient",
-      address: {
-        street: "",
-        city: "",
-        postalCode: "",
-      },
-      birthDate: "",
-      height: 0,
-      weight: 0,
-      termsAndConditions: false,
-    },
+    initialValues: {},
     onSubmit: async (values) => {
-      const {
-        address,
-        birthDate,
-        email,
-        height,
-        name,
-        password,
-        phoneNumber,
-        role,
-        surname,
-        weight,
-      } = values
-      dispatch(
-        registerUser({
-          name,
-          surname,
-          phoneNumber: +phoneNumber,
-          email,
-          password,
-          role,
-          address,
-          birthDate,
-          height,
-          weight,
-        }),
-      )
+      dispatch(registerUser(values))
     },
     validationSchema: registerPatientSchema,
   })

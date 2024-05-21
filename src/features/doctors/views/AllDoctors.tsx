@@ -57,64 +57,7 @@ const AllDoctors = () => {
         {t("common:doctors")}
       </Typography>
       <Table
-        columns={[
-          {
-            label: t("table:heading.photo"),
-            key: "photo",
-            render: (row) => row.photo,
-            isImage: true,
-            align: "center",
-            highlight: false,
-          },
-          {
-            label: t("table:heading.name"),
-            key: "name",
-            render: (row) => row.name,
-            highlight: true,
-            isSortable: true,
-          },
-          {
-            label: t("table:heading.surname"),
-            key: "surname",
-            render: (row) => row.surname,
-            highlight: true,
-            isSortable: true,
-          },
-          {
-            label: t("table:heading.email"),
-            key: "email",
-            render: (row) => row.email,
-            highlight: true,
-            isSortable: true,
-          },
-          {
-            key: "actions",
-            label: t("table:heading.actions"),
-            render: (row) => (
-              <Box display="flex">
-                <Tooltip title={t("common:tooltip.makeAppointment")}>
-                  <IconButton
-                    component={Link}
-                    to={`${RouteNames.MAKE_APPOINTMENT}/${row._id}`}
-                  >
-                    <AssignmentIcon color="primary" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title={t("common:tooltip.doctorProfile")}>
-                  <IconButton
-                    component={Link}
-                    to={`${RouteNames.ALL_DOCTORS}/${row._id}`}
-                  >
-                    <AssignmentIndIcon color="primary" />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            ),
-            isImage: false,
-            isSortable: false,
-            highlight: false,
-          },
-        ]}
+        columns={[]}
         data={data ? data : []}
         isLoading={status === "loading"}
         pagination={{

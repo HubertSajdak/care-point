@@ -1,5 +1,7 @@
 import yup from "../config"
 
+// why you have all schemas here if you have features?
+
 const addClinicSchema = yup.object().shape({
   clinicName: yup.string().required(),
   address: yup.object({

@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
         <BasePageLayout />
       </PublicRoute>
     ),
-    errorElement: <h1>An Error Occurred</h1>,
+    errorElement: <h1>An Error Occurred</h1>, //not translated
     children: [
       { index: true, element: <Navigate to={LOGIN} /> },
       { path: LOGIN, element: <Login /> },
@@ -90,7 +90,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: DASHBOARD,
+    path: DASHBOARD, // multiple dashboard path declarations
     element: (
       <PrivateRoute role={UserRoles.DOCTOR}>
         <DashboardLayoutWrapper />

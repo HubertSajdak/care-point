@@ -28,6 +28,7 @@ const MyAppointments = () => {
   )
   const {
     queryParams: {
+      // I would use queryParams name. those values may be stored as queryParams, but doesn't have to, what you will get those params from BE? then you will have to reafactor this
       appointmentFilter,
       currentPage,
       pageSize,
@@ -45,6 +46,7 @@ const MyAppointments = () => {
   ) => {
     dispatch(
       setQueryParams({
+        // why put query params to redux? shouldn't query params be in url?
         sortBy: sortingProperty,
         sortDirection: sortingDirection,
       }),
@@ -59,7 +61,7 @@ const MyAppointments = () => {
   }
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
     dispatch(setQueryParams({ search }))
-  }, 1000)
+  }, 1000) // 1000ms is long, usually it is 300ms, did you have performance issues?
   const handleRefreshContent = async () => {
     await dispatch(getCurrentUserAppointments())
   }
@@ -131,6 +133,7 @@ const MyAppointments = () => {
           </>
         }
         columns={[
+          // I would move columns to const variable (columns definition)
           {
             key: "name",
             label:

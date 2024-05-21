@@ -48,6 +48,7 @@ const AddClinicAffiliationForm = () => {
     }
   }, [dispatch, params.clinicId])
   const addClinicAffiliationFormik = useFormik({
+    // to big component, move to external hook
     initialValues: {
       doctorId: user?._id || "",
       clinicId: params?.clinicId || "",
@@ -106,6 +107,7 @@ const AddClinicAffiliationForm = () => {
     validationSchema: addClinicAffiliationSchema,
   })
   const steps = [
+    // split into subforms, each subform as separate component
     {
       id: 0,
       stepLabel: capitalizeFirstChar(t("clinic:basicInfoLabel")),

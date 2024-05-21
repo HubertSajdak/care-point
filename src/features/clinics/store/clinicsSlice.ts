@@ -14,6 +14,8 @@ import {
   getUserClinicsAffiliations,
 } from "./clinicsThunks"
 
+// maybe use redux toolkit query/react query?
+
 interface InitialClinicsValues {
   clinics: IClinicInfo[] | null
   queryParams: IQueryParams

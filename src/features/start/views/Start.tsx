@@ -30,6 +30,8 @@ import {
 
 import InfoCard from "../components/InfoCard/InfoCard"
 
+// what start component is?
+
 const Start = () => {
   const { t } = useTranslation()
   const theme = useTheme()

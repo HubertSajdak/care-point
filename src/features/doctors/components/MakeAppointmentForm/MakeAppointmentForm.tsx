@@ -24,6 +24,9 @@ import { IAddress, IClinicAffiliation } from "@/types/api-types"
 import ClinicSelection from "../ClinicSelection/ClinicSelection"
 import ConfirmAppointment from "../ConfirmAppointment/ConfirmAppointment"
 
+// too much is going on here
+// mixed logic with presentation
+
 const MakeAppointmentForm = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()

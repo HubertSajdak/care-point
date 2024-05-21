@@ -36,7 +36,7 @@ export interface AppBarProps extends MuiAppBarProps {
 
 const AppBar = ({
   drawerWidth,
-  handleDrawerToggle,
+  handleDrawerToggle, // it's a callback, name should start with on* prefix
   isOpen,
   isSmallView,
   isUserDataLoading,
@@ -128,12 +128,13 @@ const AppBar = ({
                 }}
                 to={ACCOUNT_MANAGEMENT}
               >
-                {t("common:account")}
+                {t("common:account") /* no types for translations */}
               </Link>
             </MenuItem>
             <MenuItem
               onClick={() => {
                 dispatch(
+                  // this should be moved into function. you are mixing presentation components with logic
                   logoutUser({
                     msg: "common:logoutMsg.logout",
                     type: "success",
@@ -152,7 +153,8 @@ const AppBar = ({
               </Typography>
             </MenuItem>
             <Divider />
-            <LangSwitcher $variant="link" />
+            <LangSwitcher $variant="link" />{" "}
+            {/* weird param name, what $ prefix means? */}
           </Menu>
         </Box>
       </StyledToolbar>
@@ -164,7 +166,7 @@ export default AppBar
 
 const StyledAppBar = styled(MuiAppBar)<{
   $drawerwidth: number
-  $isSmallView: boolean
+  $isSmallView: boolean // same here, whats the difference between $isSmallView and open?
   open: boolean
 }>(({ $drawerwidth, $isSmallView, open, theme }) => ({
   padding: 2,
@@ -173,7 +175,7 @@ const StyledAppBar = styled(MuiAppBar)<{
   backgroundColor: theme.palette.common.white,
   borderRadius: 0,
   boxShadow: "none",
-  outline: `1px solid ${theme.palette.grey[300]}`,
+  outline: `1px solid ${theme.palette.grey[300]}`, // you are mixing px with rem
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,

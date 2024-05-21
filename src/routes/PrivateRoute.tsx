@@ -10,11 +10,14 @@ import {
   getAccessTokenFromLocalStorage,
   getRefreshTokenFromLocalStorage,
 } from "@/shared/utils/localStorage/localStorage"
+
+// what's the difference between private and public routes?
+
 const PrivateRoute = ({
   children,
   role,
 }: {
-  children: React.ReactNode
+  children: ReactNode // instead of importing whole react you can just import ReactNode type. maybe someday react will be tree shakable :)
   role?: "doctor" | "patient"
 }) => {
   const { pathname } = useLocation()
@@ -23,9 +26,11 @@ const PrivateRoute = ({
   const userRole = useAppSelector((state) => state.auth.user?.role)
   const accessToken = getAccessTokenFromLocalStorage()
   const refreshToken = getRefreshTokenFromLocalStorage()
+  // why some data are kept in local storage, other in redux store?
 
   const validateTokens = useCallback(async () => {
     if (accessToken && refreshToken) {
+      // this logic should be placed inside auth library. you should just use available methods, eg: getToken, isAuthenticated, getClaims, etc
       const currentTime = Math.floor(Date.now() / 1000)
       const decodedAccessToken = jwtDecode(accessToken)
       const decodedRefreshToken = jwtDecode(refreshToken)
@@ -53,7 +58,9 @@ const PrivateRoute = ({
     if (isAuthenticated) {
       validateTokens()
     }
-  }, [pathname, accessToken, refreshToken, isAuthenticated, validateTokens])
+  }, [pathname, accessToken, refreshToken, isAuthenticated, validateTokens]) // access token is static - it is read from local storage once (when component is mounted, it won't change). same with refresh token.
+  // missing validation per request: make request, request return 403, then use refresh token to get access token - it should work like that
+  // also there should be internal counter which will check access token expiration date and will call BE using refresh token to get new access token
   return role && userRole && role !== userRole ? (
     <Navigate to={RouteNames.UNAUTHORIZED} />
   ) : isAuthenticated ? (

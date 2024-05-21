@@ -15,14 +15,15 @@ export default function Drawer({
   sidebarLinks,
 }: {
   drawerWidth: number
-  handleDrawerToggle: () => void
+  handleDrawerToggle: () => void // again, it should be event, not callback
   isOpen: boolean
   isSmallView: boolean
   sidebarLinks: SidebarLinksProps[]
 }) {
   const drawer = (
     <div>
-      <Logo height={56} style={{ marginTop: 20 }} width={"100%"} />
+      <Logo height={56} style={{ marginTop: 20 }} width={"100%"} />{" "}
+      {/* you are mixing styles in css with styles passing as props */}
       <List>
         {sidebarLinks.map((item) => {
           return (
@@ -44,6 +45,8 @@ export default function Drawer({
 
   return (
     <Box sx={{ display: "flex" }}>
+      {" "}
+      {/* you are mixing styles in css with styles passing as props */}
       <Box
         aria-label="mailbox folders"
         component="nav"
@@ -80,6 +83,7 @@ export default function Drawer({
             open={isOpen}
             sx={{
               "& .MuiDrawer-paper": {
+                /* you are mixing styles in css with styles passing as props */
                 boxSizing: "border-box",
                 width: drawerWidth,
                 borderRadius: 0,

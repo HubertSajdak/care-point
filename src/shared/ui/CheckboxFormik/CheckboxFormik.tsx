@@ -2,6 +2,7 @@ import { useField } from "formik"
 import { useTranslation } from "react-i18next"
 
 import Checkbox, { CheckboxProps } from "../Checkbox/Checkbox"
+// this file is using checkbox, can I use button also?
 export type CheckboxFormikProps = {
   /**
    * Add this prop if there is more than one "CheckboxFormik" component

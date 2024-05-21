@@ -2,7 +2,7 @@ import CancelIcon from "@mui/icons-material/Cancel"
 import { Box, Container, Grid, Typography } from "@mui/material"
 import dayjs from "dayjs"
 import { FormikProvider, useFormik } from "formik"
-import { useState } from "react"
+import { useState, Children } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 
@@ -23,59 +23,76 @@ import {
 import { createClinic } from "../../store/clinicsThunks"
 import WorkingDayRow from "../WorkingDayRow/WorkingDayRow"
 
+const initialValues = {
+  clinicName: "",
+  address: {
+    street: "",
+    city: "",
+    postalCode: "",
+  },
+  phoneNumber: "",
+  photo: undefined,
+  workingTime: [
+    {
+      weekDay: "monday",
+      startTime: "",
+      stopTime: "",
+    },
+    {
+      weekDay: "tuesday",
+      startTime: "",
+      stopTime: "",
+    },
+    {
+      weekDay: "wednesday",
+      startTime: "",
+      stopTime: "",
+    },
+    {
+      weekDay: "thursday",
+      startTime: "",
+      stopTime: "",
+    },
+    {
+      weekDay: "friday",
+      startTime: "",
+      stopTime: "",
+    },
+    {
+      weekDay: "saturday",
+      startTime: "",
+      stopTime: "",
+    },
+    {
+      weekDay: "sunday",
+      startTime: "",
+      stopTime: "",
+    },
+  ],
+}
+
+// main (form -> (subforms)) ->
+
+// AddClinicForm, Step1, Step2, Step3
+
+// Steps -> Step -> Content -> onChange, state, Label
+
+/**
+ * <CustomDiv header=<Header /> content="<Content />">
+ * </div>
+ *
+ * address.name address.street
+ *
+ * @constructor
+ */
+
 const AddClinicForm = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [activeStep, setActiveStep] = useState(0)
   const { t } = useTranslation()
   const addClinicFormik = useFormik<AddClinicFormValues>({
-    initialValues: {
-      clinicName: "",
-      address: {
-        street: "",
-        city: "",
-        postalCode: "",
-      },
-      phoneNumber: "",
-      photo: undefined,
-      workingTime: [
-        {
-          weekDay: "monday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "tuesday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "wednesday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "thursday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "friday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "saturday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "sunday",
-          startTime: "",
-          stopTime: "",
-        },
-      ],
-    },
+    initialValues,
     validationSchema: addClinicSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
@@ -87,7 +104,7 @@ const AddClinicForm = () => {
   const steps = [
     {
       id: 0,
-      stepLabel: capitalizeFirstChar(t("form:clinic.addAddress")),
+      stepLabel: capitalizeFirstChar(t("form:clinic.addAddress")), // you can use css for that
       stepElement: (
         <FormikProvider value={addClinicFormik}>
           <form>
@@ -153,7 +170,7 @@ const AddClinicForm = () => {
       ),
     },
     {
-      id: 1,
+      id: 1, // same here it can be splitted into subforms
       stepLabel: capitalizeFirstChar(t("form:clinic.addWorkingTime")),
       stepElement: (
         <FormikProvider value={addClinicFormik}>

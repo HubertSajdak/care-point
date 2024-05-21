@@ -13,6 +13,8 @@ import { Button, Link } from "@/shared"
 
 import LoginForm from "../components/LoginForm"
 
+// whats difference between views and containers/components?
+
 const Login = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()

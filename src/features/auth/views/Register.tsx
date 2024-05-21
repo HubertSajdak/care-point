@@ -55,6 +55,7 @@ const Register = () => {
 export default Register
 
 export const StyledBox = styled(Box)(({ theme }) => ({
+  // unused code
   boxShadow: theme.shadows[3],
   paddingTop: theme.spacing(5),
   paddingBottom: theme.spacing(5),
