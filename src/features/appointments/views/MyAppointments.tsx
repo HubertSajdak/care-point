@@ -7,16 +7,16 @@ import { useDebouncedCallback } from "use-debounce"
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { UserRoles } from "@/constants"
 import {
-  cancelAppointment,
-  getCurrentUserAppointments,
-  setQueryParams,
-} from "@/redux"
-import {
   capitalizeFirstChar,
   Modal,
   Table,
   translateAppointmentStatus,
 } from "@/shared"
+import {
+  cancelAppointment,
+  getCurrentUserAppointments,
+  setQueryParams,
+} from "@/shared/store"
 import { ISortDirection } from "@/types/api-types"
 
 const MyAppointments = () => {

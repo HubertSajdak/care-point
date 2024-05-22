@@ -19,8 +19,8 @@ import styled, { useTheme } from "styled-components"
 
 import { useAppDispatch } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import { logoutUser } from "@/redux"
 import { LangSwitcher, Link } from "@/shared"
+import { logoutUser } from "@/shared/store"
 
 const { ACCOUNT_MANAGEMENT } = RouteNames
 

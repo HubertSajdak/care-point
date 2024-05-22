@@ -4,7 +4,7 @@ Dashboard application for tracking and managing appointments
 
 Care Point allows users to quickly make an appointment with a doctor and track their upcoming visits.
 
-Doctors are allowed to add new clinics to the database and assign them as their workplaces by providing informations
+Doctors are allowed to add new clinics to the database and assign them as their workplaces by providing information
 like: consultation fee, consultation time, working hours
 
 Patients can find their most suitable doctor and make an appointment in one of the doctor's workplaces
@@ -58,8 +58,8 @@ Husky,
 
 ## Demo
 
-* Live: https://care-point.vercel.app/
-* Backend: https://github.com/HubertSajdak/quick-care-backend
+- Live: https://care-point.vercel.app/
+- Backend: https://github.com/HubertSajdak/quick-care-backend
 
 ## Screenshots
 
