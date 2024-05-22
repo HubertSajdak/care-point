@@ -8,8 +8,8 @@ import {
   DEMO_EMAIL_PATIENT,
   DEMO_PASSWORD,
 } from "@/constants/demoCredentials"
-import { loginUser } from "@/redux"
 import { Button, Link } from "@/shared"
+import { loginUser } from "@/shared/store"
 
 import LoginForm from "../components/LoginForm"
 

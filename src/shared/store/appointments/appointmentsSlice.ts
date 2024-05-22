@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-import { getCurrentUserAppointments, getDoctorAppointments } from "@/redux"
+import {
+  getCurrentUserAppointments,
+  getDoctorAppointments,
+} from "@/shared/store"
 import {
   IAppointment,
   IAppointmentStatus,

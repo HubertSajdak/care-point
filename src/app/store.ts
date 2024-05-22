@@ -2,7 +2,7 @@ import { clinicsSlice } from "@/features/clinics"
 import { doctorsSlice } from "@/features/doctors"
 import { patientsSlice } from "@/features/patients"
 import { specializationsSlice } from "@/features/specializations"
-import { appointmentsSlice, authSlice } from "@/redux"
+import { appointmentsSlice, authSlice } from "@/shared/store"
 
 // eslint-disable-next-line import/order
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit"

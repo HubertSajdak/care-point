@@ -19,7 +19,6 @@ import { useTheme } from "styled-components"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { BASE_URL, RouteNames, SortDirection, UserRoles } from "@/constants"
-import { getCurrentUserAppointments, setQueryParams } from "@/redux"
 import {
   getAppointmentsByMonth,
   getCurrentMonthAppointments,
@@ -27,6 +26,7 @@ import {
   LinkButton,
   translateMonths,
 } from "@/shared"
+import { getCurrentUserAppointments, setQueryParams } from "@/shared/store"
 
 import InfoCard from "../components/InfoCard/InfoCard"
 

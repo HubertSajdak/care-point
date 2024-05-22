@@ -7,11 +7,13 @@ import { useTranslation } from "react-i18next"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { uploadPhotoSchema } from "@/libs"
-import { deleteUserPhoto, uploadUserPhoto } from "@/redux"
 import { Button, FileInputFormik } from "@/shared"
+import { deleteUserPhoto, uploadUserPhoto } from "@/shared/store"
+
 interface ChangeAvatarFormValues {
   file: File | null
 }
+
 const ChangeAvatarForm = () => {
   const dispatch = useAppDispatch()
   const { t } = useTranslation(["buttons"])

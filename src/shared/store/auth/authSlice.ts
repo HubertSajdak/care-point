@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import i18next from "i18next"
 import { toast } from "react-toastify"
 
@@ -16,12 +16,14 @@ export interface LogoutPayload {
   msg: string
   type: "error" | "success"
 }
+
 export interface InitialStateProps {
   isAuthenticated: boolean
   isRegistrationSuccessfull: boolean
   status: ReqStatus
   user: Either<IPatientUser, IDoctorUser> | null | undefined
 }
+
 const isAccessToken = getAccessTokenFromLocalStorage()
 export const initialState: InitialStateProps = {
   isRegistrationSuccessfull: false,
