@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom"
 
 import { useAppDispatch } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import { deleteAccount } from "@/redux"
 import { Modal } from "@/shared"
+import { deleteAccount } from "@/shared/store"
 
 import AccountCard from "../components/AccountCard/AccountCard"
 import InformationCard from "../components/InformationCard/InformationCard"

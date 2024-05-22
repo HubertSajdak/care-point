@@ -8,8 +8,8 @@ import styled from "styled-components"
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { UserRoles } from "@/constants"
 import { updateDoctorInfoSchema, updatePatientInfoSchema } from "@/libs"
-import { updateUserInfo } from "@/redux"
 import { Button, handlePostalCodeKeyUp, TextFieldFormik } from "@/shared"
+import { updateUserInfo } from "@/shared/store"
 import {
   IUserRoles,
   ReqeustRegisterDoctorCredentials,

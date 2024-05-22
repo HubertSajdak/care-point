@@ -3,12 +3,12 @@ import { useCallback, useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import {
   BASE_URL,
-  UserRoles,
   doctorSidebarLinks,
   patientSidebarLinks,
+  UserRoles,
 } from "@/constants"
 import DashboardLayout from "@/layouts/DashboardLayout/DashboardLayout"
-import { getUserData } from "@/redux"
+import { getUserData } from "@/shared/store"
 
 const DashboardLayoutWrapper = () => {
   const dispatch = useAppDispatch()

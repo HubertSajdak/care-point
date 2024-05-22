@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom"
 
 import { useAppDispatch } from "@/app/hooks"
 import { getSingleDoctor } from "@/features/doctors"
-import { getDoctorAppointments } from "@/redux"
+import { getDoctorAppointments } from "@/shared/store"
 
 import MakeAppointmentForm from "../components/MakeAppointmentForm/MakeAppointmentForm"
 

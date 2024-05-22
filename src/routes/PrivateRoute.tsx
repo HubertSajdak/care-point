@@ -1,20 +1,21 @@
 import { jwtDecode } from "jwt-decode"
-import { useCallback, useEffect } from "react"
+import { ReactNode, useCallback, useEffect } from "react"
 import { Navigate, useLocation } from "react-router-dom"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import { logoutUser } from "@/redux"
+import { logoutUser } from "@/shared/store"
 import refreshAccessToken from "@/shared/utils/functions/refreshAccessToken"
 import {
   getAccessTokenFromLocalStorage,
   getRefreshTokenFromLocalStorage,
 } from "@/shared/utils/localStorage/localStorage"
+
 const PrivateRoute = ({
   children,
   role,
 }: {
-  children: React.ReactNode
+  children: ReactNode
   role?: "doctor" | "patient"
 }) => {
   const { pathname } = useLocation()

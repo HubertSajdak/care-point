@@ -9,21 +9,20 @@ import {
   setAccessTokenToLocalStorage,
   setRefreshTokenToLocalStorage,
 } from "@/shared"
+import { changePassword } from "@/shared/store/auth/api/changePassword"
+import { deletePhoto } from "@/shared/store/auth/api/deletePhoto"
+import { deleteUser } from "@/shared/store/auth/api/deleteUser"
+import { getUser } from "@/shared/store/auth/api/getUser"
+import { login } from "@/shared/store/auth/api/login"
+import { register } from "@/shared/store/auth/api/register"
+import { updateUser } from "@/shared/store/auth/api/updateUser"
+import { uploadPhoto } from "@/shared/store/auth/api/uploadPhoto"
 import {
   ReqeustRegisterDoctorCredentials,
   ReqeustRegisterPatientCredentials,
   ReqLoginCredentials,
 } from "@/types/api-types"
 import { Either } from "@/types/globals"
-
-import { changePassword } from "../api/changePassword"
-import { deletePhoto } from "../api/deletePhoto"
-import { deleteUser } from "../api/deleteUser"
-import { getUser } from "../api/getUser"
-import { login } from "../api/login"
-import { register } from "../api/register"
-import { updateUser } from "../api/updateUser"
-import { uploadPhoto } from "../api/uploadPhoto"
 
 import { setRegistrationState } from "./authSlice"
 

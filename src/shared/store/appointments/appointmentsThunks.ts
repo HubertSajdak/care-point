@@ -2,14 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { toast } from "react-toastify"
 
 import { RootState } from "@/app/store"
+import { errorHandler } from "@/shared"
 import {
   deleteAppointment,
   getUserAppointments,
   makeAppointment,
   MakeAppointmentValues,
-} from "@/redux"
-import { getSingleDoctorAppointments } from "@/redux/appointments/api/getSingleDoctorAppointments"
-import { errorHandler } from "@/shared"
+} from "@/shared/store"
+import { getSingleDoctorAppointments } from "@/shared/store/appointments/api/getSingleDoctorAppointments"
 
 export const createAppointment = createAsyncThunk(
   "appointments/createAppointment",

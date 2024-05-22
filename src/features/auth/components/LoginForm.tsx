@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next"
 
 import { useAppDispatch } from "@/app/hooks"
 import { loginSchema } from "@/libs"
-import { loginUser } from "@/redux"
 import { Button, TextFieldFormik } from "@/shared"
+import { loginUser } from "@/shared/store"
 import { ReqLoginCredentials } from "@/types/api-types"
 
 const LoginForm = () => {

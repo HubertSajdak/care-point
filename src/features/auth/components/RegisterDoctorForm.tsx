@@ -6,14 +6,15 @@ import { useTheme } from "styled-components"
 import { useAppDispatch } from "@/app/hooks"
 import pdf from "@/documents/Terms.pdf"
 import { registerDoctorSchema } from "@/libs"
-import { registerUser } from "@/redux"
 import { Button, CheckboxFormik, TextFieldFormik } from "@/shared"
+import { registerUser } from "@/shared/store"
 import { ReqeustRegisterDoctorCredentials } from "@/types/api-types"
 
 interface RegisterDoctorValues extends ReqeustRegisterDoctorCredentials {
   confirmPassword: string
   termsAndConditions: boolean
 }
+
 const RegisterDoctorForm = () => {
   const theme = useTheme()
   const { t } = useTranslation()
