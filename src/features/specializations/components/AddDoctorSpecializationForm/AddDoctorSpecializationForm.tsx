@@ -8,19 +8,19 @@ import {
   MenuItem,
   Select,
 } from "@mui/material"
-import List from "@mui/material/List"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
 import { FormikProvider, useFormik } from "formik"
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import {
   createDoctorSpecialization,
   deleteDoctorSpecialization,
 } from "@/features/specializations"
+
+import { StyledForm, StyledList } from "./AddDoctorSpecializationForm.styled"
 
 const AddDoctorSpecializationForm = () => {
   const [isComboBoxOpen, setIsComboBoxOpen] = useState<boolean>(false)
@@ -152,14 +152,3 @@ const ListItem = ({
     </>
   )
 }
-const StyledList = styled(List)(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
-  borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[3],
-}))
-
-const StyledForm = styled.form(() => ({
-  display: "flex",
-  justifyContent: "center",
-  width: "100%",
-}))

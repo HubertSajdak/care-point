@@ -1,4 +1,4 @@
-import yup from "../config"
+import { yup } from "@/libs"
 
 const changePasswordSchema = yup.object({
   password: yup.string().password(),

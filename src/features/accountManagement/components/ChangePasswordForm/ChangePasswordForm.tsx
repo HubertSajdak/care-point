@@ -3,8 +3,12 @@ import { FormikProvider, useFormik } from "formik"
 import { useTranslation } from "react-i18next"
 
 import { useAppDispatch } from "@/app/hooks"
-import { ChangePasswordSchema, changePasswordSchema } from "@/libs"
-import { Button, TextFieldFormik } from "@/shared"
+import {
+  Button,
+  changePasswordSchema,
+  ChangePasswordSchema,
+  TextFieldFormik,
+} from "@/shared"
 import { changeUserPassword } from "@/shared/store"
 
 const ChangePasswordForm = () => {

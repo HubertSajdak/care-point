@@ -6,16 +6,17 @@ import { useParams } from "react-router-dom"
 import styled from "styled-components"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { editClinicSchema, uploadClinicPhotoSchema } from "@/libs"
-
-import ClinicInfoCard from "../components/ClinicInfoCard/ClinicInfoCard"
-import ClinicPhotoCard from "../components/ClinicPhotoCard/ClinicPhotoCard"
-import ClinicWorkingTimeCard from "../components/ClinicWorkingTimeCard/ClinicWorkingTimeCard"
 import {
   getSingleClinic,
   updateClinicInfo,
   uploadClinicPhoto,
-} from "../store/clinicsThunks"
+} from "@/features/clinics"
+
+import ClinicInfoCard from "../components/ClinicInfoCard/ClinicInfoCard"
+import ClinicPhotoCard from "../components/ClinicPhotoCard/ClinicPhotoCard"
+import ClinicWorkingTimeCard from "../components/ClinicWorkingTimeCard/ClinicWorkingTimeCard"
+import { editClinicSchema } from "../schemas/editClinic"
+import { uploadClinicPhotoSchema } from "../schemas/uploadClinicPhoto"
 
 const EditClinic = () => {
   const param = useParams()

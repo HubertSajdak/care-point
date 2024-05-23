@@ -1,4 +1,4 @@
-import yup from "../config"
+import { yup } from "@/libs"
 
 const uploadPhotoSchema = yup.object().shape({
   file: yup
