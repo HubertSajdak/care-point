@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { Button, FileInputFormik } from "@/shared"
 import { deleteUserPhoto, uploadUserPhoto } from "@/shared/store"
 
-import { uploadPhotoSchema } from "../../schemas/uploadPhoto"
+import { uploadPhotoSchema } from "../../../../shared/schemas/uploadPhoto"
 
 interface ChangeAvatarFormValues {
   file: File | null

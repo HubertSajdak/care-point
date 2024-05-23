@@ -2,12 +2,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { toast } from "react-toastify"
 
 import { Endpoints } from "@/constants"
-import { ChangePasswordSchema, UploadPhotoValues } from "@/libs"
 import {
+  ChangePasswordSchema,
   errorHandler,
   generateUniqueFileName,
   setAccessTokenToLocalStorage,
   setRefreshTokenToLocalStorage,
+  UploadPhotoValues,
 } from "@/shared"
 import { changePassword } from "@/shared/store/auth/api/changePassword"
 import { deletePhoto } from "@/shared/store/auth/api/deletePhoto"

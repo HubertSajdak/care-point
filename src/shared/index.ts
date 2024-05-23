@@ -27,3 +27,4 @@ export { default as refreshAccessToken } from "./utils/functions/refreshAccessTo
 export * from "./utils/functions/translation"
 export * from "./utils/localStorage/localStorage"
 export * from "./schemas/changePassword"
+export * from "./schemas/uploadPhoto"
