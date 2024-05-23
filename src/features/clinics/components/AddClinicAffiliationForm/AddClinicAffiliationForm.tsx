@@ -168,7 +168,6 @@ const AddClinicAffiliationForm = () => {
                           !addClinicAffiliationFormik.values.workingTime[el.id]
                             .startTime
                         }
-                        id={el.id}
                         key={el.id}
                         label={t(translateWeekDays(el.label))}
                         startTimeLabel={t(`form:common.${el.startTimeLabel}`)}

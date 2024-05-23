@@ -132,7 +132,6 @@ const AddClinicForm = () => {
                       disableStopTime={
                         !addClinicFormik.values.workingTime[day.id].startTime
                       }
-                      id={day.id}
                       key={day.id}
                       label={t(translateWeekDays(day.label))}
                       startTimeLabel={t(`form:common.${day.startTimeLabel}`)}
