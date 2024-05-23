@@ -15,7 +15,6 @@ const EditClinicWorkingHoursForm = () => {
         {workingDayConfig.map((day) => {
           return (
             <WorkingDayRow
-              id={day.id}
               key={day.id}
               label={t(translateWeekDays(day.label))}
               startTimeLabel={t(`form:common.${day.startTimeLabel}`)}

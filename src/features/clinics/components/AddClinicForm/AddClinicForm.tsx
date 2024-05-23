@@ -9,19 +9,21 @@ import { useNavigate } from "react-router-dom"
 import { useAppDispatch } from "@/app/hooks"
 import { RouteNames } from "@/constants"
 import { workingDayConfig } from "@/constants/workingDayConfig"
-import { AddClinicFormValues, addClinicSchema } from "@/libs"
+import { createClinic } from "@/features/clinics"
 import {
   Button,
+  capitalizeFirstChar,
   FileInputFormik,
+  handlePostalCodeKeyUp,
   Stepper,
   TextFieldFormik,
-  capitalizeFirstChar,
-  handlePostalCodeKeyUp,
   translateWeekDays,
 } from "@/shared"
 
-import { createClinic } from "../../store/clinicsThunks"
+import { AddClinicFormValues, addClinicSchema } from "../../schemas/addClinic"
 import WorkingDayRow from "../WorkingDayRow/WorkingDayRow"
+
+import { mapDataToForm } from "./mapDataToForm"
 
 const AddClinicForm = () => {
   const navigate = useNavigate()
@@ -29,53 +31,7 @@ const AddClinicForm = () => {
   const [activeStep, setActiveStep] = useState(0)
   const { t } = useTranslation()
   const addClinicFormik = useFormik<AddClinicFormValues>({
-    initialValues: {
-      clinicName: "",
-      address: {
-        street: "",
-        city: "",
-        postalCode: "",
-      },
-      phoneNumber: "",
-      photo: undefined,
-      workingTime: [
-        {
-          weekDay: "monday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "tuesday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "wednesday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "thursday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "friday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "saturday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "sunday",
-          startTime: "",
-          stopTime: "",
-        },
-      ],
-    },
+    initialValues: mapDataToForm,
     validationSchema: addClinicSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {

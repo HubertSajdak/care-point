@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import { makeAppointmentSchema } from "@/libs"
 import {
   capitalizeFirstChar,
   enabledDays,
@@ -21,8 +20,11 @@ import { createAppointment, MakeAppointmentValues } from "@/shared/store"
 import CommonError from "@/shared/ui/CommonError/CommonError"
 import { IAddress, IClinicAffiliation } from "@/types/api-types"
 
+import { makeAppointmentSchema } from "../../schemas/makeAppointment"
 import ClinicSelection from "../ClinicSelection/ClinicSelection"
 import ConfirmAppointment from "../ConfirmAppointment/ConfirmAppointment"
+
+import { mapDataToForm } from "./mapDataToForm"
 
 const MakeAppointmentForm = () => {
   const dispatch = useAppDispatch()
@@ -64,21 +66,7 @@ const MakeAppointmentForm = () => {
   }
 
   const makeAppointmentFormik = useFormik<MakeAppointmentValues>({
-    initialValues: {
-      clinicAffiliationId: "",
-      appointmentDate: "",
-      clinicId: "",
-      patientId: user?._id || "",
-      doctorId: selectedDoctor?._id || "",
-      appointmentAddress: {
-        street: "",
-        city: "",
-        postalCode: "",
-      },
-      appointmentStatus: "active",
-      consultationFee: 0,
-      timePerPatient: 0,
-    },
+    initialValues: mapDataToForm(user?._id, selectedDoctor?._id),
     enableReinitialize: true,
     validationSchema: makeAppointmentSchema,
     onSubmit: async (values) => {

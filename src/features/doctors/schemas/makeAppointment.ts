@@ -1,4 +1,4 @@
-import yup from "../config"
+import { yup } from "@/libs"
 
 const makeAppointmentSchema = yup.object().shape({
   clinicAffiliationId: yup.string().required(),

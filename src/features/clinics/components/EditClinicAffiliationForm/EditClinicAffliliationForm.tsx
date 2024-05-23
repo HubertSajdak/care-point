@@ -33,6 +33,8 @@ import CommonError from "@/shared/ui/CommonError/CommonError"
 import WorkingDayRow from "../WorkingDayRow/WorkingDayRow"
 import WorkingHoursRow from "../WorkingHoursRow/WorkingHoursRow"
 
+import { mapDataToForm } from "./mapDataToForm"
+
 const EditClinicAffiliationForm = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
@@ -55,57 +57,7 @@ const EditClinicAffiliationForm = () => {
     }
   }, [singleClinicAffiliation?.clinicId, dispatch])
   const editClinicAffiliationFormik = useFormik({
-    initialValues: {
-      doctorId: singleClinicAffiliation?.doctorId || "",
-      clinicId: singleClinicAffiliation?.clinicId || "",
-      clinicName: singleClinicAffiliation?.clinicName || "",
-      clinicAffiliationId: singleClinicAffiliation?._id || "",
-      workingTime: [
-        {
-          weekDay: "monday",
-          startTime: singleClinicAffiliation?.workingTime[0].startTime || "",
-          stopTime: singleClinicAffiliation?.workingTime[0].stopTime || "",
-        },
-        {
-          weekDay: "tuesday",
-          startTime: singleClinicAffiliation?.workingTime[1].startTime || "",
-          stopTime: singleClinicAffiliation?.workingTime[1].stopTime || "",
-        },
-        {
-          weekDay: "wednesday",
-          startTime: singleClinicAffiliation?.workingTime[2].startTime || "",
-          stopTime: singleClinicAffiliation?.workingTime[2].stopTime || "",
-        },
-        {
-          weekDay: "thursday",
-          startTime: singleClinicAffiliation?.workingTime[3].startTime || "",
-          stopTime: singleClinicAffiliation?.workingTime[3].stopTime || "",
-        },
-        {
-          weekDay: "friday",
-          startTime: singleClinicAffiliation?.workingTime[4].startTime || "",
-          stopTime: singleClinicAffiliation?.workingTime[4].stopTime || "",
-        },
-        {
-          weekDay: "saturday",
-          startTime: singleClinicAffiliation?.workingTime[5].startTime || "",
-          stopTime: singleClinicAffiliation?.workingTime[5].stopTime || "",
-        },
-        {
-          weekDay: "sunday",
-          startTime: singleClinicAffiliation?.workingTime[6].startTime || "",
-          stopTime: singleClinicAffiliation?.workingTime[6].stopTime || "",
-        },
-      ],
-      available: true,
-      reasonOfAbsence: "",
-      absenceTime: {
-        from: "",
-        to: "",
-      },
-      consultationFee: singleClinicAffiliation?.consultationFee || 0,
-      timePerPatient: singleClinicAffiliation?.timePerPatient || 15,
-    },
+    initialValues: mapDataToForm(singleClinicAffiliation || null),
     onSubmit: async (values) => {
       await dispatch(updateClinicAffiliation(values))
       navigate(RouteNames.START)
@@ -219,7 +171,6 @@ const EditClinicAffiliationForm = () => {
                           !editClinicAffiliationFormik.values.workingTime[el.id]
                             .startTime
                         }
-                        id={el.id}
                         key={el.id}
                         label={t(translateWeekDays(el.label))}
                         startTimeLabel={t(`form:common.${el.startTimeLabel}`)}

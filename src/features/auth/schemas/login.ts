@@ -1,4 +1,4 @@
-import yup from "../config"
+import { yup } from "@/libs"
 
 const loginSchema = yup.object().shape({
   email: yup.string().required(),
