@@ -1,4 +1,4 @@
-import yup from "../config"
+import { yup } from "@/libs"
 
 const addClinicAffiliationSchema = yup.object().shape({
   clinicName: yup.string().required(),

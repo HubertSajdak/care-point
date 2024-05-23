@@ -21,7 +21,6 @@ import {
   createUserClinicAffiliation,
   getSingleClinic,
 } from "@/features/clinics"
-import { addClinicAffiliationSchema } from "@/libs"
 import {
   capitalizeFirstChar,
   Stepper,
@@ -30,8 +29,11 @@ import {
 } from "@/shared"
 import CommonError from "@/shared/ui/CommonError/CommonError"
 
+import { addClinicAffiliationSchema } from "../../schemas/addClinicAffiliation"
 import WorkingDayRow from "../WorkingDayRow/WorkingDayRow"
 import WorkingHoursRow from "../WorkingHoursRow/WorkingHoursRow"
+
+import { mapDataToForm } from "./mapDataToForm"
 
 const AddClinicAffiliationForm = () => {
   const { t } = useTranslation()
@@ -48,56 +50,11 @@ const AddClinicAffiliationForm = () => {
     }
   }, [dispatch, params.clinicId])
   const addClinicAffiliationFormik = useFormik({
-    initialValues: {
-      doctorId: user?._id || "",
-      clinicId: params?.clinicId || "",
-      clinicName: singleClinic?.clinicName || "",
-      workingTime: [
-        {
-          weekDay: "monday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "tuesday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "wednesday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "thursday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "friday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "saturday",
-          startTime: "",
-          stopTime: "",
-        },
-        {
-          weekDay: "sunday",
-          startTime: "",
-          stopTime: "",
-        },
-      ],
-      available: true,
-      reasonOfAbsence: "",
-      absenceTime: {
-        from: "",
-        to: "",
-      },
-      consultationFee: 100,
-      timePerPatient: 15,
-    },
+    initialValues: mapDataToForm(
+      user?._id,
+      params?.clinicId,
+      singleClinic?.clinicName,
+    ),
     enableReinitialize: true,
     onSubmit: (values) => {
       dispatch(createUserClinicAffiliation(values))

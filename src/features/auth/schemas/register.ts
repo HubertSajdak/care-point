@@ -1,6 +1,6 @@
 import dayjs from "dayjs"
 
-import yup from "../config"
+import { yup } from "@/libs"
 
 const registerDoctorSchema = yup.object().shape({
   name: yup.string().name("form:name.invalid"),

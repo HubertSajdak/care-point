@@ -1,4 +1,4 @@
-import yup from "../config"
+import { yup } from "@/libs"
 
 const uploadClinicPhotoSchema = yup.object().shape({
   clinicId: yup.string().required(),

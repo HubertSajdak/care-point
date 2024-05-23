@@ -2,12 +2,13 @@ import { Divider, Grid, Typography } from "@mui/material"
 import { Dayjs } from "dayjs"
 import { useFormikContext } from "formik"
 
-import { AddClinicFormValues } from "@/libs"
 import { TimePicker } from "@/shared"
+
+import { AddClinicFormValues } from "../../schemas/addClinic"
+
 interface WorkingDayRowProps {
   disableStartTime?: boolean
   disableStopTime?: boolean
-  id: number
   label: string
   startTimeLabel: string
   startTimeMaxTime?: Dayjs | undefined
@@ -18,10 +19,10 @@ interface WorkingDayRowProps {
   stopTimeMinTime?: Dayjs | undefined
   stopTimeName: string
 }
+
 const WorkingDayRow = ({
   disableStartTime,
   disableStopTime,
-  id,
   label,
   startTimeLabel,
   startTimeMaxTime,
@@ -32,7 +33,7 @@ const WorkingDayRow = ({
   stopTimeMinTime,
   stopTimeName,
 }: WorkingDayRowProps) => {
-  const { setFieldValue, values } = useFormikContext<AddClinicFormValues>()
+  const { setFieldValue } = useFormikContext<AddClinicFormValues>()
   return (
     <>
       <Grid

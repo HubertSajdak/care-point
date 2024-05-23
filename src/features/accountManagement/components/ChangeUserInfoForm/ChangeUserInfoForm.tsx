@@ -3,11 +3,9 @@ import { DatePicker } from "@mui/x-date-pickers"
 import dayjs, { Dayjs } from "dayjs"
 import { FormikProvider, useFormik } from "formik"
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { UserRoles } from "@/constants"
-import { updateDoctorInfoSchema, updatePatientInfoSchema } from "@/libs"
 import { Button, handlePostalCodeKeyUp, TextFieldFormik } from "@/shared"
 import { updateUserInfo } from "@/shared/store"
 import {
@@ -17,6 +15,14 @@ import {
 } from "@/types/api-types"
 import { Either } from "@/types/globals"
 
+import {
+  updateDoctorInfoSchema,
+  updatePatientInfoSchema,
+} from "../../schemas/updateUserInfo"
+import { StyledForm } from "../ChangeUserInfoForm/ChangeUserInfoForm.styled"
+
+import { mapDataToForm } from "./mapDataToForm"
+
 interface ChangeUserInfoValues
   extends Omit<
     Either<ReqeustRegisterPatientCredentials, ReqeustRegisterDoctorCredentials>,
@@ -25,76 +31,28 @@ interface ChangeUserInfoValues
   role: IUserRoles | string
 }
 
-const StyledForm = styled.form`
-  display: "flex";
-  flex-direction: "column";
-  justify-content: "space-between";
-  height: "100%";
-`
-
+const getUserRoleValidationSchema = (role: IUserRoles | undefined | null) => {
+  return role && role === UserRoles.DOCTOR
+    ? updateDoctorInfoSchema
+    : updatePatientInfoSchema
+}
 const ChangeUserInfoForm = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const currentUser = useAppSelector((state) => state.auth.user)
 
   const updateUserInfoFormik = useFormik<ChangeUserInfoValues>({
-    initialValues: {
-      name: currentUser?.name || "",
-      surname: currentUser?.surname || "",
-      phoneNumber: currentUser?.phoneNumber || "",
-      email: currentUser?.email || "",
-      role: currentUser?.role || "",
-      address: {
-        street: currentUser?.address?.street || "",
-        city: currentUser?.address?.city || "",
-        postalCode: currentUser?.address?.postalCode || "",
-      },
-      birthDate: currentUser?.birthDate || "",
-      height: currentUser?.height || 0,
-      weight: currentUser?.weight || 0,
-    },
+    initialValues: mapDataToForm(currentUser || null),
     enableReinitialize: true,
     onSubmit: async (values) => {
-      const {
-        address,
-        birthDate,
-        email,
-        height,
-        name,
-        phoneNumber,
-        surname,
-        weight,
-      } = values
-      await dispatch(
-        updateUserInfo({
-          name,
-          surname,
-          phoneNumber,
-          email,
-          address,
-          birthDate,
-          height,
-          weight,
-        }),
-      )
+      await dispatch(updateUserInfo(values))
     },
-    validationSchema:
-      currentUser?.role === UserRoles.PATIENT
-        ? updatePatientInfoSchema
-        : updateDoctorInfoSchema,
+    validationSchema: getUserRoleValidationSchema(currentUser?.role),
   })
 
   return (
     <FormikProvider value={updateUserInfoFormik}>
-      <StyledForm
-        style={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-        onSubmit={updateUserInfoFormik.handleSubmit}
-      >
+      <StyledForm onSubmit={updateUserInfoFormik.handleSubmit}>
         <Grid spacing={3} container>
           <Grid md={6} xs={12}>
             <TextFieldFormik

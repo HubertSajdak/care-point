@@ -6,9 +6,9 @@ import { useFormikContext } from "formik"
 import { useTranslation } from "react-i18next"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
+import { deleteClinicPhoto } from "@/features/clinics"
 import { Button, FileInputFormik } from "@/shared"
 
-import { deleteClinicPhoto } from "../../store/clinicsThunks"
 const ChangeClinicPhotoForm = () => {
   const dispatch = useAppDispatch()
   const clinic = useAppSelector((state) => state.clinics.singleClinic)

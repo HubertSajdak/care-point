@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material"
+import { Grid } from "@mui/material"
 import { DatePicker } from "@mui/x-date-pickers"
 import dayjs, { Dayjs } from "dayjs"
 import { FormikProvider, useFormik } from "formik"
@@ -6,8 +6,6 @@ import { useTranslation } from "react-i18next"
 import { useTheme } from "styled-components"
 
 import { useAppDispatch } from "@/app/hooks"
-import pdf from "@/documents/Terms.pdf"
-import { registerPatientSchema } from "@/libs"
 import {
   Button,
   CheckboxFormik,
@@ -16,6 +14,10 @@ import {
 } from "@/shared"
 import { registerUser } from "@/shared/store"
 import { ReqeustRegisterPatientCredentials } from "@/types/api-types"
+
+import { registerPatientSchema } from "../schemas/register"
+
+import TermsAndConditionsLabel from "./TermsAndConditionsLabel"
 
 interface RegisterPatientValues extends ReqeustRegisterPatientCredentials {
   confirmPassword: string
@@ -27,20 +29,7 @@ const RegisterPatientForm = () => {
   const theme = useTheme()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
-  const label = (
-    <Typography>
-      {t("authPages:iAgreeOn")}{" "}
-      <a
-        href={pdf}
-        rel="noreferrer"
-        style={{ color: theme.palette.primary.main }}
-        target="_blank"
-      >
-        {t("authPages:terms")}{" "}
-      </a>
-      {t("authPages:conditions")}
-    </Typography>
-  )
+
   const registerPatientFormik = useFormik<RegisterPatientValues>({
     initialValues: {
       name: "",
@@ -209,7 +198,7 @@ const RegisterPatientForm = () => {
           <Grid md={12} minHeight="100px" sm={12} xs={12} item>
             <CheckboxFormik
               id="termsAndConditions"
-              label={label}
+              label={<TermsAndConditionsLabel />}
               name="termsAndConditions"
             />
           </Grid>
