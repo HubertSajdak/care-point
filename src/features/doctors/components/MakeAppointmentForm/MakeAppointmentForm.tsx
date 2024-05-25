@@ -1,29 +1,24 @@
 import { Box, CircularProgress } from "@mui/material"
 import { DateOrTimeView } from "@mui/x-date-pickers"
 import dayjs, { Dayjs } from "dayjs"
-import { FormikProvider, useFormik } from "formik"
+import { useFormik } from "formik"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import {
-  capitalizeFirstChar,
-  enabledDays,
-  enabledTime,
-  FetchDataError,
-  StaticDateTimePicker,
-  Stepper,
-} from "@/shared"
+import { capitalizeFirstChar, FetchDataError, Stepper } from "@/shared"
 import { createAppointment, MakeAppointmentValues } from "@/shared/store"
 import CommonError from "@/shared/ui/CommonError/CommonError"
-import { IAddress, IClinicAffiliation } from "@/types/api-types"
+import Step from "@/shared/ui/Stepper/Step"
+import { IClinicAffiliation } from "@/types/api-types"
 
 import { makeAppointmentSchema } from "../../schemas/makeAppointment"
-import ClinicSelection from "../ClinicSelection/ClinicSelection"
-import ConfirmAppointment from "../ConfirmAppointment/ConfirmAppointment"
 
+import StepConfirmAppointment from "./FormSteps/StepConfirmAppointment"
+import StepSelectClinic from "./FormSteps/StepSelectClinic"
+import StepSelectDate from "./FormSteps/StepSelectDate"
 import { mapDataToForm } from "./mapDataToForm"
 
 const MakeAppointmentForm = () => {
@@ -32,38 +27,16 @@ const MakeAppointmentForm = () => {
   const selectedDoctor = useAppSelector(
     (state) => state.doctors.selectedDoctorData,
   )
-  const selectedDoctorAppointments = useAppSelector(
-    (state) => state.appointments.doctorAppointments,
-  )
+
   const status = useAppSelector((state) => state.doctors.status)
   const { t } = useTranslation()
   const user = useAppSelector((state) => state.auth.user)
-  const [activeStep, setActiveStep] = useState(0)
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null)
   const [currentView, setCurrentView] = useState<DateOrTimeView>("month")
   const [selectedClinic, setSelectedClinic] = useState<
     IClinicAffiliation | undefined
   >(undefined)
   const [isActionSubmitDisabled, setIsActionSubmitDisabled] = useState(true)
-  const handleClinicSelection = (
-    id: string,
-    address: IAddress,
-    consultationFee: number,
-    clinicId: string,
-    timePerPatient: number,
-  ) => {
-    makeAppointmentFormik.setFieldValue("clinicAffiliationId", id)
-    if (selectedDoctor && selectedDoctor.ClinicAffiliation.length > 0) {
-      const findClinicAffiliation = selectedDoctor.ClinicAffiliation.find(
-        (clinic) => clinic._id === id,
-      )
-      setSelectedClinic(findClinicAffiliation)
-    }
-    makeAppointmentFormik.setFieldValue("appointmentAddress", address)
-    makeAppointmentFormik.setFieldValue("consultationFee", consultationFee)
-    makeAppointmentFormik.setFieldValue("clinicId", clinicId)
-    makeAppointmentFormik.setFieldValue("timePerPatient", timePerPatient)
-  }
 
   const makeAppointmentFormik = useFormik<MakeAppointmentValues>({
     initialValues: mapDataToForm(user?._id, selectedDoctor?._id),
@@ -96,119 +69,56 @@ const MakeAppointmentForm = () => {
     return <CommonError translationKey="common:errors.noClinicAffiliations" />
   }
 
-  const steps = [
-    {
-      id: 0,
-      stepLabel: `${capitalizeFirstChar(t("form:appointment.selectClinic"))}`,
-      stepElement: (
-        <FormikProvider value={makeAppointmentFormik}>
-          <ClinicSelection
-            clinicAffiliations={selectedDoctor?.ClinicAffiliation || []}
-            selectedClinicId={makeAppointmentFormik.values.clinicAffiliationId}
-            onClick={handleClinicSelection}
-          />
-        </FormikProvider>
-      ),
-    },
-    {
-      id: 1,
-      stepLabel: `${capitalizeFirstChar(t("form:appointment.selectDate"))}`,
-      stepElement: (
-        <FormikProvider value={makeAppointmentFormik}>
-          <Box
-            alignItems="center"
-            display="flex"
-            flexDirection="column"
-            width="100%"
-          >
-            <StaticDateTimePicker
-              ampm={false}
-              displayStaticWrapperAs="mobile"
-              minutesStep={5}
-              shouldDisableDate={(date) =>
-                enabledDays(date, selectedClinic!.workingTime)
-              }
-              shouldDisableTime={(date, view) => {
-                return !enabledTime(
-                  date,
-                  selectedClinic!.workingTime,
-                  selectedDoctorAppointments?.data || [],
-                  view,
-                  selectedClinic?.timePerPatient || 0,
-                )
-              }}
-              slotProps={{
-                actionBar: {
-                  actions: !isActionSubmitDisabled
-                    ? ["clear", "accept"]
-                    : ["clear"],
-                },
-              }}
-              value={selectedDate}
-              view={currentView}
-              disablePast
-              onAccept={(newValue) => {
-                return makeAppointmentFormik.setFieldValue(
-                  "appointmentDate",
-                  `${dayjs(newValue).format("YYYY-MM-DD HH:mm")}`,
-                )
-              }}
-              onChange={(value) => {
-                setSelectedDate(value)
-              }}
-              onViewChange={(view) => {
-                setCurrentView(view)
-                return makeAppointmentFormik.setFieldValue(
-                  "appointmentDate",
-                  "",
-                )
-              }}
-            />
-          </Box>
-        </FormikProvider>
-      ),
-    },
-    {
-      id: 2,
-      stepLabel: `${capitalizeFirstChar(t("form:appointment.confirm"))}`,
-      stepElement: (
-        <ConfirmAppointment
-          address={selectedClinic?.clinicInfo?.address}
-          appointmentDate={makeAppointmentFormik.values.appointmentDate}
-          clinicName={selectedClinic?.clinicName}
-          consultationFee={makeAppointmentFormik.values.consultationFee}
-          doctorName={`${selectedDoctor?.name} ${selectedDoctor?.surname}`}
-        />
-      ),
-    },
-  ]
-
-  const handleNext = () => {
-    if (activeStep === steps.length - 1) {
-      return makeAppointmentFormik.handleSubmit()
-    }
-    setActiveStep((prevActiveStep) => prevActiveStep + 1)
-  }
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1)
-  }
-
   return (
     <Stepper
-      activeStep={activeStep}
-      handleBack={handleBack}
-      handleNext={handleNext}
-      isNextButtonDisabled={
-        (activeStep === 0 &&
-          !makeAppointmentFormik.values.clinicAffiliationId) ||
-        (activeStep === 1 && !makeAppointmentFormik.values.appointmentDate) ||
-        (activeStep === 1 &&
-          makeAppointmentFormik.values.appointmentDate === "Invalid Date")
-      }
-      isSubmitting={makeAppointmentFormik.isSubmitting}
-      steps={steps}
-    />
+      disableNextButton={(currentView) => {
+        return (
+          (currentView === 0 &&
+            !makeAppointmentFormik.values.clinicAffiliationId) ||
+          (currentView === 1 &&
+            !makeAppointmentFormik.values.appointmentDate) ||
+          (currentView === 1 &&
+            makeAppointmentFormik.values.appointmentDate === "Invalid Date")
+        )
+      }}
+      onSubmit={async () => makeAppointmentFormik.handleSubmit()}
+    >
+      <Step
+        content={
+          <StepSelectClinic
+            formikProviderValue={makeAppointmentFormik}
+            setSelectedClinic={(clinicAffiliation) =>
+              setSelectedClinic(clinicAffiliation)
+            }
+          />
+        }
+        stepLabel={capitalizeFirstChar(t("form:appointment.selectClinic"))}
+      />
+      <Step
+        content={
+          <StepSelectDate
+            currentView={currentView}
+            formikProviderValue={makeAppointmentFormik}
+            isActionSubmitDisabled={isActionSubmitDisabled}
+            selectedClinic={selectedClinic}
+            selectedDate={selectedDate}
+            setCurrentView={(value) => setCurrentView(value)}
+            setSelectedDate={(value) => setSelectedDate(value)}
+          />
+        }
+        stepLabel={capitalizeFirstChar(t("form:appointment.selectDate"))}
+      />
+      <Step
+        content={
+          <StepConfirmAppointment
+            formikProviderValue={makeAppointmentFormik}
+            selectedClinic={selectedClinic}
+            selectedDoctor={selectedDoctor}
+          />
+        }
+        stepLabel={capitalizeFirstChar(t("form:appointment.confirm"))}
+      />
+    </Stepper>
   )
 }
 

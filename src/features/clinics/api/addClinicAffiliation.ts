@@ -11,14 +11,15 @@ export interface RequestAddClinicAffiliationData {
   clinicId: string
   clinicName: string
   consultationFee: number
-  reasonOfAbsence: string
+  reasonOfAbsence?: string
   timePerPatient: number
   workingTime: {
-    startTime?: string | undefined
-    stopTime?: string | undefined
+    startTime: string
+    stopTime: string
     weekDay: string
   }[]
 }
+
 export const addClinicAffiliation = (data: RequestAddClinicAffiliationData) => {
   return axiosPrivateInstance.post<SuccessReqMsg>(
     Endpoints.GET_CLINIC_AFFILIATIONS,

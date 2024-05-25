@@ -1,34 +1,23 @@
-import CancelIcon from "@mui/icons-material/Cancel"
-import { Box, Container, Grid, Typography } from "@mui/material"
-import dayjs from "dayjs"
-import { FormikProvider, useFormik } from "formik"
-import { useState } from "react"
+import { useFormik } from "formik"
 import { useTranslation } from "react-i18next"
 import { useNavigate } from "react-router-dom"
 
 import { useAppDispatch } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import { workingDayConfig } from "@/constants/workingDayConfig"
 import { createClinic } from "@/features/clinics"
-import {
-  Button,
-  capitalizeFirstChar,
-  FileInputFormik,
-  handlePostalCodeKeyUp,
-  Stepper,
-  TextFieldFormik,
-  translateWeekDays,
-} from "@/shared"
+import { capitalizeFirstChar, Stepper } from "@/shared"
+import Step from "@/shared/ui/Stepper/Step"
 
 import { AddClinicFormValues, addClinicSchema } from "../../schemas/addClinic"
-import WorkingDayRow from "../WorkingDayRow/WorkingDayRow"
 
+import StepClinicBasicInfo from "./FormSteps/StepClinicBasicInfo"
+import StepClinicPhoto from "./FormSteps/StepClinicPhoto"
+import StepClinicWorkingHours from "./FormSteps/StepClinicWorkingHours"
 import { mapDataToForm } from "./mapDataToForm"
 
 const AddClinicForm = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const [activeStep, setActiveStep] = useState(0)
   const { t } = useTranslation()
   const addClinicFormik = useFormik<AddClinicFormValues>({
     initialValues: mapDataToForm,
@@ -40,189 +29,39 @@ const AddClinicForm = () => {
     },
   })
 
-  const steps = [
-    {
-      id: 0,
-      stepLabel: capitalizeFirstChar(t("form:clinic.addAddress")),
-      stepElement: (
-        <FormikProvider value={addClinicFormik}>
-          <form>
-            <Container
-              sx={{ display: "flex", justifyContent: "center", p: 0, py: 6 }}
-            >
-              <Grid
-                columnSpacing={2}
-                justifyContent="center"
-                maxWidth={800}
-                rowSpacing={2}
-                container
-              >
-                <Grid xs={12} item>
-                  <Typography component="h4" mb={2} variant="h5">
-                    {t("form:clinic.clinicName")}
-                  </Typography>
-                  <TextFieldFormik
-                    label={t("form:clinic.clinicName")}
-                    name={"clinicName"}
-                  />
-                </Grid>
-                <Grid xs={12} item>
-                  <Typography component="h4" mb={2} variant="h5">
-                    {t("form:common.address")}
-                  </Typography>
-                  <Box
-                    display="flex"
-                    gap={2}
-                    sx={{ flexDirection: { xs: "column", sm: "row" } }}
-                  >
-                    <TextFieldFormik
-                      label={t("form:common.street")}
-                      name={"address.street"}
-                    />
-                    <TextFieldFormik
-                      label={t("form:common.city")}
-                      name={"address.city"}
-                    />
-                    <TextFieldFormik
-                      inputProps={{
-                        maxLength: 6,
-                      }}
-                      label={t("form:common.postalCode")}
-                      name={"address.postalCode"}
-                      onKeyUp={handlePostalCodeKeyUp}
-                    />
-                  </Box>
-                </Grid>
-                <Grid xs={12} item>
-                  <Typography component="h4" mb={2} variant="h5">
-                    {t("form:common.phoneNumber")}
-                  </Typography>
-                  <TextFieldFormik
-                    label={t("form:common.phoneNumber")}
-                    name={"phoneNumber"}
-                  />
-                </Grid>
-              </Grid>
-            </Container>
-          </form>
-        </FormikProvider>
-      ),
-    },
-    {
-      id: 1,
-      stepLabel: capitalizeFirstChar(t("form:clinic.addWorkingTime")),
-      stepElement: (
-        <FormikProvider value={addClinicFormik}>
-          <form>
-            <Container
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                p: 2,
-              }}
-            >
-              <Typography component="h3" mb={4} variant="h5">
-                {t("form:clinic.chooseWorkingTime")}
-              </Typography>
-              <Grid maxWidth={800} rowSpacing={2} container>
-                {workingDayConfig.map((day) => {
-                  return (
-                    <WorkingDayRow
-                      disableStopTime={
-                        !addClinicFormik.values.workingTime[day.id].startTime
-                      }
-                      key={day.id}
-                      label={t(translateWeekDays(day.label))}
-                      startTimeLabel={t(`form:common.${day.startTimeLabel}`)}
-                      startTimeName={day.startTimeName}
-                      stopTimeLabel={t(`form:common.${day.stopTimeLabel}`)}
-                      stopTimeMinTime={dayjs(
-                        `2018-04-04 ${
-                          addClinicFormik.values.workingTime[day.id].startTime
-                        }`,
-                      ).add(15, "minute")}
-                      stopTimeName={day.stopTimeName}
-                    />
-                  )
-                })}
-              </Grid>
-            </Container>
-          </form>
-        </FormikProvider>
-      ),
-    },
-    {
-      id: 2,
-      stepLabel: capitalizeFirstChar(t("form:clinic.addPhoto")),
-      stepElement: (
-        <FormikProvider value={addClinicFormik}>
-          <Box alignItems="center" display="flex" flexDirection="column" my={2}>
-            <Typography component="h3" mb={4} variant="h5">
-              {t("form:clinic.addClinicPhoto")}
-            </Typography>
-            <Box>
-              <FileInputFormik
-                accept="image/*"
-                disabled={addClinicFormik.isSubmitting}
-                errorText={addClinicFormik.errors.photo}
-                imgPreview={addClinicFormik.values.photo}
-                name="photo"
-                variant="square"
-              />
-            </Box>
-            <Box>
-              {addClinicFormik.values.photo ? (
-                <Box display="flex" flexDirection="column" gap={2} my={2}>
-                  <Button
-                    color="warning"
-                    disabled={addClinicFormik.isSubmitting}
-                    startIcon={<CancelIcon />}
-                    variant="outlined"
-                    onClick={() => {
-                      addClinicFormik.setFieldValue("photo", null)
-                    }}
-                  >
-                    {t("buttons:cancel")}
-                  </Button>
-                </Box>
-              ) : null}
-            </Box>
-          </Box>
-        </FormikProvider>
-      ),
-    },
-  ]
-  const handleNext = () => {
-    if (activeStep === steps.length - 1) {
-      return addClinicFormik.handleSubmit()
-    }
-    setActiveStep((prevActiveStep) => prevActiveStep + 1)
-  }
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1)
-  }
-
   return (
     <Stepper
-      activeStep={activeStep}
-      handleBack={handleBack}
-      handleNext={handleNext}
-      isNextButtonDisabled={
-        (activeStep === 0 &&
-          (!addClinicFormik.values.clinicName ||
-            !addClinicFormik.values.phoneNumber ||
-            !addClinicFormik.values.address.street ||
-            !addClinicFormik.values.address.city ||
-            !addClinicFormik.values.address.postalCode)) ||
-        (activeStep === 1 &&
-          addClinicFormik.values.workingTime.every(
-            (day) => !day.startTime || !day.stopTime,
-          ))
-      }
-      steps={steps}
-    />
+      disableNextButton={(currentStep) => {
+        return (
+          (currentStep === 0 &&
+            (!addClinicFormik.values.clinicName ||
+              !addClinicFormik.values.phoneNumber ||
+              !addClinicFormik.values.address.street ||
+              !addClinicFormik.values.address.city ||
+              !addClinicFormik.values.address.postalCode)) ||
+          (currentStep === 1 &&
+            addClinicFormik.values.workingTime.every(
+              (day) => !day.startTime || !day.stopTime,
+            ))
+        )
+      }}
+      onSubmit={() => addClinicFormik.handleSubmit()}
+    >
+      <Step
+        content={<StepClinicBasicInfo formikProviderValue={addClinicFormik} />}
+        stepLabel={capitalizeFirstChar(t("form:clinic.addAddress"))}
+      />
+      <Step
+        content={
+          <StepClinicWorkingHours formikProviderValue={addClinicFormik} />
+        }
+        stepLabel={capitalizeFirstChar(t("form:clinic.addWorkingTime"))}
+      />
+      <Step
+        content={<StepClinicPhoto formikProviderValue={addClinicFormik} />}
+        stepLabel={capitalizeFirstChar(t("form:clinic.addPhoto"))}
+      />
+    </Stepper>
   )
 }
 
