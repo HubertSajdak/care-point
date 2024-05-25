@@ -1,8 +1,14 @@
 import { IClinicAffiliation } from "@/types/api-types"
 
+import { AddClinicAffiliationValues } from "../../schemas/addClinicAffiliation"
+
+interface EditClinicAffiliationValues extends AddClinicAffiliationValues {
+  clinicAffiliationId: string
+}
+
 export const mapDataToForm = (
   singleClinicAffiliation: IClinicAffiliation | null,
-) => {
+): EditClinicAffiliationValues => {
   return {
     doctorId: singleClinicAffiliation?.doctorId || "",
     clinicId: singleClinicAffiliation?.clinicId || "",
