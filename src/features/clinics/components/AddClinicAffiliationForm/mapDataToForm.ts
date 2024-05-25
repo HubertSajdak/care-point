@@ -1,8 +1,10 @@
+import { AddClinicAffiliationValues } from "../../schemas/addClinicAffiliation"
+
 export const mapDataToForm = (
   doctorId: string | undefined,
   clinicId: string | undefined,
   clinicName: string | undefined,
-) => {
+): AddClinicAffiliationValues => {
   return {
     doctorId: doctorId || "",
     clinicId: clinicId || "",

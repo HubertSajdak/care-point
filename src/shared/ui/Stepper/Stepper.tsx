@@ -1,62 +1,76 @@
-import {
-  StepConnector,
-  stepConnectorClasses,
-  StepLabel,
-  useMediaQuery,
-} from "@mui/material"
+import { StepLabel, useMediaQuery } from "@mui/material"
 import Box from "@mui/material/Box"
 import Step from "@mui/material/Step"
 import MuiStepper from "@mui/material/Stepper"
-import React from "react"
+import React, { Children, ReactNode, useState } from "react"
 import { useTranslation } from "react-i18next"
-import styled, { useTheme } from "styled-components"
+import { useTheme } from "styled-components"
 
 import { Button, PaddingPaper } from "@/shared"
+
+import { QontoConnector } from "./Stepper.styled"
+
 interface StepperProps {
-  activeStep: number
-  handleBack: () => void
-  handleNext: () => void
-  isNextButtonDisabled: boolean
+  children: ReactNode
+  disableNextButton: (currentStep: number) => boolean
   isSubmitting?: boolean
-  steps: {
-    id: number
-    stepElement: React.ReactNode
-    stepLabel: string
-  }[]
+  onSubmit: () => void
 }
-const Stepper = ({
-  activeStep,
-  handleBack,
-  handleNext,
-  isNextButtonDisabled = false,
-  isSubmitting,
-  steps,
-}: StepperProps) => {
+
+const Stepper = ({ children, disableNextButton, onSubmit }: StepperProps) => {
   const { t } = useTranslation()
   const theme = useTheme()
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"))
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [activeStep, setActiveStep] = useState(0)
+  const handleNext = () => {
+    if (activeStep === React.Children.count(children) - 1) {
+      const handleSubmit = async () => {
+        setIsSubmitting(true)
+        try {
+          await onSubmit()
+          setIsSubmitting(false)
+        } catch (error) {
+          setIsSubmitting(false)
+        }
+      }
+      return handleSubmit()
+    }
+    setActiveStep((prevActiveStep) => prevActiveStep + 1)
+  }
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1)
+  }
+  const isNextButtonDisabled = disableNextButton(activeStep)
   return (
     <Box display="flex" flexDirection="column" gap={3} sx={{ width: "100%" }}>
       <PaddingPaper padding={0}>
         <MuiStepper
           activeStep={activeStep}
-          alternativeLabel={isSmall ? true : false}
+          alternativeLabel={isSmall}
           connector={<QontoConnector />}
           sx={{ width: "100%", p: 2 }}
         >
-          {steps.map((el) => {
+          {Children.map(children, (child, idx) => {
             const stepProps: { completed?: boolean } = {}
-            return (
-              <Step key={el.id} {...stepProps}>
-                <StepLabel>{el.stepLabel}</StepLabel>
-              </Step>
-            )
+            if (React.isValidElement(child)) {
+              return (
+                <Step key={idx} {...stepProps}>
+                  <StepLabel>{child.props.stepLabel}</StepLabel>
+                </Step>
+              )
+            }
+            return child
           })}
         </MuiStepper>
       </PaddingPaper>
       <React.Fragment>
         <PaddingPaper padding={2} sx={{ width: "100%" }}>
-          {steps[activeStep].stepElement}
+          {Children.map(children, (child, idx) => {
+            if (idx === activeStep && React.isValidElement(child)) {
+              return child.props.content
+            }
+          })}
         </PaddingPaper>
         <PaddingPaper
           padding={1}
@@ -76,7 +90,7 @@ const Stepper = ({
             isSubmitting={isSubmitting}
             onClick={handleNext}
           >
-            {activeStep === steps.length - 1
+            {activeStep === Children.count(children) - 1
               ? t("buttons:submit")
               : t("buttons:next")}
           </Button>
@@ -87,27 +101,3 @@ const Stepper = ({
 }
 
 export default Stepper
-
-const QontoConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 10,
-    left: "calc(-50% + 16px)",
-    right: "calc(50% + 16px)",
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: theme.palette.primary.main,
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: theme.palette.primary.main,
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    borderColor:
-      theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
-    borderTopWidth: 3,
-    borderRadius: 1,
-  },
-}))

@@ -1,6 +1,7 @@
 import { yup } from "@/libs"
 
 const addClinicAffiliationSchema = yup.object().shape({
+  doctorId: yup.string().required(),
   clinicName: yup.string().required(),
   clinicId: yup.string().required(),
   workingTime: yup
@@ -8,26 +9,32 @@ const addClinicAffiliationSchema = yup.object().shape({
     .of(
       yup.object({
         weekDay: yup.string().required(),
-        startTime: yup.string(),
-        stopTime: yup.string().when("startTime", (startTime, schema) => {
-          if (startTime) {
+        startTime: yup.string().required(),
+        stopTime: yup
+          .string()
+          .when("startTime", (startTime, schema) => {
+            if (startTime) {
+              return schema
+            }
             return schema
-          }
-          return schema
-        }),
+          })
+          .required(),
       }),
     )
     .required(),
-  available: yup.boolean(),
-  reasonOfAbsence: yup.string().notRequired(),
+  available: yup.boolean().required(),
+  reasonOfAbsence: yup.string().required(),
   absenceTime: yup.object({
-    from: yup.string(),
-    to: yup.string().when("from", (from, schema) => {
-      if (from) {
+    from: yup.string().required(),
+    to: yup
+      .string()
+      .when("from", (from, schema) => {
+        if (from) {
+          return schema
+        }
         return schema
-      }
-      return schema
-    }),
+      })
+      .required(),
   }),
   consultationFee: yup.number().required(),
   timePerPatient: yup.number().required(),
