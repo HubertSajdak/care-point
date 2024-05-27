@@ -5,7 +5,6 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 
 import { useAppSelector } from "@/app/hooks"
-import { workingDayConfig } from "@/constants/workingDayConfig"
 
 import { AddClinicAffiliationValues } from "../../../schemas/addClinicAffiliation"
 import WorkingDayRow from "../../WorkingDayRow/WorkingDayRow"
@@ -43,16 +42,10 @@ function StepEditWorkingHours({
             <Typography mb={4} textAlign="center" variant="h6">
               {singleClinic?.clinicName} {t("clinic:openHours")}:
             </Typography>
-            {singleClinic?.workingTime.map((el) => {
-              return (
-                <WorkingHoursRow
-                  key={el._id}
-                  startTime={el.startTime}
-                  stopTime={el.stopTime}
-                  weekDay={el.weekDay}
-                />
-              )
-            })}
+
+            {singleClinic?.workingTime && (
+              <WorkingHoursRow workingTime={singleClinic?.workingTime} />
+            )}
           </Box>
           <Box>
             <Typography mb={4} textAlign="center" variant="h6">
@@ -89,7 +82,6 @@ function StepEditWorkingHours({
                     `2018-04-04 ${formikProviderValue.values.workingTime[workingDayId].startTime}`,
                   ).add(15, "minute")
                 }}
-                workingDays={workingDayConfig}
               />
             </Grid>
           </Box>
