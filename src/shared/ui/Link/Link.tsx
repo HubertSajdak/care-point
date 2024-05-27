@@ -21,11 +21,10 @@ const Link = ({ children, ...linkProps }: LinkProps) => {
 
 export default Link
 
-export const StyledLink = styled(RouterLink)`
-  color: ${({ theme }) => theme.palette.primary.main};
-
-  .text {
-    display: inline-block;
-    font-weight: bold;
-  }
-`
+export const StyledLink = styled(RouterLink)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  ".text": {
+    display: "inline-block",
+    fontWeight: "bold",
+  },
+}))

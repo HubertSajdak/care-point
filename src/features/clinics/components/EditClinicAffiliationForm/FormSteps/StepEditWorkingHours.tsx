@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next"
 
 import { useAppSelector } from "@/app/hooks"
 import { workingDayConfig } from "@/constants/workingDayConfig"
-import { translateWeekDays } from "@/shared"
 
 import { AddClinicAffiliationValues } from "../../../schemas/addClinicAffiliation"
 import WorkingDayRow from "../../WorkingDayRow/WorkingDayRow"
@@ -60,40 +59,48 @@ function StepEditWorkingHours({
               {t("clinic:selectYourWorkingHours")}:
             </Typography>
             <Grid maxWidth={800} rowSpacing={2} container>
-              {workingDayConfig.map((el) => {
-                return (
-                  <WorkingDayRow
-                    disableStartTime={
-                      !singleClinic?.workingTime[el.id].startTime ||
-                      !singleClinic?.workingTime[el.id].stopTime
-                    }
-                    disableStopTime={
-                      !singleClinic?.workingTime[el.id].startTime ||
-                      !singleClinic?.workingTime[el.id].stopTime ||
-                      !formikProviderValue.values.workingTime[el.id].startTime
-                    }
-                    key={el.id}
-                    label={t(translateWeekDays(el.label))}
-                    startTimeLabel={t(`form:common.${el.startTimeLabel}`)}
-                    startTimeMinTime={dayjs(
-                      `2018-04-04 ${
-                        singleClinic?.workingTime[el.id].startTime
-                      }`,
-                    ).add(15, "minute")}
-                    startTimeName={el.startTimeName}
-                    stopTimeLabel={t(`form:common.${el.stopTimeLabel}`)}
-                    stopTimeMaxTime={dayjs(
-                      `2018-04-04 ${singleClinic?.workingTime[el.id].stopTime}`,
-                    )}
-                    stopTimeMinTime={dayjs(
-                      `2018-04-04 ${
-                        formikProviderValue.values.workingTime[el.id].startTime
-                      }`,
-                    ).add(15, "minute")}
-                    stopTimeName={el.stopTimeName}
-                  />
-                )
-              })}
+              <WorkingDayRow
+                disableStartTime={(workingDayId) => {
+                  if (typeof workingDayId === "number") {
+                    return (
+                      !singleClinic?.workingTime[workingDayId].startTime ||
+                      !singleClinic?.workingTime[workingDayId].stopTime
+                    )
+                  }
+                }}
+                disableStopTime={(workingDayId) => {
+                  if (typeof workingDayId === "number") {
+                    return (
+                      !singleClinic?.workingTime[workingDayId].startTime ||
+                      !singleClinic?.workingTime[workingDayId].stopTime ||
+                      !formikProviderValue.values.workingTime[workingDayId]
+                        .startTime
+                    )
+                  }
+                }}
+                startTimeMinTime={(workingDayId) => {
+                  if (typeof workingDayId === "number") {
+                    return dayjs(
+                      `2018-04-04 ${singleClinic?.workingTime[workingDayId].startTime}`,
+                    ).add(15, "minute")
+                  }
+                }}
+                stopTimeMaxTime={(workingDayId) => {
+                  if (typeof workingDayId === "number") {
+                    return dayjs(
+                      `2018-04-04 ${singleClinic?.workingTime[workingDayId].stopTime}`,
+                    )
+                  }
+                }}
+                stopTimeMinTime={(workingDayId) => {
+                  if (typeof workingDayId === "number") {
+                    return dayjs(
+                      `2018-04-04 ${formikProviderValue.values.workingTime[workingDayId].startTime}`,
+                    ).add(15, "minute")
+                  }
+                }}
+                workingDays={workingDayConfig}
+              />
             </Grid>
           </Box>
         </Container>

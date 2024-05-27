@@ -2,83 +2,29 @@ import { ButtonProps as MuiButtonProps, Modal as MuiModal } from "@mui/material"
 import Typography from "@mui/material/Typography"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import styled, { useTheme } from "styled-components"
+import { useTheme } from "styled-components"
 
 import { Button } from "@/shared"
 
+import { ModalContentWrapper } from "./Modal.styled"
+
 export interface ModalProps {
-  /**
-   * Change color of modal's open button.
-   *
-   * @example
-   * "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning" | "string"
-   */
   acceptBtnColor?: MuiButtonProps["color"]
-  /**
-   * Change variant of modal's accept button.
-   *
-   * @example
-   * "text" | "outlined" | "contained" | undefined
-   */
   acceptBtnVariant?: MuiButtonProps["variant"]
-  /**
-   * Make open modal button disabled.
-   */
   disableOpenModalBtn?: boolean
-  /**
-   * If true, open modal button will look like Material UI's Icon Button
-   */
+
   isOpenModalIconBtn?: boolean
   isSubmitting?: boolean
-  /**
-   * Pass a function that accept button will trigger.
-   */
   onAsyncClick?:
     | (() => Promise<void>)
     | ((e?: React.FormEvent<HTMLFormElement> | undefined) => void)
-  /**
-   * Change color of modal's open button.
-   *
-   * @example
-   * "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning" | "string"
-   */
   openModalBtnColor?: MuiButtonProps["color"]
-  /**
-   * Make open button take full container's width.
-   */
   openModalBtnFullWidth?: boolean
-  /**
-   * Renders button with text/icon inside that opens up modal.
-   */
   openModalBtnText: React.ReactNode
-  /**
-   * Change variant of modal's open button.
-   *
-   * @example
-   * "text" | "outlined" | "contained" | undefined
-   */
   openModalBtnVariant?: MuiButtonProps["variant"]
-  /**
-   * Change color of modal's open button.
-   *
-   * @example
-   * "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning" | "string"
-   */
   rejectBtnColor?: MuiButtonProps["color"]
-  /**
-   * Change variant of modal's reject button.
-   *
-   * @example
-   * "text" | "outlined" | "contained" | undefined
-   */
   rejectBtnVariant?: MuiButtonProps["variant"]
-  /**
-   * Modal's text.
-   */
   text: string
-  /**
-   * Modal's title.
-   */
   title: string
 }
 
@@ -170,17 +116,3 @@ const Modal = ({
 }
 
 export default Modal
-
-export const ModalContentWrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400;
-  background-color: ${({ theme }) => theme.palette.background.paper};
-  box-shadow: 24;
-  padding: 1rem;
-  border-top: 0.5rem solid;
-  border-color: ${({ theme }) => theme.palette.primary.main};
-  border-radius: 8px 8px 0px 0px;
-`

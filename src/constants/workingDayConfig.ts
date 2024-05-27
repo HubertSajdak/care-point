@@ -1,15 +1,5 @@
-import { IWeekDays } from "@/types/api-types"
+import { WorkingDayConfigValues } from "@/types/api-types"
 
-interface WorkingDayConfigValues {
-  id: number
-  label: IWeekDays
-  startTimeId: string
-  startTimeLabel: string
-  startTimeName: string
-  stopTimeId: string
-  stopTimeLabel: string
-  stopTimeName: string
-}
 export const workingDayConfig: WorkingDayConfigValues[] = [
   {
     id: 0,

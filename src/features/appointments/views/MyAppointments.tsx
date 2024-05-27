@@ -1,6 +1,6 @@
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline"
 import { Box, Chip, MenuItem, Select, Typography } from "@mui/material"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useDebouncedCallback } from "use-debounce"
 
@@ -39,33 +39,42 @@ const MyAppointments = () => {
     totalItems,
   } = useAppSelector((state) => state.appointments)
   const user = useAppSelector((state) => state.auth.user)
-  const handleChangeSort = (
-    sortingProperty: string,
-    sortingDirection: ISortDirection,
-  ) => {
-    dispatch(
-      setQueryParams({
-        sortBy: sortingProperty,
-        sortDirection: sortingDirection,
-      }),
-    )
-  }
-  const handleChangePage = (page: number) => {
-    dispatch(setQueryParams({ currentPage: page }))
-  }
+  const handleChangeSort = useCallback(
+    (sortingProperty: string, sortingDirection: ISortDirection) => {
+      dispatch(
+        setQueryParams({
+          sortBy: sortingProperty,
+          sortDirection: sortingDirection,
+        }),
+      )
+    },
+    [dispatch],
+  )
+  const handleChangePage = useCallback(
+    (page: number) => {
+      dispatch(setQueryParams({ currentPage: page }))
+    },
+    [dispatch],
+  )
 
-  const handleChangeRowsPerPage = (rowsPerPage: number) => {
-    dispatch(setQueryParams({ pageSize: rowsPerPage }))
-  }
+  const handleChangeRowsPerPage = useCallback(
+    (rowsPerPage: number) => {
+      dispatch(setQueryParams({ pageSize: rowsPerPage }))
+    },
+    [dispatch],
+  )
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
     dispatch(setQueryParams({ search }))
   }, 1000)
-  const handleRefreshContent = async () => {
+  const handleRefreshContent = useCallback(async () => {
     await dispatch(getCurrentUserAppointments())
-  }
-  const handleCancelAppointment = async (appointmentId: string) => {
-    await dispatch(cancelAppointment(appointmentId))
-  }
+  }, [dispatch])
+  const handleCancelAppointment = useCallback(
+    async (appointmentId: string) => {
+      await dispatch(cancelAppointment(appointmentId))
+    },
+    [dispatch],
+  )
   useEffect(() => {
     dispatch(getCurrentUserAppointments())
   }, [

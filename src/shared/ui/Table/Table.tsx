@@ -47,108 +47,108 @@ export interface TableProps<T> {
    */
   additionalOptions?: React.ReactNode
   /**
-     * Based on "columns" prop, column headings are being rendered.
-     *
-     * @example
-     *  columns={[
-     {
-     title: t("tableHeadings.name"),
-     key: "name",
-     render: (row) => row.name,
-     sortable: true,
-     },...
-     */
+   * Based on "columns" prop, column headings are being rendered.
+   *
+   * @example
+   *  columns={[
+   {
+   title: t("tableHeadings.name"),
+   key: "name",
+   render: (row) => row.name,
+   sortable: true,
+   },...
+   */
   columns: ColumnsValues<T>[]
   /**
    * Data based on which the column's row values are rendered.
    */
   data: T[]
   /**
-     * Use this prop to add your own filters (such as search input).
-     *
-     * @example
-     *  filter={
-     <div style={{ marginRight: "1rem" }}>
-     <TextField
-     placeholder="search..."
-     defaultValue={search || ""}
-     onChange={(e) => onChangeSearch(e.target.value)}
-     size="small"
-     />
-     </div>
-     }
-     */
+   * Use this prop to add your own filters (such as search input).
+   *
+   * @example
+   *  filter={
+   <div style={{ marginRight: "1rem" }}>
+   <TextField
+   placeholder="search..."
+   defaultValue={search || ""}
+   onChange={(e) => onChangeSearch(e.target.value)}
+   size="small"
+   />
+   </div>
+   }
+   */
   filter?: React.ReactNode
   /**
    * Provide "isLoading" prop to prevent user from taking any actions.
    */
   isLoading: boolean
   /**
-     * Pass a function that takes number as an argument. The Previous button passes number: (-1) to the function, and the Next button passes number: (1) to the function. Based on that create a logic that will update the current page.
-     *
-     * @example
-     * Function that triggers the update:
-     *
-     *  const changePageHandler = (page: number) => {
-     dispatch(patientsActions.changePage(page));
-     };
-     *
-     * Function that updates the current page state:
-     *
-     *  changePage: (state, { payload }: PayloadAction<number>) => {
-     if (payload === 1) {
-     state.currentPage++;
-     }
-     if (payload !== 1) {
-     state.currentPage--;
-     }
-     },
-     */
+   * Pass a function that takes number as an argument. The Previous button passes number: (-1) to the function, and the Next button passes number: (1) to the function. Based on that create a logic that will update the current page.
+   *
+   * @example
+   * Function that triggers the update:
+   *
+   *  const changePageHandler = (page: number) => {
+   dispatch(patientsActions.changePage(page));
+   };
+   *
+   * Function that updates the current page state:
+   *
+   *  changePage: (state, { payload }: PayloadAction<number>) => {
+   if (payload === 1) {
+   state.currentPage++;
+   }
+   if (payload !== 1) {
+   state.currentPage--;
+   }
+   },
+   */
   onChangePage: (page: number) => void
   /**
-     * Pass a function that will change the number of visible rows per page.
-     *
-     * @example
-     *
-     * Function that triggers the update:
-     *
-     * const changeRowsPerPageHandler = (rowsPerPage: number) => {
-     dispatch(patientsActions.changeRowsPerPage(rowsPerPage));
-     };
+   * Pass a function that will change the number of visible rows per page.
+   *
+   * @example
+   *
+   * Function that triggers the update:
+   *
+   * const changeRowsPerPageHandler = (rowsPerPage: number) => {
+   dispatch(patientsActions.changeRowsPerPage(rowsPerPage));
+   };
 
-     Function that updates the rows per page state:
+   Function that updates the rows per page state:
 
-     changeRowsPerPage: (state, { payload }: PayloadAction<number>) => {
-     state.pageSize = payload;
-     },
-     */
+   changeRowsPerPage: (state, { payload }: PayloadAction<number>) => {
+   state.pageSize = payload;
+   },
+   */
   onChangeRowsPerPage: (rowsPerPage: number) => void
   onChangeSearch: (search: string) => void
   /**
-     * Pass a function that will change the sorting property. Sorting is based on provided to columns "key" prop.
-     *
-     * @example
-     *
-     * Function that triggers the update:
-     *
-     * const changeSortHandler = (sortingProperty: string) => {
-     dispatch(patientsActions.changeSort(sortingProperty));
-     };
+   * Pass a function that will change the sorting property. Sorting is based on provided to columns "key" prop.
+   *
+   * @example
+   *
+   * Function that triggers the update:
+   *
+   * const changeSortHandler = (sortingProperty: string) => {
+   dispatch(patientsActions.changeSort(sortingProperty));
+   };
 
-     Sorting logic:
+   Sorting logic:
 
-     changeAllPatientsSort: (state, { payload }: PayloadAction<string>) => {
-     if (state.sortBy === payload) {
-     state.sortDirection === "desc"
-     ? (state.sortDirection = "asc")
-     : (state.sortDirection = "desc");
-     }
-     if (state.sortBy !== payload) {
-     state.sortBy = payload;
-     state.sortDirection = "desc";
-     }
-     },
-     */
+   changeAllPatientsSort: (state, { payload }: PayloadAction<string>) => {
+   if (state.sortBy === payload) {
+   state.sortDirection === "desc"
+   ? (state.sortDirection = "asc")
+   : (state.sortDirection = "desc");
+   }
+   if (state.sortBy !== payload) {
+   state.sortBy = payload;
+   state.sortDirection = "desc";
+   }
+   },
+   */
   onChangeSort: (
     sortingProperty: string,
     sortingDirection: ISortDirection,
@@ -277,7 +277,9 @@ TableProps<T>) => {
                                 <Avatar
                                   src={`${BASE_URL}/${render(item)}` || ""}
                                   sx={{
-                                    outline: `1px solid ${theme.palette.primary.main}`,
+                                    outline: `${theme.spacing(0.125)} solid ${
+                                      theme.palette.primary.main
+                                    }`,
                                   }}
                                 />
                               </TableCell>

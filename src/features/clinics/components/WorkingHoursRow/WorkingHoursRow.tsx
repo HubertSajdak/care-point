@@ -28,17 +28,25 @@ const WorkingHoursRow = ({
           // color="primary"
           label={startTime || "-"}
           size={isSmall ? "small" : "medium"}
-          sx={{ minWidth: "60px", fontSize: 14, fontWeight: "bold" }}
+          sx={{
+            minWidth: theme.spacing(7.5),
+            fontSize: 14,
+            fontWeight: "bold",
+          }}
         />
         <Divider
           orientation="horizontal"
-          sx={{ width: "10px", marginBottom: 2 }}
+          sx={{ width: theme.spacing(1.25), marginBottom: 2 }}
         />
         <Chip
           // color="primary"
           label={stopTime || "-"}
           size={isSmall ? "small" : "medium"}
-          sx={{ minWidth: "60px", fontSize: 14, fontWeight: "bold" }}
+          sx={{
+            minWidth: theme.spacing(7.5),
+            fontSize: 14,
+            fontWeight: "bold",
+          }}
         />
       </Box>
     </Box>

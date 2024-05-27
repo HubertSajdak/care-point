@@ -10,17 +10,18 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material"
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
+import { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar"
 import IconButton from "@mui/material/IconButton"
-import Toolbar from "@mui/material/Toolbar"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
-import styled, { useTheme } from "styled-components"
+import { useTheme } from "styled-components"
 
 import { useAppDispatch } from "@/app/hooks"
 import { RouteNames } from "@/constants"
 import { LangSwitcher, Link } from "@/shared"
 import { logoutUser } from "@/shared/store"
+
+import { StyledAppBar, StyledToolbar } from "./AppBar.styled"
 
 const { ACCOUNT_MANAGEMENT } = RouteNames
 
@@ -76,7 +77,7 @@ const AppBar = ({
         </IconButton>
         <Box alignItems="center" display="flex" gap={2} sx={{ flexGrow: 0 }}>
           {isUserDataLoading ? (
-            <Skeleton sx={{ fontSize: "1.2rem" }} variant="text" width={40} />
+            <Skeleton sx={{ fontSize: 1 }} variant="text" width={40} />
           ) : (
             <Typography sx={{ fontWeight: "bold" }}>{userName}</Typography>
           )}
@@ -85,7 +86,9 @@ const AppBar = ({
               data-testid="user-menu"
               sx={{
                 p: 0,
-                border: `2px solid ${theme.palette.primary.main}`,
+                border: `${theme.spacing(0.3)} solid ${
+                  theme.palette.primary.main
+                }`,
               }}
               onClick={handleOpenUserMenu}
             >
@@ -106,7 +109,7 @@ const AppBar = ({
             id="menu-appbar"
             open={Boolean(anchorElUser)}
             sx={{
-              mt: "45px",
+              mt: 6,
               ".MuiPaper-elevation": {
                 px: 0,
                 py: 0.2,
@@ -116,15 +119,19 @@ const AppBar = ({
               vertical: "top",
               horizontal: "right",
             }}
+            disableScrollLock
             keepMounted
             onClose={handleCloseUserMenu}
           >
             <MenuItem sx={{ padding: 0 }}>
               <Link
+                color={theme.palette.grey[800]}
                 style={{
                   width: "100%",
-                  color: "#486581",
-                  padding: "6px 16px",
+                  paddingTop: theme.spacing(0.75),
+                  paddingBottom: theme.spacing(0.75),
+                  paddingLeft: theme.spacing(2),
+                  paddingRight: theme.spacing(2),
                 }}
                 to={ACCOUNT_MANAGEMENT}
               >
@@ -141,13 +148,7 @@ const AppBar = ({
                 )
               }}
             >
-              <Typography
-                fontWeight="bold"
-                sx={{
-                  color: "#486581",
-                }}
-                textAlign="center"
-              >
+              <Typography fontWeight="bold" textAlign="center">
                 {t("buttons:logout")}
               </Typography>
             </MenuItem>
@@ -161,34 +162,3 @@ const AppBar = ({
 }
 
 export default AppBar
-
-const StyledAppBar = styled(MuiAppBar)<{
-  $drawerwidth: number
-  $isSmallView: boolean
-  open: boolean
-}>(({ $drawerwidth, $isSmallView, open, theme }) => ({
-  padding: 2,
-  position: "sticky",
-  color: theme.palette.primary.main,
-  backgroundColor: theme.palette.common.white,
-  borderRadius: 0,
-  boxShadow: "none",
-  outline: `1px solid ${theme.palette.grey[300]}`,
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open &&
-    !$isSmallView && {
-      width: `calc(100% - ${$drawerwidth}px)`,
-      marginLeft: `${$drawerwidth}px`,
-      transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-}))
-const StyledToolbar = styled(Toolbar)`
-  display: flex;
-  justify-content: space-between;
-`

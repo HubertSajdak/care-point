@@ -7,9 +7,13 @@ import ListItemText from "@mui/material/ListItemText"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { NavLink, useLocation } from "react-router-dom"
-import styled from "styled-components"
 
 import { SidebarLinksProps } from "../../types"
+
+import {
+  StyledListItemButton,
+  StyledNestedListItemButton,
+} from "./SidebarListItem.styled"
 
 const SidebarListItem = ({
   children,
@@ -79,42 +83,3 @@ const SidebarListItem = ({
 }
 
 export default SidebarListItem
-
-const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
-  transition: theme.transitions.create(["padding"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  "&.active": {
-    paddingLeft: theme.spacing(2.2),
-    transition: theme.transitions.create(["padding"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  "&:hover": {
-    paddingLeft: theme.spacing(2.2),
-    transition: theme.transitions.create(["padding"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-}))
-const StyledNestedListItemButton = styled(StyledListItemButton)(
-  ({ theme }) => ({
-    "&.active": {
-      paddingLeft: theme.spacing(4.2),
-      transition: theme.transitions.create(["padding"], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    "&:hover": {
-      paddingLeft: theme.spacing(4.2),
-      transition: theme.transitions.create(["padding"], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-  }),
-)

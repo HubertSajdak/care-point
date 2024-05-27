@@ -24,7 +24,7 @@ const AppointmentsInfoCard = ({
           <Avatar
             sx={{
               borderRadius: theme.spacing(1),
-              border: `2px solid ${iconBorderColor}`,
+              border: `${theme.spacing(0.25)} solid ${iconBorderColor}`,
               background: theme.palette.primary.contrastText,
               width: 50,
               height: 50,
