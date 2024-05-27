@@ -4,8 +4,6 @@ import { FormikContextType, FormikProvider } from "formik"
 import React from "react"
 import { useTranslation } from "react-i18next"
 
-import { workingDayConfig } from "@/constants/workingDayConfig"
-
 import { AddClinicFormValues } from "../../../schemas/addClinic"
 import WorkingDayRow from "../../WorkingDayRow/WorkingDayRow"
 
@@ -42,7 +40,6 @@ function StepClinicWorkingHours({
                   `2018-04-04 ${formikProviderValue.values.workingTime[workingDayId].startTime}`,
                 ).add(15, "minute")
               }}
-              workingDays={workingDayConfig}
             />
           </Grid>
         </Container>
