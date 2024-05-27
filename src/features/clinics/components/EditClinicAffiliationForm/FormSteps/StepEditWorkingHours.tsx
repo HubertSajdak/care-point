@@ -61,43 +61,33 @@ function StepEditWorkingHours({
             <Grid maxWidth={800} rowSpacing={2} container>
               <WorkingDayRow
                 disableStartTime={(workingDayId) => {
-                  if (typeof workingDayId === "number") {
-                    return (
-                      !singleClinic?.workingTime[workingDayId].startTime ||
-                      !singleClinic?.workingTime[workingDayId].stopTime
-                    )
-                  }
+                  return (
+                    !singleClinic?.workingTime[workingDayId].startTime ||
+                    !singleClinic?.workingTime[workingDayId].stopTime
+                  )
                 }}
                 disableStopTime={(workingDayId) => {
-                  if (typeof workingDayId === "number") {
-                    return (
-                      !singleClinic?.workingTime[workingDayId].startTime ||
-                      !singleClinic?.workingTime[workingDayId].stopTime ||
-                      !formikProviderValue.values.workingTime[workingDayId]
-                        .startTime
-                    )
-                  }
+                  return (
+                    !singleClinic?.workingTime[workingDayId].startTime ||
+                    !singleClinic?.workingTime[workingDayId].stopTime ||
+                    !formikProviderValue.values.workingTime[workingDayId]
+                      .startTime
+                  )
                 }}
                 startTimeMinTime={(workingDayId) => {
-                  if (typeof workingDayId === "number") {
-                    return dayjs(
-                      `2018-04-04 ${singleClinic?.workingTime[workingDayId].startTime}`,
-                    ).add(15, "minute")
-                  }
+                  return dayjs(
+                    `2018-04-04 ${singleClinic?.workingTime[workingDayId].startTime}`,
+                  ).add(15, "minute")
                 }}
                 stopTimeMaxTime={(workingDayId) => {
-                  if (typeof workingDayId === "number") {
-                    return dayjs(
-                      `2018-04-04 ${singleClinic?.workingTime[workingDayId].stopTime}`,
-                    )
-                  }
+                  return dayjs(
+                    `2018-04-04 ${singleClinic?.workingTime[workingDayId].stopTime}`,
+                  )
                 }}
                 stopTimeMinTime={(workingDayId) => {
-                  if (typeof workingDayId === "number") {
-                    return dayjs(
-                      `2018-04-04 ${formikProviderValue.values.workingTime[workingDayId].startTime}`,
-                    ).add(15, "minute")
-                  }
+                  return dayjs(
+                    `2018-04-04 ${formikProviderValue.values.workingTime[workingDayId].startTime}`,
+                  ).add(15, "minute")
                 }}
                 workingDays={workingDayConfig}
               />

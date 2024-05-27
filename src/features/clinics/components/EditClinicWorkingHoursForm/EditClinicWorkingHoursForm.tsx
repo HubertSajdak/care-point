@@ -17,11 +17,9 @@ const EditClinicWorkingHoursForm = () => {
       <Grid maxWidth={800} rowSpacing={2} container>
         <WorkingDayRow
           stopTimeMinTime={(workingDayId) => {
-            if (typeof workingDayId === "number") {
-              return dayjs(
-                `2018-04-04 ${singleClinic?.workingTime[workingDayId].startTime}`,
-              ).add(15, "minute")
-            }
+            return dayjs(
+              `2018-04-04 ${singleClinic?.workingTime[workingDayId].startTime}`,
+            ).add(15, "minute")
           }}
           workingDays={workingDayConfig}
         />
