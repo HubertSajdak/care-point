@@ -22,12 +22,12 @@ const DashboardLayout = ({
   userAvatar,
   userName,
 }: DashboardLayoutProps) => {
+  const theme = useTheme()
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const drawerWidth = 250
   const handleOpenSidebar = () => {
     setIsSidebarOpen((prev) => !prev)
   }
-  const theme = useTheme()
   const isSmall = useMediaQuery(theme.breakpoints.down("md"))
 
   return (

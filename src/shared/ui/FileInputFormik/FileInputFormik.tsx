@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next"
 import styled, { useTheme } from "styled-components"
 
 import { BASE_URL } from "@/constants"
+
 interface FileInputFormikProps {
   accept?: string
   children?: React.ReactNode
@@ -18,6 +19,7 @@ interface FileInputFormikProps {
   photo?: string
   variant?: "rounded" | "circular" | "square"
 }
+
 const FileInputFormik = ({
   accept,
   disabled = false,
@@ -165,7 +167,7 @@ const StyledInputBox = styled(Box)<{
   variant: "rounded" | "square" | "circular"
 }>(({ theme, variant }) => ({
   position: "relative",
-  border: `3px solid ${theme.palette.primary.main}`,
+  border: `${theme.spacing(0.4)} solid ${theme.palette.primary.main}`,
   borderRadius: 0,
   ...(variant === "circular" && {
     borderRadius: "50%",
@@ -173,18 +175,18 @@ const StyledInputBox = styled(Box)<{
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  width: "260px",
-  height: "260px",
+  width: `${theme.spacing(32.5)}`,
+  height: `${theme.spacing(32.5)}`,
   ".camera-icon": {
     position: "absolute",
     right: 0,
     top: "70%",
     background: theme.palette.grey[50],
     borderRadius: "50%",
-    width: "46px",
-    height: "46px",
+    width: `${theme.spacing(5.75)}`,
+    height: `${theme.spacing(5.75)}`,
     padding: 3,
-    border: `2px solid ${theme.palette.primary.main}`,
+    border: `${theme.spacing(0.3)} solid ${theme.palette.primary.main}`,
     transition: "background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
   },
   ".avatar": {
@@ -196,7 +198,7 @@ const StyledInputBox = styled(Box)<{
   transition:
     "border-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
   "&:hover": {
-    border: `3px solid ${theme.palette.primary.dark}`,
+    border: `${theme.spacing(0.4)} solid ${theme.palette.primary.dark}`,
     cursor: "pointer",
 
     ".camera-icon": {

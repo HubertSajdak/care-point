@@ -212,3 +212,14 @@ export interface IQueryParams {
   sortBy: string
   sortDirection: ISortDirection
 }
+
+interface WorkingDayConfigValues {
+  id: number
+  label: IWeekDays
+  startTimeId: string
+  startTimeLabel: string
+  startTimeName: string
+  stopTimeId: string
+  stopTimeLabel: string
+  stopTimeName: string
+}

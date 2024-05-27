@@ -1,4 +1,11 @@
-import { Avatar, Card, CardContent, Stack, Typography } from "@mui/material"
+import {
+  Avatar,
+  Card,
+  CardContent,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material"
 import React from "react"
 
 const InfoCard = ({
@@ -14,6 +21,7 @@ const InfoCard = ({
   title: string
   titleColor?: string
 }) => {
+  const theme = useTheme()
   return (
     <Card>
       <CardContent>
@@ -35,8 +43,8 @@ const InfoCard = ({
             </Stack>
             <Avatar
               sx={{
-                height: "56px",
-                width: "56px",
+                height: theme.spacing(7),
+                width: theme.spacing(7),
                 backgroundColor: iconColor,
               }}
             >

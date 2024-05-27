@@ -1,17 +1,15 @@
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
 import { Box, IconButton, Tooltip, Typography } from "@mui/material"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import { setQueryParams } from "@/features/patients"
+import { getAllPatients, setQueryParams } from "@/features/patients"
 import { Table } from "@/shared"
 import { ISortDirection } from "@/types/api-types"
-
-import { getAllPatients } from "../store/patientsThunks"
 
 const AllPatients = () => {
   const { t } = useTranslation()
@@ -29,30 +27,36 @@ const AllPatients = () => {
   useEffect(() => {
     dispatch(setQueryParams({ pageSize: 5 }))
   }, [dispatch])
-  const handleChangeSort = (
-    sortingProperty: string,
-    sortingDirection: ISortDirection,
-  ) => {
-    dispatch(
-      setQueryParams({
-        sortBy: sortingProperty,
-        sortDirection: sortingDirection,
-      }),
-    )
-  }
-  const handleChangePage = (page: number) => {
-    dispatch(setQueryParams({ currentPage: page }))
-  }
+  const handleChangeSort = useCallback(
+    (sortingProperty: string, sortingDirection: ISortDirection) => {
+      dispatch(
+        setQueryParams({
+          sortBy: sortingProperty,
+          sortDirection: sortingDirection,
+        }),
+      )
+    },
+    [dispatch],
+  )
+  const handleChangePage = useCallback(
+    (page: number) => {
+      dispatch(setQueryParams({ currentPage: page }))
+    },
+    [dispatch],
+  )
 
-  const handleChangeRowsPerPage = (rowsPerPage: number) => {
-    dispatch(setQueryParams({ pageSize: rowsPerPage }))
-  }
+  const handleChangeRowsPerPage = useCallback(
+    (rowsPerPage: number) => {
+      dispatch(setQueryParams({ pageSize: rowsPerPage }))
+    },
+    [dispatch],
+  )
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
     dispatch(setQueryParams({ search }))
   }, 1000)
-  const handleRefreshContent = async () => {
+  const handleRefreshContent = useCallback(async () => {
     await dispatch(getAllPatients())
-  }
+  }, [dispatch])
   return (
     <Box>
       <Typography component="h2" fontWeight="bold" mb={2} variant="h4">

@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material"
 import styled from "styled-components"
+
 export interface FlagWrapperProps {
   alt: string
   onClick: React.MouseEventHandler<HTMLDivElement>
@@ -10,14 +11,15 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 1rem;
+  gap: ${({ theme }) => theme.spacing(2)};
   width: 100%;
   margin: 0 auto;
-  padding: 1rem;
+  padding: ${({ theme }) => theme.spacing(2)};
   cursor: pointer;
+
   img {
     width: 100%;
-    max-width: 30px;
+    max-width: ${({ theme }) => theme.spacing(3.75)};
     transition: transform 0.2s;
   }
 `

@@ -7,6 +7,7 @@ import {
   ListItem as MuiListItem,
   MenuItem,
   Select,
+  useTheme,
 } from "@mui/material"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
@@ -29,7 +30,7 @@ const AddDoctorSpecializationForm = () => {
   const allSpecializations = useAppSelector(
     (state) => state.specializations.allSpecializations,
   )
-  const status = useAppSelector((state) => state.specializations.status)
+  const theme = useTheme()
 
   const currentUserSpecializations = useAppSelector(
     (state) => state.specializations.currentUserSpecializations,
@@ -108,7 +109,10 @@ const AddDoctorSpecializationForm = () => {
                 disabled={addDoctorSpecializationFormik.isSubmitting}
                 onClick={() => addDoctorSpecializationFormik.handleSubmit()}
               >
-                <AddCircleIcon color="primary" sx={{ fontSize: "32px" }} />
+                <AddCircleIcon
+                  color="primary"
+                  sx={{ fontSize: theme.spacing(4) }}
+                />
               </IconButton>
             )}
             <IconButton
@@ -116,9 +120,15 @@ const AddDoctorSpecializationForm = () => {
               onClick={() => setIsComboBoxOpen(!isComboBoxOpen)}
             >
               {isComboBoxOpen ? (
-                <CancelIcon color="warning" sx={{ fontSize: "32px" }} />
+                <CancelIcon
+                  color="warning"
+                  sx={{ fontSize: theme.spacing(4) }}
+                />
               ) : (
-                <AddCircleIcon color="primary" sx={{ fontSize: "32px" }} />
+                <AddCircleIcon
+                  color="primary"
+                  sx={{ fontSize: theme.spacing(4) }}
+                />
               )}
             </IconButton>
           </MuiListItem>

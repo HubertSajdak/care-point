@@ -1,6 +1,5 @@
 import {
   Button,
-  Card,
   CardContent,
   CardHeader,
   CardMedia,
@@ -9,12 +8,13 @@ import {
   Typography,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
 
 import img from "@/assets/images/no-clinic.png"
 import { BASE_URL } from "@/constants"
 import { translateWeekDays } from "@/shared"
 import { IAddress, IWorkingHours } from "@/types/api-types"
+
+import { StyledCard } from "./ClinicCard.styled"
 
 export interface ClinicCardProps {
   $isSelected: boolean
@@ -112,16 +112,3 @@ const ClinicCard = ({
 }
 
 export default ClinicCard
-
-const StyledCard = styled(Card)<{ $isSelected: boolean }>(
-  ({ $isSelected, theme }) => ({
-    maxWidth: 345,
-    ...($isSelected && {
-      boxShadow: `rgb(204, 219, 232) 3px 3px 12px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset`,
-      outline: `2px solid ${theme.palette.primary.light}`,
-    }),
-    "&:hover": {
-      outline: `1px solid ${theme.palette.primary.light}`,
-    },
-  }),
-)

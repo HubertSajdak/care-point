@@ -126,7 +126,7 @@ const Start = () => {
           <Paper
             sx={{
               width: "100%",
-              height: `calc(100% - 48px)`,
+              height: `calc(100% - ${theme.spacing(6)})`,
               boxShadow: theme.mainShadow.main,
             }}
           >
@@ -376,7 +376,7 @@ const Start = () => {
           <List
             sx={{
               width: "100%",
-              height: "calc(100% - 46px)",
+              height: `calc(100% - ${theme.spacing(6)})`,
               bgcolor: "background.paper",
               display: "flex",
               flexDirection: "column",
@@ -442,7 +442,7 @@ const Start = () => {
             )}
             <LinkButton
               key={"link-button"}
-              sx={{ alignSelf: "flex-end", mr: "16px", mt: "8px" }}
+              sx={{ alignSelf: "flex-end", mr: 2, mt: 1 }}
               to={RouteNames.MY_APPOINTMENTS}
             >
               {t("buttons:seeMore")}

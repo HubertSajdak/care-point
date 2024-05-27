@@ -1,7 +1,7 @@
 import AssignmentIcon from "@mui/icons-material/Assignment"
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
 import { Box, IconButton, Tooltip, Typography } from "@mui/material"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import { useDebouncedCallback } from "use-debounce"
@@ -27,30 +27,36 @@ const AllDoctors = () => {
     dispatch(getAllDoctors(false))
   }, [dispatch, currentPage, pageSize, search, sortBy, sortDirection])
 
-  const handleChangeSort = (
-    sortingProperty: string,
-    sortingDirection: ISortDirection,
-  ) => {
-    dispatch(
-      setTableQueryParams({
-        sortBy: sortingProperty,
-        sortDirection: sortingDirection,
-      }),
-    )
-  }
-  const handleChangePage = (page: number) => {
-    dispatch(setTableQueryParams({ currentPage: page }))
-  }
+  const handleChangeSort = useCallback(
+    (sortingProperty: string, sortingDirection: ISortDirection) => {
+      dispatch(
+        setTableQueryParams({
+          sortBy: sortingProperty,
+          sortDirection: sortingDirection,
+        }),
+      )
+    },
+    [dispatch],
+  )
+  const handleChangePage = useCallback(
+    (page: number) => {
+      dispatch(setTableQueryParams({ currentPage: page }))
+    },
+    [dispatch],
+  )
 
-  const handleChangeRowsPerPage = (rowsPerPage: number) => {
-    dispatch(setTableQueryParams({ pageSize: rowsPerPage }))
-  }
+  const handleChangeRowsPerPage = useCallback(
+    (rowsPerPage: number) => {
+      dispatch(setTableQueryParams({ pageSize: rowsPerPage }))
+    },
+    [dispatch],
+  )
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
     dispatch(setTableQueryParams({ search }))
   }, 1000)
-  const handleRefreshContent = async () => {
+  const handleRefreshContent = useCallback(async () => {
     await dispatch(getAllDoctors(false))
-  }
+  }, [dispatch])
   return (
     <Box>
       <Typography component="h2" fontWeight="bold" mb={2} variant="h4">

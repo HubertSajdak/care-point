@@ -4,8 +4,8 @@ import styled from "styled-components"
 export const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 10,
-    left: "calc(-50% + 16px)",
-    right: "calc(50% + 16px)",
+    left: `calc(-50% + ${theme.spacing(2)})`,
+    right: `calc(50% + ${theme.spacing(2)})`,
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {

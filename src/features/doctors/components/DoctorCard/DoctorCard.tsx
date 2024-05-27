@@ -60,7 +60,9 @@ const DoctorCard = ({
               sx={{
                 width: 150,
                 height: 150,
-                border: `3px solid ${theme.palette.grey[200]}`,
+                border: `${theme.spacing(0.375)} solid ${
+                  theme.palette.grey[200]
+                }`,
                 alignSelf: "center",
                 bgcolor: stringToColor(name),
               }}

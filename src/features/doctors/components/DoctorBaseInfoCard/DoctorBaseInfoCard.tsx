@@ -48,7 +48,9 @@ const DoctorBaseInfoCard = () => {
             sx={{
               width: { xs: 200, md: 300 },
               height: { xs: 200, md: 300 },
-              border: `3px solid ${theme.palette.primary.main}`,
+              border: `${theme.spacing(0.375)} solid ${
+                theme.palette.primary.main
+              }`,
             }}
           />
           <Stack width="100%">
@@ -82,7 +84,7 @@ const DoctorBaseInfoCard = () => {
                         color="primary"
                         key={el.Specialization._id}
                         label={el.Specialization.specializationKey}
-                        sx={{ fontSize: "16px", fontWeight: "bold" }}
+                        sx={{ fontSize: theme.spacing(2), fontWeight: "bold" }}
                         variant="outlined"
                       />
                     )

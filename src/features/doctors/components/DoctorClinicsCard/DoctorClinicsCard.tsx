@@ -47,9 +47,17 @@ const DoctorClinicsCard = () => {
                             : ""
                         }
                         sx={{
-                          width: { xs: "100px", md: "50px" },
-                          height: { xs: "100px", md: "50px" },
-                          border: `2px solid ${theme.palette.primary.main}`,
+                          width: {
+                            xs: 100,
+                            md: 50,
+                          },
+                          height: {
+                            xs: 100,
+                            md: 50,
+                          },
+                          border: `${theme.spacing(0.25)} solid ${
+                            theme.palette.primary.main
+                          }`,
                         }}
                       />
                     </ListItemAvatar>
