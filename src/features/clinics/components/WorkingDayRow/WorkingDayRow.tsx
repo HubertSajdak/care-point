@@ -10,14 +10,12 @@ import { WorkingDayConfigValues } from "@/types/api-types"
 import { AddClinicFormValues } from "../../schemas/addClinic"
 
 interface WorkingDayRowProps {
-  disableStartTime?:
-    | ((workingDayId?: number) => boolean | undefined)
-    | undefined
-  disableStopTime?: ((workingDayId?: number) => boolean | undefined) | undefined
-  startTimeMaxTime?: ((workingDayId?: number) => Dayjs | undefined) | undefined
-  startTimeMinTime?: ((workingDayId?: number) => Dayjs | undefined) | undefined
-  stopTimeMaxTime?: ((workingDayId?: number) => Dayjs | undefined) | undefined
-  stopTimeMinTime?: ((workingDayId?: number) => Dayjs | undefined) | undefined
+  disableStartTime?: ((workingDayId: number) => boolean | undefined) | undefined
+  disableStopTime?: ((workingDayId: number) => boolean | undefined) | undefined
+  startTimeMaxTime?: ((workingDayId: number) => Dayjs | undefined) | undefined
+  startTimeMinTime?: ((workingDayId: number) => Dayjs | undefined) | undefined
+  stopTimeMaxTime?: ((workingDayId: number) => Dayjs | undefined) | undefined
+  stopTimeMinTime?: ((workingDayId: number) => Dayjs | undefined) | undefined
   workingDays: WorkingDayConfigValues[]
 }
 
