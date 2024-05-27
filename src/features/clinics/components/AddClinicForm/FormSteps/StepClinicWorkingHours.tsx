@@ -34,17 +34,13 @@ function StepClinicWorkingHours({
           <Grid maxWidth={800} rowSpacing={2} container>
             <WorkingDayRow
               disableStopTime={(workingDayId) => {
-                if (typeof workingDayId === "number") {
-                  return !formikProviderValue.values.workingTime[workingDayId]
-                    .startTime
-                }
+                return !formikProviderValue.values.workingTime[workingDayId]
+                  .startTime
               }}
               stopTimeMinTime={(workingDayId) => {
-                if (typeof workingDayId === "number") {
-                  return dayjs(
-                    `2018-04-04 ${formikProviderValue.values.workingTime[workingDayId].startTime}`,
-                  ).add(15, "minute")
-                }
+                return dayjs(
+                  `2018-04-04 ${formikProviderValue.values.workingTime[workingDayId].startTime}`,
+                ).add(15, "minute")
               }}
               workingDays={workingDayConfig}
             />
