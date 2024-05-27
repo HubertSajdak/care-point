@@ -1,13 +1,14 @@
 import { Divider, Grid, Typography } from "@mui/material"
 import { Dayjs } from "dayjs"
 import { useFormikContext } from "formik"
-import { useCallback } from "react"
+import { Fragment, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
 import { TimePicker } from "@/shared"
-import { WorkingDayConfigValues } from "@/types/api-types"
 
 import { AddClinicFormValues } from "../../schemas/addClinic"
+
+import { workingDayConfig } from "./workingDayConfig"
 
 interface WorkingDayRowProps {
   disableStartTime?: ((workingDayId: number) => boolean | undefined) | undefined
@@ -16,7 +17,6 @@ interface WorkingDayRowProps {
   startTimeMinTime?: ((workingDayId: number) => Dayjs | undefined) | undefined
   stopTimeMaxTime?: ((workingDayId: number) => Dayjs | undefined) | undefined
   stopTimeMinTime?: ((workingDayId: number) => Dayjs | undefined) | undefined
-  workingDays: WorkingDayConfigValues[]
 }
 
 const WorkingDayRow = ({
@@ -26,7 +26,6 @@ const WorkingDayRow = ({
   startTimeMinTime,
   stopTimeMaxTime,
   stopTimeMinTime,
-  workingDays,
 }: WorkingDayRowProps) => {
   const { setFieldValue } = useFormikContext<AddClinicFormValues>()
   const { t } = useTranslation()
@@ -87,7 +86,7 @@ const WorkingDayRow = ({
   )
   return (
     <>
-      {workingDays.map(
+      {workingDayConfig.map(
         ({
           id,
           label,
@@ -103,7 +102,7 @@ const WorkingDayRow = ({
           const stopMaxTime = checkStopTimeMaxTime(id)
           const stopMinTime = checkStopTimeMinTime(id)
           return (
-            <>
+            <Fragment key={id}>
               <Grid
                 alignItems="center"
                 display="flex"
@@ -149,7 +148,7 @@ const WorkingDayRow = ({
                   name={stopTimeName}
                 />
               </Grid>
-            </>
+            </Fragment>
           )
         },
       )}

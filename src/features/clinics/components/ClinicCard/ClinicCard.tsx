@@ -1,15 +1,8 @@
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled"
 import PaymentsIcon from "@mui/icons-material/Payments"
-import {
-  Avatar,
-  Box,
-  Divider,
-  Paper,
-  Typography,
-  useMediaQuery,
-} from "@mui/material"
+import { Avatar, Box, Divider, Typography, useMediaQuery } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import styled, { useTheme } from "styled-components"
+import { useTheme } from "styled-components"
 
 import { BASE_URL, RouteNames } from "@/constants"
 import { stringToColor, Tabs } from "@/shared"
@@ -17,6 +10,8 @@ import ButtonLink from "@/shared/ui/Buttons/LinkButton/ButtonLink"
 import { IAddress, IWorkingHours } from "@/types/api-types"
 
 import WorkingHoursRow from "../WorkingHoursRow/WorkingHoursRow"
+
+import { StyledPaper } from "./ClinicCard.styled"
 
 interface ClinicCardProps {
   address: IAddress
@@ -122,34 +117,12 @@ const ClinicCard = ({
           {
             id: 0,
             label: t("clinic:yourWorkingHours"),
-            render: doctorWorkingTime.map(
-              ({ _id, startTime, stopTime, weekDay }) => {
-                return (
-                  <WorkingHoursRow
-                    key={_id}
-                    startTime={startTime}
-                    stopTime={stopTime}
-                    weekDay={weekDay}
-                  />
-                )
-              },
-            ),
+            render: <WorkingHoursRow workingTime={doctorWorkingTime} />,
           },
           {
             id: 1,
             label: t("clinic:workingHoursTitle"),
-            render: clinicWorkingTime.map(
-              ({ _id, startTime, stopTime, weekDay }) => {
-                return (
-                  <WorkingHoursRow
-                    key={_id}
-                    startTime={startTime}
-                    stopTime={stopTime}
-                    weekDay={weekDay}
-                  />
-                )
-              },
-            ),
+            render: <WorkingHoursRow workingTime={clinicWorkingTime} />,
           },
         ]}
       />
@@ -164,12 +137,3 @@ const ClinicCard = ({
 }
 
 export default ClinicCard
-
-const StyledPaper = styled(Paper)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  padding: theme.spacing(3),
-  gap: theme.spacing(1.6),
-  borderRadius: theme.spacing(2.5),
-  height: "100%",
-}))

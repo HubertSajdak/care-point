@@ -16,16 +16,9 @@ const ClinicWorkingHoursCard = () => {
           {t("clinic:clinicWorkingHours")}
         </Typography>
 
-        {singleClinic?.workingTime.map((el) => {
-          return (
-            <WorkingHoursRow
-              key={el._id}
-              startTime={el.startTime}
-              stopTime={el.stopTime}
-              weekDay={el.weekDay}
-            />
-          )
-        })}
+        {singleClinic?.workingTime && (
+          <WorkingHoursRow workingTime={singleClinic?.workingTime} />
+        )}
       </CardContent>
     </Card>
   )
