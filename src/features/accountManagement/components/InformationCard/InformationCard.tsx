@@ -1,10 +1,12 @@
 import { Card, CardContent, CardHeader } from "@mui/material"
 import { useTranslation } from "react-i18next"
+import { useTheme } from "styled-components"
 
 import ChangeUserInfoForm from "../ChangeUserInfoForm/ChangeUserInfoForm"
 
 const InformationCard = () => {
   const { t } = useTranslation()
+  const theme = useTheme()
   return (
     <Card
       sx={{
@@ -20,7 +22,7 @@ const InformationCard = () => {
           position: "relative",
           pt: 0,
           "&:last-child": { pb: 2, px: 1.5 },
-          height: `calc(100% - 86px)`,
+          height: `calc(100% - ${theme.spacing(11)})`,
         }}
       >
         <ChangeUserInfoForm />

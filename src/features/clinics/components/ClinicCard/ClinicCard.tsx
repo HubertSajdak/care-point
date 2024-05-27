@@ -12,11 +12,12 @@ import { useTranslation } from "react-i18next"
 import styled, { useTheme } from "styled-components"
 
 import { BASE_URL, RouteNames } from "@/constants"
-import { Tabs, stringToColor } from "@/shared"
+import { stringToColor, Tabs } from "@/shared"
 import ButtonLink from "@/shared/ui/Buttons/LinkButton/ButtonLink"
 import { IAddress, IWorkingHours } from "@/types/api-types"
 
 import WorkingHoursRow from "../WorkingHoursRow/WorkingHoursRow"
+
 interface ClinicCardProps {
   address: IAddress
   clinicName: string
@@ -27,6 +28,7 @@ interface ClinicCardProps {
   photo?: string | undefined
   timePerPatient: number
 }
+
 const ClinicCard = ({
   address,
   clinicName,
@@ -54,7 +56,7 @@ const ClinicCard = ({
           sx={{
             width: 150,
             height: 150,
-            border: `3px solid ${theme.palette.grey[200]}`,
+            border: `${theme.spacing(0.375)} solid ${theme.palette.grey[200]}`,
             alignSelf: "center",
             bgcolor: stringToColor(clinicName),
           }}

@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from "@mui/material"
 import { useTranslation } from "react-i18next"
-import styled from "styled-components"
+import styled, { useTheme } from "styled-components"
 
 import { capitalizeFirstChar } from "@/shared/utils/functions"
 
@@ -25,6 +25,7 @@ const Search = ({
   onRefreshContent,
 }: UserSearchProps) => {
   const { t } = useTranslation()
+  const theme = useTheme()
   return (
     <StyledCard>
       <OutlinedInput
@@ -50,8 +51,8 @@ const Search = ({
           color="primary"
           sx={{
             borderRadius: "50%",
-            width: "50px",
-            height: "50px",
+            width: theme.spacing(5),
+            height: theme.spacing(5),
             display: "grid",
             placeItems: "center",
           }}

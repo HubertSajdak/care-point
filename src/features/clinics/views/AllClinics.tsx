@@ -2,18 +2,16 @@ import EditNoteIcon from "@mui/icons-material/EditNote"
 import SettingsIcon from "@mui/icons-material/Settings"
 import VisibilityIcon from "@mui/icons-material/Visibility"
 import { Box, IconButton, Typography } from "@mui/material"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import { setQueryParams } from "@/features/clinics"
+import { getAllClinics, setQueryParams } from "@/features/clinics"
 import { Table } from "@/shared"
 import { ISortDirection } from "@/types/api-types"
-
-import { getAllClinics } from "../store/clinicsThunks"
 
 const AllClinics = () => {
   const { t } = useTranslation()
@@ -27,30 +25,37 @@ const AllClinics = () => {
   useEffect(() => {
     dispatch(getAllClinics())
   }, [dispatch, search, sortBy, sortDirection, pageSize, currentPage])
-  const handleChangeSort = (
-    sortingProperty: string,
-    sortingDirection: ISortDirection,
-  ) => {
-    dispatch(
-      setQueryParams({
-        sortBy: sortingProperty,
-        sortDirection: sortingDirection,
-      }),
-    )
-  }
-  const handleChangePage = (page: number) => {
-    dispatch(setQueryParams({ currentPage: page }))
-  }
 
-  const handleChangeRowsPerPage = (rowsPerPage: number) => {
-    dispatch(setQueryParams({ pageSize: rowsPerPage }))
-  }
+  const handleChangeSort = useCallback(
+    (sortingProperty: string, sortingDirection: ISortDirection) => {
+      dispatch(
+        setQueryParams({
+          sortBy: sortingProperty,
+          sortDirection: sortingDirection,
+        }),
+      )
+    },
+    [dispatch],
+  )
+  const handleChangePage = useCallback(
+    (page: number) => {
+      dispatch(setQueryParams({ currentPage: page }))
+    },
+    [dispatch],
+  )
+
+  const handleChangeRowsPerPage = useCallback(
+    (rowsPerPage: number) => {
+      dispatch(setQueryParams({ pageSize: rowsPerPage }))
+    },
+    [dispatch],
+  )
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
     dispatch(setQueryParams({ search }))
   }, 1000)
-  const handleRefreshContent = async () => {
+  const handleRefreshContent = useCallback(async () => {
     await dispatch(getAllClinics())
-  }
+  }, [dispatch])
   return (
     <Box>
       <Typography component="h2" fontWeight="bold" mb={2} variant="h4">

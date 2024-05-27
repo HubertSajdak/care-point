@@ -3,7 +3,6 @@ import { DatePicker } from "@mui/x-date-pickers"
 import dayjs, { Dayjs } from "dayjs"
 import { FormikProvider, useFormik } from "formik"
 import { useTranslation } from "react-i18next"
-import { useTheme } from "styled-components"
 
 import { useAppDispatch } from "@/app/hooks"
 import {
@@ -17,6 +16,7 @@ import { ReqeustRegisterPatientCredentials } from "@/types/api-types"
 
 import { registerPatientSchema } from "../schemas/register"
 
+import { mapDataToRegisterPatientForm } from "./mapDataToRegisterPatientForm"
 import TermsAndConditionsLabel from "./TermsAndConditionsLabel"
 
 interface RegisterPatientValues extends ReqeustRegisterPatientCredentials {
@@ -26,54 +26,16 @@ interface RegisterPatientValues extends ReqeustRegisterPatientCredentials {
 }
 
 const RegisterPatientForm = () => {
-  const theme = useTheme()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
 
   const registerPatientFormik = useFormik<RegisterPatientValues>({
-    initialValues: {
-      name: "",
-      surname: "",
-      phoneNumber: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      role: "patient",
-      address: {
-        street: "",
-        city: "",
-        postalCode: "",
-      },
-      birthDate: "",
-      height: 0,
-      weight: 0,
-      termsAndConditions: false,
-    },
+    initialValues: mapDataToRegisterPatientForm,
     onSubmit: async (values) => {
-      const {
-        address,
-        birthDate,
-        email,
-        height,
-        name,
-        password,
-        phoneNumber,
-        role,
-        surname,
-        weight,
-      } = values
       dispatch(
         registerUser({
-          name,
-          surname,
-          phoneNumber: +phoneNumber,
-          email,
-          password,
-          role,
-          address,
-          birthDate,
-          height,
-          weight,
+          ...values,
+          phoneNumber: +values.phoneNumber,
         }),
       )
     },
@@ -195,7 +157,13 @@ const RegisterPatientForm = () => {
               type="number"
             />
           </Grid>
-          <Grid md={12} minHeight="100px" sm={12} xs={12} item>
+          <Grid
+            md={12}
+            minHeight={(theme) => theme.spacing(12.5)}
+            sm={12}
+            xs={12}
+            item
+          >
             <CheckboxFormik
               id="termsAndConditions"
               label={<TermsAndConditionsLabel />}

@@ -11,9 +11,9 @@ import FlagWrapper from "./LangWrapper"
 const Wrapper = styled.div<{ $variant: "link" | "standalone" }>`
   position: relative;
   display: flex;
-  gap: 1rem;
+  gap: ${({ theme }) => theme.spacing(2)};
   width: 100%;
-  max-width: 200px;
+  max-width: ${({ theme }) => theme.spacing(25)};
   ${({ $variant }) =>
     $variant === "link"
       ? css`
@@ -21,16 +21,17 @@ const Wrapper = styled.div<{ $variant: "link" | "standalone" }>`
             width: 100%;
             border-radius: 0;
             gap: 1;
-            padding: 8px 16px;
+            padding: ${({ theme }) => theme.spacing(1)}
+              ${({ theme }) => theme.spacing(2)};
             text-align: center;
           }
         `
       : css`
           #long-button {
             position: fixed;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.5rem;
+            top: ${({ theme }) => theme.spacing(2)};
+            right: ${({ theme }) => theme.spacing(2)};
+            padding: ${({ theme }) => theme.spacing(1)};
             box-shadow: ${({ theme }) => theme.shadows[2]};
             background: ${({ theme }) => theme.palette.common.white};
             z-index: 10;

@@ -1,12 +1,14 @@
 import { Box, Grid } from "@mui/material"
 import { useFormikContext } from "formik"
 import { useTranslation } from "react-i18next"
+import { useTheme } from "styled-components"
 
 import { Button, TextFieldFormik } from "@/shared"
 
 const EditClinicInfoForm = () => {
   const { t } = useTranslation()
   const { isSubmitting } = useFormikContext()
+  const theme = useTheme()
   return (
     <Box
       display="flex"
@@ -18,7 +20,7 @@ const EditClinicInfoForm = () => {
         <Grid
           alignItems="center"
           columnSpacing={3}
-          height={`calc(100% - 30px)`}
+          height={`calc(100% - ${theme.spacing(3.75)})`}
           justifyContent="center"
           padding={1}
           rowSpacing={3}

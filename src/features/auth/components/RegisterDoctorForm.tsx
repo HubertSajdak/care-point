@@ -1,7 +1,6 @@
 import { Grid } from "@mui/material"
 import { FormikProvider, useFormik } from "formik"
 import { useTranslation } from "react-i18next"
-import { useTheme } from "styled-components"
 
 import { useAppDispatch } from "@/app/hooks"
 import { Button, CheckboxFormik, TextFieldFormik } from "@/shared"
@@ -10,6 +9,7 @@ import { ReqeustRegisterDoctorCredentials } from "@/types/api-types"
 
 import { registerDoctorSchema } from "../schemas/register"
 
+import { mapDataToRegisterDoctorForm } from "./mapDataToRegisterDoctorForm"
 import TermsAndConditionsLabel from "./TermsAndConditionsLabel"
 
 interface RegisterDoctorValues extends ReqeustRegisterDoctorCredentials {
@@ -18,20 +18,11 @@ interface RegisterDoctorValues extends ReqeustRegisterDoctorCredentials {
 }
 
 const RegisterDoctorForm = () => {
-  const theme = useTheme()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
   const registerDoctorFormik = useFormik<RegisterDoctorValues>({
-    initialValues: {
-      name: "",
-      surname: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      role: "doctor",
-      termsAndConditions: false,
-    },
+    initialValues: mapDataToRegisterDoctorForm,
     onSubmit: async (values) => {
       const { email, name, password, role, surname } = values
       await dispatch(registerUser({ name, surname, email, password, role }))
@@ -79,7 +70,13 @@ const RegisterDoctorForm = () => {
               type="password"
             />
           </Grid>
-          <Grid md={12} minHeight="100px" sm={12} xs={12} item>
+          <Grid
+            md={12}
+            minHeight={(theme) => theme.spacing(12.5)}
+            sm={12}
+            xs={12}
+            item
+          >
             <CheckboxFormik
               id="termsAndConditions"
               label={<TermsAndConditionsLabel />}

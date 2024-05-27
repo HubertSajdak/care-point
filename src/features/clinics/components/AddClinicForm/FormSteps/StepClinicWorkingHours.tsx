@@ -5,7 +5,6 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 
 import { workingDayConfig } from "@/constants/workingDayConfig"
-import { translateWeekDays } from "@/shared"
 
 import { AddClinicFormValues } from "../../../schemas/addClinic"
 import WorkingDayRow from "../../WorkingDayRow/WorkingDayRow"
@@ -33,26 +32,22 @@ function StepClinicWorkingHours({
             {t("form:clinic.chooseWorkingTime")}
           </Typography>
           <Grid maxWidth={800} rowSpacing={2} container>
-            {workingDayConfig.map((day) => {
-              return (
-                <WorkingDayRow
-                  disableStopTime={
-                    !formikProviderValue.values.workingTime[day.id].startTime
-                  }
-                  key={day.id}
-                  label={t(translateWeekDays(day.label))}
-                  startTimeLabel={t(`form:common.${day.startTimeLabel}`)}
-                  startTimeName={day.startTimeName}
-                  stopTimeLabel={t(`form:common.${day.stopTimeLabel}`)}
-                  stopTimeMinTime={dayjs(
-                    `2018-04-04 ${
-                      formikProviderValue.values.workingTime[day.id].startTime
-                    }`,
-                  ).add(15, "minute")}
-                  stopTimeName={day.stopTimeName}
-                />
-              )
-            })}
+            <WorkingDayRow
+              disableStopTime={(workingDayId) => {
+                if (typeof workingDayId === "number") {
+                  return !formikProviderValue.values.workingTime[workingDayId]
+                    .startTime
+                }
+              }}
+              stopTimeMinTime={(workingDayId) => {
+                if (typeof workingDayId === "number") {
+                  return dayjs(
+                    `2018-04-04 ${formikProviderValue.values.workingTime[workingDayId].startTime}`,
+                  ).add(15, "minute")
+                }
+              }}
+              workingDays={workingDayConfig}
+            />
           </Grid>
         </Container>
       </form>

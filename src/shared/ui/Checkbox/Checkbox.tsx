@@ -1,10 +1,12 @@
 import {
-  FormControlLabel,
-  FormHelperText,
   Checkbox as MuiCheckbox,
   CheckboxProps as MuiCheckboxProps,
+  FormControlLabel,
   FormControlLabelProps as MuiFormControlLabelProps,
+  FormHelperText,
 } from "@mui/material"
+import { useTheme } from "styled-components"
+
 export type CheckboxTypesCombined = Omit<
   MuiCheckboxProps,
   "id" | "checked" | "onChange" | "error"
@@ -13,6 +15,7 @@ export type CheckboxTypesCombined = Omit<
     MuiFormControlLabelProps,
     "control" | "checked" | "onChange" | "label" | "disabled"
   >
+
 export interface CheckboxProps extends CheckboxTypesCombined {
   /**
    * Pass a boolean value (f.e. from useState) to determine if checkbox component is checked.
@@ -51,6 +54,7 @@ const Checkbox = ({
   onChange,
   ...CheckboxProps
 }: CheckboxProps) => {
+  const theme = useTheme()
   return (
     <>
       <FormControlLabel
@@ -64,7 +68,7 @@ const Checkbox = ({
         <FormHelperText
           sx={{
             color: error ? "error.main" : "text.primary",
-            margin: "3px 14px 0",
+            margin: `${theme.spacing(0.375)} ${theme.spacing(1.75)} 0`,
           }}
         >
           {error ? error : helperText}

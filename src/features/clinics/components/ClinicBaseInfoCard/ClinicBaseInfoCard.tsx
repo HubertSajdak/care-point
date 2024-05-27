@@ -36,7 +36,9 @@ const ClinicBaseInfoCard = () => {
             sx={{
               width: { xs: 200, md: 300 },
               height: { xs: 200, md: 300 },
-              border: `3px solid ${theme.palette.primary.main}`,
+              border: `${theme.spacing(0.375)} solid ${
+                theme.palette.primary.main
+              }`,
             }}
           />
           <Stack width="100%">
