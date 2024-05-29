@@ -14,6 +14,7 @@ import { changeUserPassword } from "@/shared/store"
 const ChangePasswordForm = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+
   const updatePasswordFormik = useFormik<ChangePasswordSchema>({
     initialValues: {
       password: "",
@@ -21,13 +22,7 @@ const ChangePasswordForm = () => {
     },
     enableReinitialize: true,
     onSubmit: async (values) => {
-      const { confirmPassword, password } = values
-      await dispatch(
-        changeUserPassword({
-          password,
-          confirmPassword,
-        }),
-      )
+      await dispatch(changeUserPassword(values))
     },
     validationSchema: changePasswordSchema,
   })
