@@ -2,11 +2,12 @@ import { CircularProgress, Container, useMediaQuery } from "@mui/material"
 import Box from "@mui/material/Box"
 import { useState } from "react"
 import { Outlet } from "react-router-dom"
-import styled, { useTheme } from "styled-components"
+import { useTheme } from "styled-components"
 
 import AppBar from "./components/AppBar/AppBar"
 import Breadcrumbs from "./components/Breadcrumbs/Breadcrumbs"
 import Drawer from "./components/Drawer/Drawer"
+import { StyledMain } from "./DashboardLayout.styled"
 import { SidebarLinksProps } from "./types"
 
 export interface DashboardLayoutProps {
@@ -59,25 +60,3 @@ const DashboardLayout = ({
 }
 
 export default DashboardLayout
-
-const StyledMain = styled.main<{
-  $drawerwidth: number
-  $issidebaropen: boolean
-}>(({ $drawerwidth, $issidebaropen, theme }) => ({
-  padding: theme.spacing(3),
-  flexGrow: 1,
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  [theme.breakpoints.up("md")]: {
-    ...($issidebaropen && {
-      width: `calc(100% - ${$drawerwidth}px)`,
-      marginLeft: `${$drawerwidth}px`,
-      transition: theme.transitions.create(["margin", "width"], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  },
-}))

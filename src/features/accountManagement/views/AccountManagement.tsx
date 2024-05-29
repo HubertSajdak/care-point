@@ -14,7 +14,7 @@ import PasswordCard from "../components/PasswordCard/PasswordCard"
 const AccountManagement = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { t } = useTranslation(["common"])
+  const { t } = useTranslation()
   const handleRemoveAccount = () => {
     dispatch(deleteAccount())
     navigate(RouteNames.LOGIN)
@@ -26,6 +26,7 @@ const AccountManagement = () => {
       </Typography>
       <Grid alignItems="stretch" columnGap={3} rowSpacing={3} container>
         <Grid lg={4} xs={12} item>
+          `
           <AccountCard />
         </Grid>
         <Grid xs={12} item lg>
