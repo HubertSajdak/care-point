@@ -24,7 +24,7 @@ const AddClinicForm = () => {
     validationSchema: addClinicSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
-      await dispatch(createClinic({ ...values }))
+      await dispatch(createClinic(values))
       navigate(RouteNames.START)
     },
   })

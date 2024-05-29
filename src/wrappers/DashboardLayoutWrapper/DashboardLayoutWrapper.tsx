@@ -1,6 +1,4 @@
-import { useCallback, useEffect } from "react"
-
-import { useAppDispatch, useAppSelector } from "@/app/hooks"
+import { useAppSelector } from "@/app/hooks"
 import {
   BASE_URL,
   doctorSidebarLinks,
@@ -8,18 +6,12 @@ import {
   UserRoles,
 } from "@/constants"
 import DashboardLayout from "@/layouts/DashboardLayout/DashboardLayout"
-import { getUserData } from "@/shared/store"
+import useGetUserData from "@/shared/hooks/useGetUserData"
 
 const DashboardLayoutWrapper = () => {
-  const dispatch = useAppDispatch()
+  useGetUserData()
   const status = useAppSelector((state) => state.auth.status)
   const user = useAppSelector((state) => state.auth.user)
-  const fetchUserData = useCallback(async () => {
-    await dispatch(getUserData())
-  }, [dispatch])
-  useEffect(() => {
-    fetchUserData()
-  }, [dispatch, fetchUserData])
 
   return (
     <DashboardLayout
