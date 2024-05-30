@@ -1,7 +1,7 @@
 import resources from "./resources"
 
 declare module "i18next" {
-  interface CustomTypeOptions {
+  export interface CustomTypeOptions {
     defaultNS: [
       "buttons",
       "form",

@@ -6,10 +6,14 @@ import {
 import dayjs, { Dayjs } from "dayjs"
 import { useField } from "formik"
 import { useTranslation } from "react-i18next"
+
+import { normalizeKey } from "@/shared"
+
 interface DesktopTimePickerProps extends MuiDesktopTimePickerProps<Dayjs> {
   helperText?: string
   name: string
 }
+
 const TimePicker = ({
   helperText,
   name,
@@ -42,7 +46,7 @@ const TimePicker = ({
             onBlur: field.onBlur,
             helperText:
               meta.touched && meta.error
-                ? t(meta.error)
+                ? t(normalizeKey(meta.error))
                 : helperText
                 ? helperText
                 : null,

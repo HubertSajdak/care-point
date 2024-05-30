@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next"
 
 import Img from "@/assets/images/common-error.svg?react"
+import { normalizeKey } from "@/shared"
 
 const CommonError = ({ translationKey }: { translationKey: string }) => {
   const { t } = useTranslation()
@@ -17,7 +18,7 @@ const CommonError = ({ translationKey }: { translationKey: string }) => {
     >
       <Img height={180} width={400} />
       <Typography component="h3" variant="h5">
-        {t(translationKey)}
+        {t(normalizeKey(translationKey))}
       </Typography>
     </Box>
   )

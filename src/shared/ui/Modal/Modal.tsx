@@ -44,7 +44,7 @@ const Modal = ({
   text,
   title,
 }: ModalProps) => {
-  const { t } = useTranslation("buttons")
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)

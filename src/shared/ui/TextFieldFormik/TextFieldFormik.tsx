@@ -2,13 +2,16 @@ import { Visibility, VisibilityOff } from "@mui/icons-material"
 import {
   IconButton,
   InputAdornment,
+  styled,
   TextField as MuiTextField,
   TextFieldProps,
-  styled,
 } from "@mui/material"
 import { useField } from "formik"
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
+
+import { normalizeKey } from "@/shared"
+
 export type TextFieldFormikProps = {
   fullWidth?: boolean
   helperText?: string
@@ -20,21 +23,21 @@ export type TextFieldFormikProps = {
    * Helps formik identify to which "useFormik" hook you refer to.
    *
    * Pass the same name as the name of a formik value you refer to.
-   * 
-   * @example 
-   * 
+   *
+   * @example
+   *
    *   const updateUserInfoFormik = useFormik({
-    initialValues: {
-      name: "",
-      surname: "",
-      email: "",
-    },
-    onSubmit: (values) => {},
-    validationSchema: updateUserValidation,
-    *
-    * <TextFieldFormik name="name" />
-  });
-   * 
+   initialValues: {
+   name: "",
+   surname: "",
+   email: "",
+   },
+   onSubmit: (values) => {},
+   validationSchema: updateUserValidation,
+   *
+   * <TextFieldFormik name="name" />
+   });
+   *
    */
   name: string
   variant?: "filled" | "outlined" | "standard"
@@ -60,7 +63,9 @@ const TextFieldFormik = ({
     <StyledTextFieldFormik
       error={meta.touched && Boolean(meta.error)}
       fullWidth={fullWidth}
-      helperText={meta.error && meta.touched ? t(meta.error) : helperText}
+      helperText={
+        meta.error && meta.touched ? t(normalizeKey(meta.error)) : helperText
+      }
       id={id}
       InputProps={
         type === "password"
