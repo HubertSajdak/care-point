@@ -6,12 +6,7 @@ import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { UserRoles } from "@/constants"
-import {
-  capitalizeFirstChar,
-  Modal,
-  Table,
-  translateAppointmentStatus,
-} from "@/shared"
+import { capitalizeFirstChar, Modal, normalizeKey, Table } from "@/shared"
 import {
   cancelAppointment,
   getCurrentUserAppointments,
@@ -200,7 +195,7 @@ const MyAppointments = () => {
                     ? "warning"
                     : "default"
                 }
-                label={t(translateAppointmentStatus(row.appointmentStatus))}
+                label={t(normalizeKey(row.appointmentStatus))}
                 sx={{ fontWeight: "bold" }}
               />
             ),

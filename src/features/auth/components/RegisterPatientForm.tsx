@@ -9,6 +9,7 @@ import {
   Button,
   CheckboxFormik,
   handlePostalCodeKeyUp,
+  normalizeKey,
   TextFieldFormik,
 } from "@/shared"
 import { registerUser } from "@/shared/store"
@@ -126,7 +127,7 @@ const RegisterPatientForm = () => {
                   fullWidth: true,
                   error: Boolean(registerPatientFormik.errors.birthDate),
                   helperText: registerPatientFormik.errors.birthDate
-                    ? t(registerPatientFormik.errors.birthDate)
+                    ? t(normalizeKey(registerPatientFormik.errors.birthDate))
                     : "",
                   disabled: registerPatientFormik.isSubmitting,
                 },
