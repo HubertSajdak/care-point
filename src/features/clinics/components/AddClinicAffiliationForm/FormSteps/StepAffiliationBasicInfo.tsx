@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next"
 
 import { useAppSelector } from "@/app/hooks"
 import { consultationTimeOptions } from "@/constants/consultationTimeOptions"
-import { capitalizeFirstChar, TextFieldFormik } from "@/shared"
+import { capitalizeFirstChar, normalizeKey, TextFieldFormik } from "@/shared"
 
 import { AddClinicAffiliationValues } from "../../../schemas/addClinicAffiliation"
 
@@ -59,7 +59,7 @@ function StepAffiliationBasicInfo({
                 {consultationTimeOptions.map((el) => {
                   return (
                     <MenuItem key={el.id} value={el.value}>
-                      {capitalizeFirstChar(t(el.label))}
+                      {capitalizeFirstChar(t(normalizeKey(el.label)))}
                     </MenuItem>
                   )
                 })}
