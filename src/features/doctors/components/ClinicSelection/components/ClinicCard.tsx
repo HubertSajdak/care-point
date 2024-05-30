@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next"
 
 import img from "@/assets/images/no-clinic.png"
 import { BASE_URL } from "@/constants"
-import { translateWeekDays } from "@/shared"
+import { normalizeKey, translateWeekDays } from "@/shared"
 import { IAddress, IWorkingHours } from "@/types/api-types"
 
 import { StyledCard } from "./ClinicCard.styled"
@@ -87,7 +87,7 @@ const ClinicCard = ({
                 key={el._id}
                 variant="body2"
               >
-                <span>{t(translateWeekDays(el.weekDay))}:</span>
+                <span>{t(normalizeKey(translateWeekDays(el.weekDay)!))}:</span>
                 <span>
                   {el.startTime} - {el.stopTime}
                 </span>
