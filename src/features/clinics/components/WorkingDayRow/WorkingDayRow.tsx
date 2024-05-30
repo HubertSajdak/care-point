@@ -4,7 +4,7 @@ import { useFormikContext } from "formik"
 import { Fragment, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
-import { TimePicker } from "@/shared"
+import { normalizeKey, TimePicker } from "@/shared"
 
 import { AddClinicFormValues } from "../../schemas/addClinic"
 
@@ -117,7 +117,7 @@ const WorkingDayRow = ({
                 <TimePicker
                   ampm={false}
                   disabled={isStartTimeDisabled}
-                  label={t(`form:common.${startTimeLabel}`)}
+                  label={t(normalizeKey(`form:common.${startTimeLabel}`))}
                   maxTime={startMaxTime}
                   minTime={startMinTime}
                   minutesStep={5}
@@ -141,7 +141,7 @@ const WorkingDayRow = ({
                 <TimePicker
                   ampm={false}
                   disabled={isStopTimeDisabled}
-                  label={t(`form:common.${stopTimeLabel}`)}
+                  label={t(normalizeKey(`form:common.${stopTimeLabel}`))}
                   maxTime={stopMaxTime}
                   minTime={stopMinTime}
                   minutesStep={5}

@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom"
 
 import { useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
-import { Link } from "@/shared"
+import { Link, normalizeKey } from "@/shared"
 
 export interface BreadcrumbsProps extends BreadcrumbsOwnProps {}
 
@@ -121,11 +121,11 @@ const Breadcrumbs = ({ ...otherProps }: BreadcrumbsProps) => {
           key={crumb}
           to={`${RouteNames.DASHBOARD}/${crumb}`}
         >
-          {t(`sidebar:${crumb}`)}
+          {t(normalizeKey(`sidebar:${crumb}`))}
         </Link>
       ) : (
         <Typography color="primary" fontWeight="bold" key="3">
-          {t(`sidebar:${crumb}`)}
+          {t(normalizeKey(`sidebar:${crumb}`))}
         </Typography>
       )
     })

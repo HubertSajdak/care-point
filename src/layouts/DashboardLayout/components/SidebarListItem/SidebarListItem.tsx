@@ -8,6 +8,8 @@ import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { NavLink, useLocation } from "react-router-dom"
 
+import { normalizeKey } from "@/shared"
+
 import { SidebarLinksProps } from "../../types"
 
 import {
@@ -47,7 +49,7 @@ const SidebarListItem = ({
       <>
         <ListItemButton onClick={handleClick}>
           <ListItemIcon>{icon}</ListItemIcon>
-          <ListItemText primary={t(text)} />
+          <ListItemText primary={t(normalizeKey(text))} />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -61,7 +63,7 @@ const SidebarListItem = ({
                   selected={location.pathname === child.path}
                 >
                   <ListItemIcon>{child.icon}</ListItemIcon>
-                  <ListItemText primary={t(child.text)} />
+                  <ListItemText primary={t(normalizeKey(child.text))} />
                 </StyledNestedListItemButton>
               )
             })}
@@ -76,7 +78,7 @@ const SidebarListItem = ({
         {...{ component: NavLink, to: path }}
       >
         <ListItemIcon>{icon}</ListItemIcon>
-        <ListItemText primary={t(text)} />
+        <ListItemText primary={t(normalizeKey(text))} />
       </StyledListItemButton>
     )
   }

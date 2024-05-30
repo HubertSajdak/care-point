@@ -20,6 +20,7 @@ import {
   createDoctorSpecialization,
   deleteDoctorSpecialization,
 } from "@/features/specializations"
+import { normalizeKey } from "@/shared"
 
 import { StyledForm, StyledList } from "./AddDoctorSpecializationForm.styled"
 
@@ -69,7 +70,9 @@ const AddDoctorSpecializationForm = () => {
                     id={specialization._id}
                     key={specialization.Specialization.specializationKey}
                     text={t(
-                      `common:specializations.${specialization.Specialization.specializationKey}`,
+                      normalizeKey(
+                        `common:specializations.${specialization.Specialization.specializationKey}`,
+                      ),
                     )}
                     onDelete={() =>
                       deleteCurrentDoctorSpecialization(specialization._id)
@@ -98,7 +101,7 @@ const AddDoctorSpecializationForm = () => {
                 {specializationsOptions?.map((el) => {
                   return (
                     <MenuItem key={el.id} value={el.value}>
-                      {t(el.label)}
+                      {t(normalizeKey(el.label))}
                     </MenuItem>
                   )
                 })}

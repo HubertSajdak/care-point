@@ -1,4 +1,4 @@
-import { IAppointmentStatus, IMonths, IWeekDays } from "@/types/api-types"
+import { IMonths, IWeekDays } from "@/types/api-types"
 
 export const translateWeekDays = (day: IWeekDays) => {
   if (day === "monday") {
@@ -63,17 +63,5 @@ export const translateMonths = (month: IMonths) => {
   }
 }
 
-export const translateAppointmentStatus = (status: IAppointmentStatus) => {
-  if (status === "active") {
-    return "appointment:status.active"
-  }
-  if (status === "completed") {
-    return "appointment:status.completed"
-  }
-  if (status === "canceled") {
-    return "appointment:status.canceled"
-  }
-  if (status === "postponed") {
-    return "appointment:status.postponed"
-  }
-}
+export const normalizeKey = (key: string) =>
+  key as unknown as TemplateStringsArray

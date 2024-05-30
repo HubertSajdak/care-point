@@ -6,7 +6,12 @@ import { useTranslation } from "react-i18next"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { UserRoles } from "@/constants"
-import { Button, handlePostalCodeKeyUp, TextFieldFormik } from "@/shared"
+import {
+  Button,
+  handlePostalCodeKeyUp,
+  normalizeKey,
+  TextFieldFormik,
+} from "@/shared"
 import { updateUserInfo } from "@/shared/store"
 import {
   IUserRoles,
@@ -120,7 +125,7 @@ const ChangeUserInfoForm = () => {
                       fullWidth: true,
                       error: Boolean(updateUserInfoFormik.errors.birthDate),
                       helperText: updateUserInfoFormik.errors.birthDate
-                        ? t(updateUserInfoFormik.errors.birthDate)
+                        ? t(normalizeKey(updateUserInfoFormik.errors.birthDate))
                         : "",
                       disabled: updateUserInfoFormik.isSubmitting,
                     },

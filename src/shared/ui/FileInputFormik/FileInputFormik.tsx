@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next"
 import styled, { useTheme } from "styled-components"
 
 import { BASE_URL } from "@/constants"
+import { normalizeKey } from "@/shared"
 
 interface FileInputFormikProps {
   accept?: string
@@ -132,7 +133,7 @@ const FileInputFormik = ({
             color: errorText ? "error.main" : "text.primary",
           }}
         >
-          {t(errorText || helperText)}
+          {t(normalizeKey(errorText! || helperText!))}
         </FormHelperText>
       )}
     </>
