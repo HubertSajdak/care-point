@@ -6,8 +6,7 @@ import React from "react"
 
 import { useAppSelector } from "@/app/hooks"
 import { enabledDays, enabledTime, StaticDateTimePicker } from "@/shared"
-import { MakeAppointmentValues } from "@/shared/store"
-import { IClinicAffiliation } from "@/types/api-types"
+import { IClinicAffiliation, MakeAppointmentValues } from "@/types/api-types"
 
 interface StepSelectDateProps {
   currentView: DateOrTimeView | undefined

@@ -2,8 +2,11 @@ import { FormikContextType, FormikProvider } from "formik"
 import React from "react"
 
 import { useAppSelector } from "@/app/hooks"
-import { MakeAppointmentValues } from "@/shared/store"
-import { IAddress, IClinicAffiliation } from "@/types/api-types"
+import {
+  IAddress,
+  IClinicAffiliation,
+  MakeAppointmentValues,
+} from "@/types/api-types"
 
 import ClinicSelection from "../../ClinicSelection/ClinicSelection"
 
