@@ -1,18 +1,14 @@
-import AssignmentIcon from "@mui/icons-material/Assignment"
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
-import { Box, IconButton, Tooltip, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
 import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { RouteNames } from "@/constants"
-import { setTableQueryParams } from "@/features/doctors"
+import { getAllDoctors, setTableQueryParams } from "@/features/doctors"
 import { Table } from "@/shared"
 import { ISortDirection } from "@/types/api-types"
 
-import { getAllDoctors } from "../store/doctorsThunks"
+import { allDoctorsTableColumns } from "../constants/allDoctorsTableColumns"
 
 const AllDoctors = () => {
   const {
@@ -53,7 +49,7 @@ const AllDoctors = () => {
   )
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
     dispatch(setTableQueryParams({ search }))
-  }, 1000)
+  }, 300)
   const handleRefreshContent = useCallback(async () => {
     await dispatch(getAllDoctors(false))
   }, [dispatch])
@@ -63,64 +59,7 @@ const AllDoctors = () => {
         {t("common:doctors")}
       </Typography>
       <Table
-        columns={[
-          {
-            label: t("table:heading.photo"),
-            key: "photo",
-            render: (row) => row.photo,
-            isImage: true,
-            align: "center",
-            highlight: false,
-          },
-          {
-            label: t("table:heading.name"),
-            key: "name",
-            render: (row) => row.name,
-            highlight: true,
-            isSortable: true,
-          },
-          {
-            label: t("table:heading.surname"),
-            key: "surname",
-            render: (row) => row.surname,
-            highlight: true,
-            isSortable: true,
-          },
-          {
-            label: t("table:heading.email"),
-            key: "email",
-            render: (row) => row.email,
-            highlight: true,
-            isSortable: true,
-          },
-          {
-            key: "actions",
-            label: t("table:heading.actions"),
-            render: (row) => (
-              <Box display="flex">
-                <Tooltip title={t("common:tooltip.makeAppointment")}>
-                  <IconButton
-                    component={Link}
-                    to={`${RouteNames.MAKE_APPOINTMENT}/${row._id}`}
-                  >
-                    <AssignmentIcon color="primary" />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title={t("common:tooltip.doctorProfile")}>
-                  <IconButton
-                    component={Link}
-                    to={`${RouteNames.ALL_DOCTORS}/${row._id}`}
-                  >
-                    <AssignmentIndIcon color="primary" />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            ),
-            isImage: false,
-            isSortable: false,
-            highlight: false,
-          },
-        ]}
+        columns={allDoctorsTableColumns}
         data={data ? data : []}
         isLoading={status === "loading"}
         pagination={{

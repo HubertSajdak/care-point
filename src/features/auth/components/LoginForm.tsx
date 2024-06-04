@@ -12,14 +12,16 @@ import { loginSchema } from "../schemas/login"
 const LoginForm = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+
+  const submit = async (values: ReqLoginCredentials) =>
+    await dispatch(loginUser(values))
+
   const loginFormik = useFormik<ReqLoginCredentials>({
     initialValues: {
       email: "",
       password: "",
     },
-    onSubmit: async (values) => {
-      await dispatch(loginUser(values))
-    },
+    onSubmit: (values) => submit(values),
     validationSchema: loginSchema,
   })
 

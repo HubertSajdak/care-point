@@ -9,8 +9,8 @@ import { Tabs } from "@/shared"
 import { setRegistrationState } from "@/shared/store"
 
 import RegisterDoctorForm from "../components/RegisterDoctorForm"
+import RegisterFormWrapper from "../components/RegisterFormWrapper"
 import RegisterPatientForm from "../components/RegisterPatientForm"
-import RegisterFormWrapper from "../containers/RegisterFormWrapper"
 
 const Register = () => {
   const navigate = useNavigate()

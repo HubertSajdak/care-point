@@ -14,6 +14,7 @@ import { capitalizeFirstChar, Stepper } from "@/shared"
 import CommonError from "@/shared/ui/CommonError/CommonError"
 import Step from "@/shared/ui/Stepper/Step"
 
+import { RequestAddClinicAffiliationData } from "../../api/addClinicAffiliation"
 import { addClinicAffiliationSchema } from "../../schemas/addClinicAffiliation"
 
 import StepAffiliationBasicInfo from "./FormSteps/StepAffiliationBasicInfo"
@@ -28,11 +29,18 @@ const AddClinicAffiliationForm = () => {
   const user = useAppSelector((state) => state.auth.user)
   const singleClinic = useAppSelector((state) => state.clinics.singleClinic)
   const status = useAppSelector((state) => state.clinics.status)
+
+  const submit = async (values: RequestAddClinicAffiliationData) => {
+    await dispatch(createUserClinicAffiliation(values))
+    navigate(RouteNames.START)
+  }
+
   useEffect(() => {
     if (params.clinicId) {
       dispatch(getSingleClinic(params.clinicId))
     }
   }, [dispatch, params.clinicId])
+
   const addClinicAffiliationFormik = useFormik({
     initialValues: mapDataToForm(
       user?._id,
@@ -40,10 +48,7 @@ const AddClinicAffiliationForm = () => {
       singleClinic?.clinicName,
     ),
     enableReinitialize: true,
-    onSubmit: (values) => {
-      dispatch(createUserClinicAffiliation(values))
-      navigate(RouteNames.START)
-    },
+    onSubmit: (values) => submit(values),
     validationSchema: addClinicAffiliationSchema,
   })
   if (status === "loading") {

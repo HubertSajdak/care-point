@@ -3,7 +3,6 @@ import { toast } from "react-toastify"
 
 import { RootState } from "@/app/store"
 import { errorHandler, generateUniqueFileName } from "@/shared"
-import { IAddress } from "@/types/api-types"
 
 import { addClinic } from "../api/addClinic"
 import {
@@ -21,18 +20,7 @@ import {
 } from "../api/updateAffiliation"
 import { updateClinic } from "../api/updateClinic"
 import { uploadPhoto } from "../api/uploadPhoto"
-
-interface CreateClinicValues {
-  address: IAddress
-  clinicName: string
-  phoneNumber: string | number
-  photo?: File | null
-  workingTime: {
-    startTime?: string | undefined
-    stopTime?: string | undefined
-    weekDay: string
-  }[]
-}
+import { CreateClinicValues } from "../types/index"
 
 interface UpdateClinicValues extends Omit<CreateClinicValues, "photo"> {
   id: string

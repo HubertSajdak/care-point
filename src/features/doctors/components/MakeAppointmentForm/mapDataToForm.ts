@@ -1,4 +1,4 @@
-import { MakeAppointmentValues } from "@/shared/store"
+import { MakeAppointmentValues } from "@/types/api-types"
 
 export const mapDataToForm = (
   patientId: string | undefined,

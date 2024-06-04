@@ -7,9 +7,9 @@ import {
   deleteAppointment,
   getUserAppointments,
   makeAppointment,
-  MakeAppointmentValues,
 } from "@/shared/store"
 import { getSingleDoctorAppointments } from "@/shared/store/appointments/api/getSingleDoctorAppointments"
+import { MakeAppointmentValues } from "@/types/api-types"
 
 export const createAppointment = createAsyncThunk(
   "appointments/createAppointment",

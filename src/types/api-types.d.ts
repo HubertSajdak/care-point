@@ -223,3 +223,15 @@ interface WorkingDayConfigValues {
   stopTimeLabel: string
   stopTimeName: string
 }
+
+export interface MakeAppointmentValues {
+  appointmentAddress: IAddress
+  appointmentDate: string
+  appointmentStatus: IAppointmentStatus
+  clinicAffiliationId: string
+  clinicId: string
+  consultationFee: number
+  doctorId: string
+  patientId: string
+  timePerPatient: number
+}
