@@ -14,9 +14,11 @@ import {
 } from "@mui/material"
 import React from "react"
 import Highlighter from "react-highlight-words"
+import { useTranslation } from "react-i18next"
 import styled, { useTheme } from "styled-components"
 
 import { BASE_URL, SortDirection } from "@/constants"
+import { normalizeKey } from "@/shared"
 import Search from "@/shared/ui/Search/Search"
 import { ISortDirection } from "@/types/api-types"
 
@@ -195,6 +197,7 @@ const Table = <T,>({
 // tableName,
 TableProps<T>) => {
   const theme = useTheme()
+  const { t } = useTranslation()
   return (
     <Box display="flex" flexDirection="column" gap={4} sx={{ py: 0 }}>
       <Search
@@ -256,11 +259,11 @@ TableProps<T>) => {
                             )
                           }
                         >
-                          <span>{label}</span>
+                          <span>{t(normalizeKey(label))}</span>
                         </TableSortLabel>
                       </TableCell>
                     ) : (
-                      <TableCell key={key}>{label}</TableCell>
+                      <TableCell key={key}>{t(normalizeKey(label))}</TableCell>
                     )
                   })}
                 </TableRow>

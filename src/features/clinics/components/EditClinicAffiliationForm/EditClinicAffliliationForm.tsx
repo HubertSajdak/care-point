@@ -15,7 +15,7 @@ import { capitalizeFirstChar, Stepper } from "@/shared"
 import CommonError from "@/shared/ui/CommonError/CommonError"
 import Step from "@/shared/ui/Stepper/Step"
 
-import { AddClinicAffiliationValues } from "../../schemas/addClinicAffiliation"
+import { AddClinicAffiliationValues } from "../../types"
 
 import StepEditBasicInfo from "./FormSteps/StepEditBasicInfo"
 import StepEditWorkingHours from "./FormSteps/StepEditWorkingHours"
@@ -34,6 +34,11 @@ const EditClinicAffiliationForm = () => {
   const status = useAppSelector((state) => state.clinics.status)
   const navigate = useNavigate()
   const params = useParams()
+
+  const submit = async (values: EditClinicAffiliationValues) => {
+    await dispatch(updateClinicAffiliation(values))
+    navigate(RouteNames.START)
+  }
   useEffect(() => {
     if (params.clinicAffiliationId) {
       dispatch(getSingleClinicAffiliation(params.clinicAffiliationId))
@@ -48,10 +53,7 @@ const EditClinicAffiliationForm = () => {
 
   const editClinicAffiliationFormik = useFormik<EditClinicAffiliationValues>({
     initialValues: mapDataToForm(singleClinicAffiliation || null),
-    onSubmit: async (values) => {
-      await dispatch(updateClinicAffiliation(values))
-      navigate(RouteNames.START)
-    },
+    onSubmit: (values) => submit(values),
     enableReinitialize: true,
   })
 

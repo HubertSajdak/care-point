@@ -7,6 +7,7 @@ import {
   ListItem as MuiListItem,
   MenuItem,
   Select,
+  SelectChangeEvent,
   useTheme,
 } from "@mui/material"
 import ListItemIcon from "@mui/material/ListItemIcon"
@@ -36,15 +37,23 @@ const AddDoctorSpecializationForm = () => {
   const currentUserSpecializations = useAppSelector(
     (state) => state.specializations.currentUserSpecializations,
   )
+  const submit = async (specializationId: string, resetForm: () => void) => {
+    await dispatch(createDoctorSpecialization(specializationId))
+    resetForm()
+  }
+  const onChangeSpecialization = (e: SelectChangeEvent<string>) => {
+    addDoctorSpecializationFormik.setFieldValue(
+      "specializationId",
+      e.target.value,
+    )
+  }
   const addDoctorSpecializationFormik = useFormik({
     initialValues: {
       specializationId: "-",
     },
     enableReinitialize: true,
-    onSubmit: async ({ specializationId }, { resetForm }) => {
-      await dispatch(createDoctorSpecialization(specializationId))
-      resetForm()
-    },
+    onSubmit: ({ specializationId }, { resetForm }) =>
+      submit(specializationId, resetForm),
   })
   const specializationsOptions = allSpecializations?.data?.map((spec) => {
     return {
@@ -88,12 +97,7 @@ const AddDoctorSpecializationForm = () => {
               <Select
                 value={addDoctorSpecializationFormik.values.specializationId}
                 fullWidth
-                onChange={(e) => {
-                  addDoctorSpecializationFormik.setFieldValue(
-                    "specializationId",
-                    e.target.value,
-                  )
-                }}
+                onChange={(e) => onChangeSpecialization(e)}
               >
                 <MenuItem key={"1"} value="-">
                   -

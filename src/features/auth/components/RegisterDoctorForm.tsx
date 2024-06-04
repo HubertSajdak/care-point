@@ -5,7 +5,10 @@ import { useTranslation } from "react-i18next"
 import { useAppDispatch } from "@/app/hooks"
 import { Button, CheckboxFormik, TextFieldFormik } from "@/shared"
 import { registerUser } from "@/shared/store"
-import { ReqeustRegisterDoctorCredentials } from "@/types/api-types"
+import {
+  ReqeustRegisterDoctorCredentials,
+  ReqeustRegisterPatientCredentials,
+} from "@/types/api-types"
 
 import { registerDoctorSchema } from "../schemas/register"
 
@@ -21,12 +24,18 @@ const RegisterDoctorForm = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
+  const submit = async (
+    values:
+      | ReqeustRegisterPatientCredentials
+      | ReqeustRegisterDoctorCredentials,
+  ) => {
+    const { email, name, password, role, surname } = values
+    await dispatch(registerUser({ name, surname, email, password, role }))
+  }
+
   const registerDoctorFormik = useFormik<RegisterDoctorValues>({
     initialValues: mapDataToRegisterDoctorForm,
-    onSubmit: async (values) => {
-      const { email, name, password, role, surname } = values
-      await dispatch(registerUser({ name, surname, email, password, role }))
-    },
+    onSubmit: (values) => submit(values),
     validationSchema: registerDoctorSchema,
   })
   return (

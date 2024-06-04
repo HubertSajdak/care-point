@@ -1,8 +1,11 @@
 import { FormikContextType } from "formik"
 import React from "react"
 
-import { MakeAppointmentValues } from "@/shared/store"
-import { IClinicAffiliation, IDoctorUser } from "@/types/api-types"
+import {
+  IClinicAffiliation,
+  IDoctorUser,
+  MakeAppointmentValues,
+} from "@/types/api-types"
 
 import ConfirmAppointment from "../../ConfirmAppointment/ConfirmAppointment"
 

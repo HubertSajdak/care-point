@@ -1,18 +1,18 @@
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline"
-import { Box, Chip, MenuItem, Select, Typography } from "@mui/material"
+import { Box, MenuItem, Select, Typography } from "@mui/material"
 import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { UserRoles } from "@/constants"
-import { capitalizeFirstChar, Modal, normalizeKey, Table } from "@/shared"
+import { capitalizeFirstChar, Table } from "@/shared"
 import {
   cancelAppointment,
   getCurrentUserAppointments,
   setQueryParams,
 } from "@/shared/store"
 import { ISortDirection } from "@/types/api-types"
+
+import { myAppointmentsTableColumns } from "../constants/myAppointmentsTableColumns"
 
 const MyAppointments = () => {
   const { t } = useTranslation()
@@ -60,7 +60,7 @@ const MyAppointments = () => {
   )
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
     dispatch(setQueryParams({ search }))
-  }, 1000)
+  }, 300)
   const handleRefreshContent = useCallback(async () => {
     await dispatch(getCurrentUserAppointments())
   }, [dispatch])
@@ -134,117 +134,10 @@ const MyAppointments = () => {
             </Select>
           </>
         }
-        columns={[
-          {
-            key: "name",
-            label:
-              user?.role === UserRoles.PATIENT
-                ? t("table:heading.doctor")
-                : t("table:heading.patient"),
-            render: (row) =>
-              user?.role === UserRoles.PATIENT && row.doctorInfo
-                ? row.doctorInfo.name + " " + row.doctorInfo.surname
-                : user?.role === UserRoles.DOCTOR && row.patientInfo
-                ? row.patientInfo.name + " " + row.patientInfo.surname
-                : "",
-            isImage: false,
-            isSortable: true,
-            highlight: true,
-          },
-          {
-            key: "appointmentDate",
-            label: t("table:heading.appointmentDate"),
-            render: (row) =>
-              row.appointmentDate.split(" ")[1] +
-              " | " +
-              row.appointmentDate.split(" ")[0].split("-").reverse().join("-"),
-            isImage: false,
-            isSortable: true,
-            highlight: false,
-          },
-          {
-            key: "clinicName",
-            label: t("table:heading.clinicName"),
-            render: (row) => row.clinicInfo.clinicName,
-            isImage: false,
-            isSortable: true,
-            highlight: true,
-          },
-          {
-            key: "appointmentAddress",
-            label: t("table:heading.appointmentAddress"),
-            render: (row) =>
-              row.appointmentAddress.street +
-              ", " +
-              row.appointmentAddress.city +
-              ", " +
-              row.appointmentAddress.postalCode,
-            isImage: false,
-            highlight: true,
-          },
-          {
-            key: "appointmentStatus",
-            label: t("table:heading.appointmentStatus"),
-            align: "center",
-            render: (row) => (
-              <Chip
-                color={
-                  row.appointmentStatus === "active"
-                    ? "primary"
-                    : row.appointmentStatus === "canceled"
-                    ? "warning"
-                    : "default"
-                }
-                label={t(normalizeKey(row.appointmentStatus))}
-                sx={{ fontWeight: "bold" }}
-              />
-            ),
-
-            isImage: false,
-            isSortable: false,
-            highlight: false,
-          },
-          {
-            key: "phoneNumber",
-            label: t("table:heading.phoneNumber"),
-            render: (row) => row.clinicInfo.phoneNumber,
-
-            isImage: false,
-            isSortable: false,
-            highlight: true,
-          },
-          {
-            key: "actions",
-            label: t("table:heading.actions"),
-            render: (row) => (
-              <Modal
-                acceptBtnVariant="text"
-                disableOpenModalBtn={
-                  row.appointmentStatus === "canceled" ||
-                  row.appointmentStatus === "completed"
-                }
-                openModalBtnText={
-                  <RemoveCircleOutlineIcon
-                    color={
-                      row.appointmentStatus === "canceled" ||
-                      row.appointmentStatus === "completed"
-                        ? "inherit"
-                        : "warning"
-                    }
-                  />
-                }
-                rejectBtnVariant="contained"
-                text={t("appointment:cancelAppointment.text")}
-                title={t("appointment:cancelAppointment.title")}
-                isOpenModalIconBtn
-                onAsyncClick={() => handleCancelAppointment(row._id)}
-              />
-            ),
-            isImage: false,
-            isSortable: false,
-            highlight: false,
-          },
-        ]}
+        columns={myAppointmentsTableColumns(
+          user?.role,
+          handleCancelAppointment,
+        )}
         data={userAppointments ? userAppointments : []}
         isLoading={status === "loading"}
         pagination={{
