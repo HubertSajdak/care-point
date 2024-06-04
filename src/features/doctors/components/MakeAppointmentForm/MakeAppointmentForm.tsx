@@ -9,10 +9,10 @@ import { useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
 import { RouteNames } from "@/constants"
 import { capitalizeFirstChar, FetchDataError, Stepper } from "@/shared"
-import { createAppointment, MakeAppointmentValues } from "@/shared/store"
+import { createAppointment } from "@/shared/store"
 import CommonError from "@/shared/ui/CommonError/CommonError"
 import Step from "@/shared/ui/Stepper/Step"
-import { IClinicAffiliation } from "@/types/api-types"
+import { IClinicAffiliation, MakeAppointmentValues } from "@/types/api-types"
 
 import { makeAppointmentSchema } from "../../schemas/makeAppointment"
 
@@ -37,15 +37,15 @@ const MakeAppointmentForm = () => {
     IClinicAffiliation | undefined
   >(undefined)
   const [isActionSubmitDisabled, setIsActionSubmitDisabled] = useState(true)
-
+  const submit = async (values: MakeAppointmentValues) => {
+    await dispatch(createAppointment(values))
+    navigate(RouteNames.START)
+  }
   const makeAppointmentFormik = useFormik<MakeAppointmentValues>({
     initialValues: mapDataToForm(user?._id, selectedDoctor?._id),
     enableReinitialize: true,
     validationSchema: makeAppointmentSchema,
-    onSubmit: async (values) => {
-      await dispatch(createAppointment(values))
-      navigate(RouteNames.START)
-    },
+    onSubmit: (values) => submit(values),
   })
 
   useEffect(() => {

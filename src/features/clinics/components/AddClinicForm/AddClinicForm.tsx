@@ -9,6 +9,7 @@ import { capitalizeFirstChar, Stepper } from "@/shared"
 import Step from "@/shared/ui/Stepper/Step"
 
 import { AddClinicFormValues, addClinicSchema } from "../../schemas/addClinic"
+import { CreateClinicValues } from "../../types/index"
 
 import StepClinicBasicInfo from "./FormSteps/StepClinicBasicInfo"
 import StepClinicPhoto from "./FormSteps/StepClinicPhoto"
@@ -19,14 +20,15 @@ const AddClinicForm = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
+  const submit = async (values: CreateClinicValues) => {
+    await dispatch(createClinic(values))
+    navigate(RouteNames.START)
+  }
   const addClinicFormik = useFormik<AddClinicFormValues>({
     initialValues: mapDataToForm,
     validationSchema: addClinicSchema,
     enableReinitialize: true,
-    onSubmit: async (values) => {
-      await dispatch(createClinic(values))
-      navigate(RouteNames.START)
-    },
+    onSubmit: (values) => submit(values),
   })
 
   return (

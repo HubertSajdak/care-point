@@ -1,15 +1,14 @@
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd"
-import { Box, IconButton, Tooltip, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { useCallback, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Link } from "react-router-dom"
 import { useDebouncedCallback } from "use-debounce"
 
 import { useAppDispatch, useAppSelector } from "@/app/hooks"
-import { RouteNames } from "@/constants"
 import { getAllPatients, setQueryParams } from "@/features/patients"
 import { Table } from "@/shared"
 import { ISortDirection } from "@/types/api-types"
+
+import { allPatientsTableColumns } from "../constants/allPatientsTableColumns"
 
 const AllPatients = () => {
   const { t } = useTranslation()
@@ -53,7 +52,7 @@ const AllPatients = () => {
   )
   const handleOnChangeSearch = useDebouncedCallback((search: string) => {
     dispatch(setQueryParams({ search }))
-  }, 1000)
+  }, 300)
   const handleRefreshContent = useCallback(async () => {
     await dispatch(getAllPatients())
   }, [dispatch])
@@ -63,85 +62,7 @@ const AllPatients = () => {
         {t("common:patients")}
       </Typography>
       <Table
-        columns={[
-          {
-            label: t("table:heading.photo"),
-            key: "photo",
-            render: (row) => row.photo,
-            isImage: true,
-            highlight: false,
-            align: "center",
-          },
-          {
-            label: t("table:heading.name"),
-            key: "name",
-            highlight: true,
-            render: (row) => row.name,
-            isSortable: true,
-          },
-          {
-            label: t("table:heading.surname"),
-            key: "surname",
-            render: (row) => row.surname,
-            highlight: true,
-            isSortable: true,
-          },
-          {
-            label: t("table:heading.email"),
-            key: "email",
-            highlight: true,
-            render: (row) => row.email,
-            isSortable: true,
-          },
-          {
-            label: t("table:heading.street"),
-            key: "address.street",
-            highlight: true,
-            render: (row) => row.address.street,
-            isSortable: true,
-          },
-          {
-            label: t("table:heading.city"),
-            key: "address.city",
-            highlight: true,
-            render: (row) => row.address.city,
-            isSortable: true,
-          },
-          {
-            label: t("table:heading.postalCode"),
-            key: "address.postalCode",
-            highlight: true,
-            render: (row) => row.address.postalCode,
-            isSortable: true,
-          },
-
-          {
-            label: t("table:heading.phoneNumber"),
-            key: "phoneNumber",
-            highlight: true,
-            render: (row) => row.phoneNumber,
-            isSortable: true,
-          },
-          {
-            key: "actions",
-            label: t("table:heading.actions"),
-            render: (row) => (
-              <>
-                <Tooltip title={t("common:tooltip.patientProfile")}>
-                  <IconButton
-                    component={Link}
-                    to={`${RouteNames.ALL_PATIENTS}/${row._id}`}
-                  >
-                    <AssignmentIndIcon color="primary" />
-                  </IconButton>
-                </Tooltip>
-              </>
-            ),
-            isImage: false,
-            isSortable: false,
-            highlight: false,
-          },
-        ]}
+        columns={allPatientsTableColumns}
         data={data ? data : []}
         isLoading={status === "loading"}
         pagination={{

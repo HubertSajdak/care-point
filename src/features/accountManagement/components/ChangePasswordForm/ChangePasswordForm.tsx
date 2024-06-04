@@ -10,10 +10,13 @@ import {
   TextFieldFormik,
 } from "@/shared"
 import { changeUserPassword } from "@/shared/store"
+import { ReqChangePassword } from "@/types/api-types"
 
 const ChangePasswordForm = () => {
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const submit = async (values: ReqChangePassword) =>
+    await dispatch(changeUserPassword(values))
 
   const updatePasswordFormik = useFormik<ChangePasswordSchema>({
     initialValues: {
@@ -21,9 +24,7 @@ const ChangePasswordForm = () => {
       confirmPassword: "",
     },
     enableReinitialize: true,
-    onSubmit: async (values) => {
-      await dispatch(changeUserPassword(values))
-    },
+    onSubmit: (values) => submit(values),
     validationSchema: changePasswordSchema,
   })
   return (
