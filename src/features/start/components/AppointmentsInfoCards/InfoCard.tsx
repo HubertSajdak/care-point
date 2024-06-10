@@ -7,6 +7,9 @@ import {
   useTheme,
 } from "@mui/material"
 import React from "react"
+import { useTranslation } from "react-i18next"
+
+import { normalizeKey } from "@/shared"
 
 const InfoCard = ({
   icon,
@@ -22,6 +25,7 @@ const InfoCard = ({
   titleColor?: string
 }) => {
   const theme = useTheme()
+  const { t } = useTranslation()
   return (
     <Card>
       <CardContent>
@@ -37,9 +41,9 @@ const InfoCard = ({
                 fontWeight="bold"
                 variant="overline"
               >
-                {title}
+                {t(normalizeKey(title))}
               </Typography>
-              <Typography variant="h4">{text}</Typography>
+              <Typography variant="h4">{t(normalizeKey(`${text}`))}</Typography>
             </Stack>
             <Avatar
               sx={{
